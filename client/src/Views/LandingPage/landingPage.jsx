@@ -13,7 +13,7 @@ function Landing() {
             <img
               className={styles.img}
               src="https://github.com/Manolo0178/PF-Cakes_team11/raw/main/cake.png"
-              width="300px"
+              width="250px"
               alt="Logo"
             />
             <h1 className="text-uppercase mb-4">Bienvenidos a nuestra pastelería</h1>
