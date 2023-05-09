@@ -3,44 +3,36 @@ const { DataTypes } = require("sequelize");
 const Product = (sequelize) => {
     sequelize.define('Product', {
         id: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
+            type: DataTypes.INTEGER,
             primaryKey: true,
-            allowNull: false
+            allowNull: false,
+            autoIncrement: true
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         description: {
             type: DataTypes.TEXT
         },
         image: {
-            type: DataTypes.STRING(400),
+            type: DataTypes.TEXT,
+            allowNull: false
         },
         price: {
             type: DataTypes.INTEGER, // hasta un maximo de 9999.99
             //allowNull: false
         },
-        deleted: {
+        deleted: { // Borrado logico
             type: DataTypes.BOOLEAN,
             defaultValue: false
-        },
-        carrito: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
-        rating: {
-            type: DataTypes.DECIMAL(3, 2),
-            defaultValue: 5.0,
-        },
-        count: {
-            type: DataTypes.INTEGER,
-            defaultValue: 1,
         },
     },
         {
-            timestamps: false
+            timestamps: false,
+            freezeTableName: true,
+            tableName: "Product"
         }
     )
 }
