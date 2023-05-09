@@ -11,10 +11,7 @@ function Navbar() {
     return (
         <nav>
             <div>
-                <SearchBar />
-
-                {/* afgajghdsa */}
-
+                {/* <SearchBar /> */}
                 <img src="" alt="" />
                 <div>
                     <Link>Crear Usiario</Link>
