@@ -10,6 +10,7 @@ function Home() {
     const [index, setIndex] = useState(0)
     const [image, setImage] = useState(images[0])
     
+    
     const handlePrevious = () => {
         const nextIndex = index > 0 ? index - 1 : images.length - 1
         setImage(images[nextIndex])
