@@ -34,8 +34,8 @@ const { Product, Dessert, Cart, OrderItem } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
-Product.belongsToMany(Product, { through: 'productAll' });//************ */
-Dessert.belongsToMany(Dessert, { through: 'productAll' });//************ */
+Product.belongsToMany(Dessert, { through: 'productAll' });//************ */
+Dessert.belongsToMany(Product, { through: 'productAll' });//************ */
 
 ///*****realcion de muchos a muchos y uno a uno */
 Product.belongsToMany(Cart, { through: OrderItem });
