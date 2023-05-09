@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 
 
 module.exports = (sequelize) => {
-    sequelize.define("orderlist"), {
+    sequelize.define("orderList", {
 
         price: {
             type: DataTypes.INTEGER,
@@ -13,5 +13,8 @@ module.exports = (sequelize) => {
         }
 
 
-    };
+    }, {
+        timestamps: false,
+        tableName: "orderList"
+    });
 };

@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 
-const Product = (sequelize) => {
-    sequelize.define('Product', {
+module.exports = (sequelize) => {
+    sequelize.define('product', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -21,20 +21,20 @@ const Product = (sequelize) => {
             allowNull: false
         },
         price: {
-            type: DataTypes.INTEGER, // hasta un maximo de 9999.99
-            //allowNull: false
+            type: DataTypes.DECIMAL(10, 2)
         },
-        deleted: { // Borrado logico
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
+
+        quantity: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 0,
+        }
     },
         {
             timestamps: false,
-            freezeTableName: true,
             tableName: "Product"
         }
     )
 }
 
-module.exports = Product;
+
