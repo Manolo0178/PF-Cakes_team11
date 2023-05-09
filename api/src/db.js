@@ -6,7 +6,11 @@ const {
   DB_USER, DB_PASSWORD, DB_HOST
 } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/cakes`, {
+<<<<<<< HEAD
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/cakeshop`, {
+=======
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/cakeshop`, {
+>>>>>>> 893f414059a5bd87a3b42ca8c301afb25db393be
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 });
@@ -34,6 +38,11 @@ const { Category, Order, OrderList, Product, Review, User } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
+<<<<<<< HEAD
+=======
+Product.belongsToMany(Dessert, { through: 'productAll' });//************ */
+Dessert.belongsToMany(Product, { through: 'productAll' });//************ */
+>>>>>>> 893f414059a5bd87a3b42ca8c301afb25db393be
 
 Category.belongsToMany(Product, { through: 'Id_prodcat' });
 Product.belongsToMany(Category, { through: 'Id_prodcat' });
