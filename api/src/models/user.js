@@ -1,40 +1,49 @@
 const { DataTypes } = require("sequelize");
 
 const Users = (sequelize) => {
-    sequelize.define("Users", {
+    sequelize.define("user", {
         id: {
-            type: DataTypes.UUID, // este tipo de dato es para que no se repita con el de la API (234T324R23T)
-            defaultValue: DataTypes.UUIDV4, // y se genera de independencia
-            allowNull: false,
-            primaryKey: true
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
         },
-        name: {
+
+        username: {
             // nombre del usuario
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notNull: {
+                    msg: 'Please provide username'
+                },
+                notEmpty: {
+                    msg: 'Username cannot be empty'
+                }
+            }
         },
         email: {
             type: DataTypes.STRING, //  contacto del usuario
+            allowNull: false,
+            validate: {
+                notNull: {
+                    msg: 'Please provide an email address'
+                },
+                isEmail: {
+                    msg: 'Please provide a valid email address'
+                }
+            }
+        },
+        role: {
+            // user - admin
+            type: DataTypes.ENUM('admin', 'user', 'guest'),
             allowNull: false
         },
-        contact: {
-            // numero del profesional
+
+        password: {
             type: DataTypes.STRING,
             allowNull: true
         },
-        deleted: {
-            //borrado logico
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
-        token: {
-            type: DataTypes.STRING,
-            allowNull: true
-        },
-        trolley: { //(Este es el carrito)
-            type: DataTypes.BOOLEAN, 
-            defaultValue: false
-          },
+
     },
         {
             timestamps: false
