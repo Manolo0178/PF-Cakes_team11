@@ -1,5 +1,7 @@
 import React from "react"
-// import styles from "./Navbar.module.css"
+
+import styles from "./Navbar.module.css"
+
 
 
 
@@ -12,6 +14,7 @@ function Navbar() {
                 <SearchBar />
 
                 {/* afgajghdsa */}
+
                 <img src="" alt="" />
                 <div>
                     <Link>Crear Usiario</Link>
