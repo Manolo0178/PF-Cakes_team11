@@ -1,0 +1,26 @@
+body {
+    background-color: #ec84d6;
+    background-image: linear-gradient(135deg, #FFE9D6 0%, #D3C2AB 100%);
+  }
+.btn {
+    background-color: #df8918;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 270px;
+  }
+  
+  .btn:hover {
+    background-color: #33d8c2;
+  }
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
