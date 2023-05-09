@@ -27,14 +27,14 @@ const Users = (sequelize) => {
             type: DataTypes.BOOLEAN,
             defaultValue: false
         },
-        role: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
         token: {
             type: DataTypes.STRING,
             allowNull: true
         },
+        trolley: { //(Este es el carrito)
+            type: DataTypes.BOOLEAN, 
+            defaultValue: false
+          },
     },
         {
             timestamps: false
