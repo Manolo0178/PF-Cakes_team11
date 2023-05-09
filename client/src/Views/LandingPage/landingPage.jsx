@@ -7,6 +7,8 @@ import styles from "./landingPage.module.css"
 
 function Landing() {
     return (
+
+        
         <div class={styles.container}>
             <img src="" alt="" />
             <Link class={styles.btn} to="/home">Ingresar</Link>
