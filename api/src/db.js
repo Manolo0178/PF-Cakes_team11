@@ -41,7 +41,7 @@ Dessert.belongsToMany(Product, { through: 'productAll' });//************ */
 Product.belongsToMany(Cart, { through: OrderItem });
 Cart.belongsToMany(Product, { through: OrderItem });
 OrderItem.belongsTo(Product);
-OrderItem.belongsTo(Cart)
+OrderItem.belongsTo(Cart);
 
 
 
