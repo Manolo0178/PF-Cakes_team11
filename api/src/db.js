@@ -3,14 +3,10 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const {
-  DB_USER, DB_PASSWORD, DB_HOST
+  DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
 
-<<<<<<< HEAD
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/cakeshop`, {
-=======
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/cakeshop`, {
->>>>>>> 893f414059a5bd87a3b42ca8c301afb25db393be
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 });
@@ -34,29 +30,21 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Category, Order, OrderList, Product, Review, User } = sequelize.models;
+const { Product, Dessert, Cart, OrderItem } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
-<<<<<<< HEAD
-=======
 Product.belongsToMany(Dessert, { through: 'productAll' });//************ */
 Dessert.belongsToMany(Product, { through: 'productAll' });//************ */
->>>>>>> 893f414059a5bd87a3b42ca8c301afb25db393be
 
-Category.belongsToMany(Product, { through: 'Id_prodcat' });
-Product.belongsToMany(Category, { through: 'Id_prodcat' });
+///*****realcion de muchos a muchos y uno a uno */
+Product.belongsToMany(Cart, { through: OrderItem });
+Cart.belongsToMany(Product, { through: OrderItem });
+OrderItem.belongsTo(Product);
+OrderItem.belongsTo(Cart)
 
-Order.belongsToMany(Product, { through: 'Id_OrderList' });
-Product.belongsToMany(Order, { through: 'Id_OrderList' });
 
-Order.belongsTo(User, { as: 'Iduser' });
 
-Product.hasMany(Review);
-Review.belongsTo(Product);
-
-User.hasMany(Review);
-Review.belongsTo(User);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
