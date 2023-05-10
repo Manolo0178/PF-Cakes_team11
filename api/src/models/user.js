@@ -1,54 +1,37 @@
-const { DataTypes } = require("sequelize");
-
+const { DataTypes } = require('sequelize');
+// Exportamos una funcion que define el modelo
+// Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
-    sequelize.define("User", {
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-
-        username: {
-            // nombre del usuario
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notNull: {
-                    msg: 'Please provide username'
-                },
-                notEmpty: {
-                    msg: 'Username cannot be empty'
-                }
-            }
-        },
-        email: {
-            type: DataTypes.STRING, //  contacto del usuario
-            allowNull: false,
-            validate: {
-                notNull: {
-                    msg: 'Please provide an email address'
-                },
-                isEmail: {
-                    msg: 'Please provide a valid email address'
-                }
-            }
-        },
-        role: {
-            // user - admin
-            type: DataTypes.ENUM('admin', 'user', 'guest'),
-            allowNull: false
-        },
-
-        password: {
-            type: DataTypes.STRING,
-            allowNull: true
-        },
-
+  // defino el modelo
+  sequelize.define('user', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true
     },
-        {
-            timestamps: false,
-            tableName: "User"
-        }
-    )
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    contact: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    created: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    },
+    
+  }, {
+    timestamps: true,
+    freezeTableName: true,
+    tableName: "user"
+  });
 };
-
