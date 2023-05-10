@@ -7,6 +7,7 @@ const initialState = {
   idProduct:{}
 };
 
+    
 function rootReducer(state = initialState, action) { 
     switch (action.type) {
         case GET_ALL_PRODUCTS:
@@ -29,7 +30,14 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 idProduct: action.payload,
-            };        
+            };   
+    
+        case LIMPIAR_DETAILS:
+            return{
+                ...state,
+                idProduct: []
+            }     
+           
         default:
             return {
                 ...state
