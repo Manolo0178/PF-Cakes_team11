@@ -1,9 +1,11 @@
+const { Op } = require('sequelize')
 const express  = require("express");
 const productRouter = express.Router()
-const { Product, Dessert } = require("../../db.js")
-// productRouter.get()
+const {Product, Dessert} = require("../../db.js")
+
 
 productRouter.get("/:idProduct", async (req, res) => {
+
 })
 
 
