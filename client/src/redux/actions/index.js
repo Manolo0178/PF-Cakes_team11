@@ -7,6 +7,7 @@ import axios from "axios"
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
+export const GET_DETAILS = "GET_DETAILS";
 
 
 //******** Get all products **********/
@@ -47,4 +48,18 @@ export function getProductsById(id) {
       });
     });
   };
+}
+
+export function getDetail(id){
+  return async function (dispatch){
+      try{
+          const json = await axios.get(`http://localhost:3001/products/${id}`);
+          return dispatch({
+              type: GET_DETAILS,
+              payload: json.data
+          })
+      }catch(error){
+          console.log(error)
+      }
+  }
 }
