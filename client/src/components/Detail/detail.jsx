@@ -17,7 +17,7 @@ export default function Detail(){
     
     const myProduct = useSelector ((state) => state.idProduct)
     console.log(myProduct)
-
+    //detail de mierda
     return(
         <div>
             {
