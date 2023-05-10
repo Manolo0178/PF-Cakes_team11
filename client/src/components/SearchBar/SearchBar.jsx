@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import { searchProducts } from '../../redux/actions';
 
-export default function searchBar(){
+export default function SearchBar(){
     const [search, setSearch] = useState('');
     const dispatch = useDispatch();
 
@@ -22,7 +22,7 @@ export default function searchBar(){
         <div>
             <form onSubmit={onSubmit}>
                 <input type='text' placeholder='Ingresa un producto' onchange={onInputChange} value={search}/>
-                <input type='submit' value = 'Submit' />
+                <input type='submit' value = 'Buscar' />
             </form>
         </div>
     )

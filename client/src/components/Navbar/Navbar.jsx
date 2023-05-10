@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SearchBar from "../SearchBar/SearchBar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./Navbar.module.css";
@@ -41,10 +42,7 @@ function Navbar() {
           <ul></ul>
           <ul></ul>
           <ul></ul>
-          <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Buscar Postre" aria-label="Search" />
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
-        </form>
+         <SearchBar/>
         </div>
       </nav>
   </div>
