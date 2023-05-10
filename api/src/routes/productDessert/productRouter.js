@@ -31,17 +31,36 @@ productRouter.get("/:idProduct", async (req, res) => {
   } catch (error) {
     console.log(error.message);
 
-
   }
 })
 
-
 productRouter.get("/", async (req, res) => {
+try {
+    const { name } = req.query;
+    if (name) {
+      const productBDd = await Product.findAll({
+        where: {
+          name: {
+            [Op.iLike]: `%${name}%`,
+          }
+        },
+        include: Dessert,
+      })
+      if (!productBDd) {
+        res.status(404).json({ message: `Product name not found ${name}` })
+      } else {
+        res.status(200).json(productBDd)
+      }
+    } else {
+      const productBdd = await Product.findAll()
+      res.status(200).json(productBdd);
+    }
 
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
 
 })
-
-
 
 productRouter.post("/", async (req, res) => {
   try {
