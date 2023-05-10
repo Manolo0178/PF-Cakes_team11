@@ -1,16 +1,37 @@
 const express  = require("express");
 const productRouter = express.Router()
-const {Product, Dessert} = require("../../db.js")
+const { Product, Dessert } = require("../../db.js")
 // productRouter.get()
 
 productRouter.get("/:idProduct", async (req, res) => {
-
 })
 
 
 productRouter.get("/", async (req, res) => {
-  
+  try {  
+    const { name } = req.query;
+    if(name){
+      const productBDd = await Product.findAll({
+        where:{
+          name:{
+            [Op.iLike]: `%${name}%`,
+          }
+        },
+        include: Dessert,
+      })
+      if(!productBDd){
+        res.status(404).json({message: `Product name not found ${name}`})
+      }else{
+        res.status(200).json(productBDd)
+      }
+    }else{
+      const productBdd = await Product.findAll()
+      res.status(200).json(productBdd);
+    }
 
+  } catch (error) {
+    res.status(500).json({message: error.message})
+  }
 })
 
 
