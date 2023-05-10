@@ -17,14 +17,14 @@ function ControlledCarousel() {
   return (
     <Carousel activeIndex={index} onSelect={handleSelect}>
       <Carousel.Item>
-        <img className="d-block w-100" src={carousel1} alt="First slide" style={{height: "650px", width: "auto"}}/>
+        <img className="d-block w-100" src={carousel1} alt="First slide" style={{height: "500px", objectFit:"cover"}}/>
         <Carousel.Caption>
           <h3>First slide label</h3>
           <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-block w-100" src={carousel2} alt="Second slide" style={{height: "650px", width: "auto"}} />
+        <img className="d-block w-100" src={carousel2} alt="Second slide" style={{height: "500px", objectFit:"cover"}} />
 
         <Carousel.Caption>
           <h3>Second slide label</h3>
@@ -32,7 +32,7 @@ function ControlledCarousel() {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-block w-100" src={carousel3} alt="Third slide" style={{height: "650px", width: "auto"}} />
+        <img className="d-block w-100" src={carousel3} alt="Third slide" style={{height: "500px", objectFit:"cover"}} />
 
         <Carousel.Caption>
           <h3>Third slide label</h3>
