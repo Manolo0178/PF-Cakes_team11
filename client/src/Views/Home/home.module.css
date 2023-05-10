@@ -1,13 +1,8 @@
 .homeCont{
     width: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-}
-.carouselCont{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80%;
 }

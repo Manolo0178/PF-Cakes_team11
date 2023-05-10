@@ -15,7 +15,7 @@ export default function Detail(){
         return(() => dispatch({type:"LIMPIAR_DETAILS"}))
     },[dispatch, id])
     
-    const myProduct = useSelector ((state) => state.detail)
+    const myProduct = useSelector ((state) => state.idProduct)
     console.log(myProduct)
 
     return(
