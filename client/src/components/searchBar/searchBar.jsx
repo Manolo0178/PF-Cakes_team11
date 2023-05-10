@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import {React, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import { searchProducts } from '../../redux/actions';
 
-export default function searchBar(){
+export default function SearchBar(){
     const [search, setSearch] = useState('');
     const dispatch = useDispatch();
 
