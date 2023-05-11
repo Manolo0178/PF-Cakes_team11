@@ -23,7 +23,7 @@ function Home() {
     
     products.length=12
     return (
-        <div className={styles.homeCont}>
+      <div className={styles.homeCont}>
             <Navbar />
             <CarouselSlide />
             <section className={styles.cardsCont}>

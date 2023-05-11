@@ -1,20 +1,24 @@
+<<<<<<< HEAD
+import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_ID } from "../actions";
+=======
 
-import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_ID, LIMPIAR_DETAILS } from "../actions";
+import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_ID, LIMPIAR_DETAILS, SEARCH_PRODUCTS } from "../actions";
+>>>>>>> d686bfccbc1d99726e62b0085dfd06904d75729f
+import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_ID, LIMPIAR_DETAILS, SEARCH_PRODUCTS } from "../actions";
 
 
 
 const initialState = {
-
   allProducts: [],
-  idProduct:[],
+  idProduct:{}
 };
+
     
 function rootReducer(state = initialState, action) { 
     switch (action.type) {
         case GET_ALL_PRODUCTS:
             return {
                 ...state, allProducts:action.payload
-
             }       
         case GET_PRODUCT_BY_NAME:
             if (action.payload.length !== 0) {
@@ -40,6 +44,16 @@ function rootReducer(state = initialState, action) {
                 idProduct: []
             }     
            
+        case SEARCH_PRODUCTS:
+            return {
+                ...state,
+                products: action.payload
+            }
+        case SEARCH_PRODUCTS:
+            return {
+                ...state,
+                products: action.payload
+            }
         default:
             return {
                 ...state
