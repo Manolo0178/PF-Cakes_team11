@@ -18,5 +18,3 @@ dessertRouter.get("/", async(req, res) => {
 
 module.exports = dessertRouter;
 
-module.exports = dessertRouter
-
