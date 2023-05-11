@@ -26,7 +26,7 @@ try {
     return res.status(404).json({ error: { message: "Product doesn't exist", value: { ...req.params } } });
   }
 } catch (error) {
-  console.log(error.message);
+  res.status(500).json({message: error.message});
 }
 })
 
