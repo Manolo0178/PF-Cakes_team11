@@ -61,6 +61,7 @@ productRouter.get("/", async (req, res) => {
   }
 })
 
+        
 productRouter.post("/", async (req, res) => {
   try {
     let { name, summary, description, image, price, desserts } = req.body;
@@ -92,7 +93,6 @@ productRouter.post("/", async (req, res) => {
 
 })
 module.exports = productRouter;
-        
       
         
 
