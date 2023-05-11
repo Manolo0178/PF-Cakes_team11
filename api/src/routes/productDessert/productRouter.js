@@ -47,7 +47,7 @@ productRouter.get("/", async (req, res) => {
         },
         include: Dessert,
       })
-      if (!productBDd) {
+      if (!productBDd.length > 0) {
         res.status(404).json({ message: `Product name not found ${name}` })
       } else {
         res.status(200).json(productBDd)
