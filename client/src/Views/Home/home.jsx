@@ -20,12 +20,14 @@ function Home() {
     useEffect(() => {
         dispatch(getAllProducts())
     }, [dispatch])
-    console.log(products)
+    
+    products.length=12
     return (
         <div className={styles.homeCont}>
             <Navbar />
             <CarouselSlide />
             <section className={styles.cardsCont}>
+                <h3>Algunos de nuestros productos</h3>
                 <Cards products={products} />
                 <Link to="/products">ver más</Link>
             </section>

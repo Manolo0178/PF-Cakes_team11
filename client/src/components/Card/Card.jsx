@@ -5,9 +5,11 @@ function Card({ product }) {
     const {name, image, description, price}=product
     return (
         <div className={styles.cardCont}>
-            <img className={styles.image} src={image} alt="product" />
+            <div className={styles.imageCont}>
+                <img className={styles.image} src={image} alt="product" />
+            </div>
             <h4 className={styles.name}>{name}</h4>
-            <p className={styles.price}>{price}</p>
+            <p className={styles.price}>${price}</p>
             <p className={styles.description}>{description}</p>
       </div>
   );

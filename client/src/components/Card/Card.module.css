@@ -1,9 +1,31 @@
 .cardCont{
     width: 100%;
-    max-width: 260px;
-
+    max-width: 320px;
+    cursor: pointer;
+    position: relative;
+}
+.imageCont{
+    width: 100%;
+    height: 260px;
+    position: relative;
+    overflow: hidden;
 }
 .image{
     width: 100%;
+    height: 100%;
     object-fit: cover;
+}
+.description{
+    display: none;
+    position: absolute;
+    top: 25%;
+    left: 0;
+    color: #fff;
+}
+.cardCont:hover .description{
+    display: block;
+
+}
+.cardCont:hover .image{
+    filter: brightness(40%);
 }

@@ -6,3 +6,8 @@
     align-items: center;
     gap: 10px;
 }
+.cardsCont{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
