@@ -49,7 +49,7 @@ User.hasMany(Review) // Esta línea establece una relación de "uno a muchos" en
 Review.belongsTo(Product) // Aquí se establece que una reseña pertenece a un solo producto.
 Review.belongsTo(User) // Aquí se establece que una reseña pertenece a un solo usuario.
 
-
+// comentario de prueba
 
 
 module.exports = {
