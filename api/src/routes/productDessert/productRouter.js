@@ -5,7 +5,35 @@ const {Product, Dessert} = require("../../db.js")
 
 
 productRouter.get("/:idProduct", async (req, res) => {
+const { idProduct } = req.params
 
+  try {
+    const getProductById = await Product.findOne({
+      where: {
+        id: idProduct
+
+      },
+      include: [
+        {
+          model: Dessert,
+          attributes: ["name"],
+          through: { attributes: [] },
+        }
+      ]
+    });
+
+    if (getProductById) {
+
+      return res.status(200).send(getProductById)
+
+    } else {
+      return res.status(404).json({ error: { message: "Product doesn't exist", value: { ...req.params } } });
+    }
+  } catch (error) {
+    console.log(error.message);
+
+
+  }
 })
 
 
