@@ -1,6 +1,6 @@
 const { Op } = require('sequelize')
 const express = require("express");
-const productRouter = express.Router()
+const productRouter = express.Router();
 const { Product, Dessert } = require("../../db.js")
 
 
@@ -11,7 +11,6 @@ productRouter.get("/:idProduct", async (req, res) => {
     const getProductById = await Product.findOne({
       where: {
         id: idProduct
-
       },
       include: [
         {
@@ -24,23 +23,16 @@ productRouter.get("/:idProduct", async (req, res) => {
 
     if (getProductById) {
 
-      return res.status(200).send(getProductById)
+      return res.status(200).json(getProductById)
 
     } else {
       return res.status(404).json({ error: { message: "Product doesn't exist", value: { ...req.params } } });
     }
   } catch (error) {
-
-
-
+    res.status(500).json({message: error.message});
   }
-
-} catch (error) {
-  res.status(500).json({message: error.message});
-}
-
-
 })
+
 
 
 productRouter.get("/", async (req, res) => {
@@ -61,16 +53,13 @@ productRouter.get("/", async (req, res) => {
         res.status(200).json(productBDd)
       }
     } else {
-      const productBdd = await Product.findAll()
-      res.status(200).json(productBdd);
-    }
-
-  } catch (error) {
-    res.status(500).json({ message: error.message })
+      const productBdd = await Product.findAll({ include: Dessert })
+        res.status(200).json(productBdd);
+      }
+    } catch (error) {
+      res.status(500).json({ message: error.message })
   }
 })
-
-
 
 productRouter.post("/", async (req, res) => {
   try {
@@ -103,3 +92,10 @@ productRouter.post("/", async (req, res) => {
 
 })
 module.exports = productRouter;
+        
+      
+        
+
+
+
+
