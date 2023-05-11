@@ -30,6 +30,7 @@ productRouter.get("/:idProduct", async (req, res) => {
       return res.status(404).json({ error: { message: "Product doesn't exist", value: { ...req.params } } });
     }
   } catch (error) {
+    res.status(500).json({ message: error.message });
 
 
 
