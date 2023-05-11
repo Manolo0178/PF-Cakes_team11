@@ -1,0 +1,9 @@
+.cardCont{
+    width: 100%;
+    max-width: 260px;
+
+}
+.image{
+    width: 100%;
+    object-fit: cover;
+}

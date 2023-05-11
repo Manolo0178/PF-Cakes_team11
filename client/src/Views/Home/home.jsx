@@ -15,12 +15,12 @@ import { getAllProducts } from "../../redux/actions";
 
 function Home() {
     const dispatch = useDispatch();
-    const products = useSelector((state) => state.getAllProducts);
+    const products = useSelector((state) => state.allProducts);
     
     useEffect(() => {
         dispatch(getAllProducts())
     }, [dispatch])
-    
+    console.log(products)
     return (
         <div className={styles.homeCont}>
             <Navbar />

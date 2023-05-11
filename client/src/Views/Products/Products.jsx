@@ -16,6 +16,7 @@ function Products() {
         dispatch(getAllProducts());
     }, [dispatch])
     
+    console.log(products)
 
     return (
         <div>
