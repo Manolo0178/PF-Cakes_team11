@@ -17,7 +17,7 @@ function rootReducer(state = initialState, action) {
 
             }       
         case GET_PRODUCT_BY_NAME:
-            if (action.payload.length != 0) {
+            if (action.payload.length !== 0) {
                 return {
                 ...state,
                 allProducts: action.payload,
