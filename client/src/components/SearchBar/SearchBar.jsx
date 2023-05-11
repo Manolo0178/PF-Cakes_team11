@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
-import { searchProducts } from '../../redux/actions';
+import { searchProducts } from '../../redux/actions/index';
 
 export default function SearchBar(){
     const [search, setSearch] = useState('');
@@ -8,7 +8,7 @@ export default function SearchBar(){
 
     function onSubmit(el){
         el.preventDefault();
-        if(search.length === 0) return alert ('Debes ingresar un prodcuto');
+        if(search.length === 0) return alert ('Debes ingresar un producto');
         dispatch(searchProducts(search))
         setSearch('')
     }

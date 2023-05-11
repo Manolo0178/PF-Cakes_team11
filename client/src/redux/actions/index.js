@@ -23,12 +23,12 @@ export function searchProducts(search){
   return async function (dispatch)
 {
   try{
-    var json = await axios.get("http://localhost:3001/products" + search);
+    var json = await axios.get("http://localhost:3001/products?name=" + search);
     return dispatch({
       type: SEARCH_PRODUCTS,
       payload: json.data
     })
   } catch (error){
-    console.log(error);
+    alert("Postre no encontrado");
   }
 }}
