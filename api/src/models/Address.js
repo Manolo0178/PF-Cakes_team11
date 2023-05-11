@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
         shippingAddress: {
             type: DataTypes.TEXT,
             allowNull: false
-          },
+          }, // horacio 
     }, {
         timesStamps: false,
         freezeTableName: true,
