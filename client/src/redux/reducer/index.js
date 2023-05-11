@@ -1,17 +1,20 @@
-import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_ID } from "../actions";
+
+import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_ID, LIMPIAR_DETAILS } from "../actions";
 
 
 
 const initialState = {
-  allProducts: [],
-  idProduct:[]
-};
 
+  allProducts: [],
+  idProduct:[],
+};
+    
 function rootReducer(state = initialState, action) { 
     switch (action.type) {
         case GET_ALL_PRODUCTS:
             return {
                 ...state, allProducts:action.payload
+
             }       
         case GET_PRODUCT_BY_NAME:
             if (action.payload.length != 0) {
@@ -29,7 +32,14 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 idProduct: action.payload,
-            };        
+            };   
+    
+        case LIMPIAR_DETAILS:
+            return{
+                ...state,
+                idProduct: []
+            }     
+           
         default:
             return {
                 ...state
