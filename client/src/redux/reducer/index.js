@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_ID } from "../actions";
+=======
+
+import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_ID, LIMPIAR_DETAILS, SEARCH_PRODUCTS } from "../actions";
+>>>>>>> d686bfccbc1d99726e62b0085dfd06904d75729f
 
 
 
@@ -38,6 +43,11 @@ function rootReducer(state = initialState, action) {
                 idProduct: []
             }     
            
+        case SEARCH_PRODUCTS:
+            return {
+                ...state,
+                products: action.payload
+            }
         default:
             return {
                 ...state

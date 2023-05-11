@@ -9,6 +9,7 @@ export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_DETAILS = "GET_DETAILS";
 export const LIMPIAR_DETAILS = "LIMPIAR_DETAILS"
+export const SEARCH_PRODUCTS = "SEARCH_PRODUCTS"
 
 
 //******** Get all products **********/
@@ -50,3 +51,22 @@ export function getProductsById(id) {
     });
   };
 }
+<<<<<<< HEAD
+=======
+
+
+//********Search products ********/
+export function searchProducts(search){
+  return async function (dispatch)
+{
+  try{
+    var json = await axios.get("http://localhost:3001/products?name=" + search);
+    return dispatch({
+      type: SEARCH_PRODUCTS,
+      payload: json.data
+    })
+  } catch (error){
+    alert("Postre no encontrado");
+  }
+}}
+>>>>>>> d686bfccbc1d99726e62b0085dfd06904d75729f

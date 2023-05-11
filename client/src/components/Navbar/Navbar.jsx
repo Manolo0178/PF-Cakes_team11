@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SearchBar from "../SearchBar/SearchBar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./Navbar.module.css";
@@ -37,6 +38,7 @@ function Navbar() {
             <li class="nav-item">
               <button class={style.nav} href="#" style={{color: "white", fontSize: "1.1rem", fontWeight:"bold"}}>Budget</button>
             </li>
+            <SearchBar/>
             <ul></ul>
             <ul></ul>
             <ul></ul>
