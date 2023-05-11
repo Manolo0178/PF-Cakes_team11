@@ -51,9 +51,6 @@ export function getProductsById(id) {
     });
   };
 }
-<<<<<<< HEAD
-=======
-
 
 //********Search products ********/
 export function searchProducts(search){
@@ -69,4 +66,3 @@ export function searchProducts(search){
     alert("Postre no encontrado");
   }
 }}
->>>>>>> d686bfccbc1d99726e62b0085dfd06904d75729f
