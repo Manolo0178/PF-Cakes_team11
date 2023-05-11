@@ -2,6 +2,7 @@ const express = require('express');
 const dessertRouter = express.Router()
 const {Dessert} =  require("../../db.js")
 
+
 dessertRouter.get("/", async(req, res) => {
   try {
     let dessertsAll = await Dessert.findAll()
@@ -16,3 +17,6 @@ dessertRouter.get("/", async(req, res) => {
 })
 
 module.exports = dessertRouter;
+
+module.exports = dessertRouter
+
