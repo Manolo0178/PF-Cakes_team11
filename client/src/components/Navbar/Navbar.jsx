@@ -114,7 +114,7 @@ function Navbar() {
                     fontWeight: "bold",
                   }}
                 >
-                  Create User
+                  Create Dessert
                 </button>
               </li>
               <ul></ul>

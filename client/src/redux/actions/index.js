@@ -11,6 +11,7 @@ export const LIMPIAR_DETAILS = "LIMPIAR_DETAILS"
 export const SEARCH_PRODUCTS = "SEARCH_PRODUCTS"
 
 
+
 //******** Get all products **********/
 export function getAllProducts() {
   return (dispatch) => {
@@ -50,3 +51,12 @@ export function searchProducts(search){
     alert("Postre no encontrado");
   }
 }}
+
+
+export function postDressert(payload){
+  return async function (dispatch){
+      const response = await axios.post("http://localhost:3001/dressert",payload)
+      console.log(response)
+      return response;
+  }
+}
