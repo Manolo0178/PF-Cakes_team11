@@ -1,0 +1,34 @@
+.searchbar {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 160%;
+  }
+  
+  .searchbar__form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .searchbar__input {
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    margin-right: 10px;
+  }
+  
+  .searchbar__submit {
+    border: none;
+    border-radius: 25px;
+    background-color: #ff8c94;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
