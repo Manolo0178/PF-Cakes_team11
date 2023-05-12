@@ -2,6 +2,8 @@ const { Op } = require('sequelize')
 const express = require("express");
 const productRouter = express.Router();
 const { Product, Dessert } = require("../../db.js")
+const {dataBs} = require("../../controler/index.js")
+dataBs()
 
 
 productRouter.get("/:idProduct", async (req, res) => {
@@ -65,7 +67,12 @@ productRouter.get("/", async (req, res) => {
 productRouter.post("/", async (req, res) => {
   try {
     let { name, summary, description, image, price, desserts } = req.body;
-
+    const existingProduct = await Product.findOne({ where: { name } });
+    // verifica si existe un producto con el mismo  nombre en la db salta a la sgte iteracion
+    // evitando la creacion con el mismo nombre
+    if (existingProduct) {
+      return res.status(400).json({ message: "Product name already exists" });
+    }
     const newProduct = await Product.create({
       name,
       description,
