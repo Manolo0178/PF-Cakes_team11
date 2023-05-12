@@ -39,7 +39,7 @@ productRouter.get("/:idProduct", async (req, res) => {
 
 productRouter.get("/", async (req, res) => {
   try {
-    const { name } = req.query;
+    const { name, order, priceOrder } = req.query;
     if (name) {
       const productBDd = await Product.findAll({
         where: {
@@ -55,13 +55,18 @@ productRouter.get("/", async (req, res) => {
         res.status(200).json(productBDd)
       }
     } else {
-      const productBdd = await Product.findAll({ include: Dessert })
+      const productBdd = await Product.findAll({ 
+        include: Dessert, 
+        // order: order === "asc" ? [["name",  "ASC"]] : order === "desc" ? [["name", "DESC"]] : null,
+        // order: priceOrder === "asc" ? [["price", "ASC"]] : priceOrder === "desc" ? [["price", "DESC"]] : null
+      })
         res.status(200).json(productBdd);
       }
     } catch (error) {
       res.status(500).json({ message: error.message })
   }
 })
+
 //se agrego un controlador que hace un pedido a una api creada por url
         
 productRouter.post("/", async (req, res) => {
