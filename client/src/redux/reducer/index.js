@@ -29,7 +29,7 @@ function rootReducer(state = initialState, action) {
         case SEARCH_PRODUCTS:
             return {
                 ...state,
-                products: action.payload
+                allProducts: action.payload
             }
         default:
             return {
