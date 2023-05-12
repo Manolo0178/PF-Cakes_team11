@@ -37,24 +37,58 @@ productRouter.get("/:idProduct", async (req, res) => {
 
 productRouter.get("/", async (req, res) => {
   try {
-    const { name } = req.query;
+    const { name, size = 0, page = 10 } = req.query;
+
+    let option = {
+      limit: Number(size),
+      offset: Number(page) * Number(size),
+      include: Dessert
+    }
+
     if (name) {
-      const productBDd = await Product.findAll({
+      let optionName = {
+        limit: Number(size),
+        offset: Number(page) * Number(size),
         where: {
           name: {
             [Op.iLike]: `%${name}%`,
           }
         },
         include: Dessert,
-      })
-      if (!productBDd.length > 0) {
-        res.status(404).json({ message: `Product name not found ${name}` })
-      } else {
-        res.status(200).json(productBDd)
       }
+      const {count, rows} = await Product.findAndCountAll(optionName)
+      const product = rows.length
+      product ? 
+      res.json({
+        status: "succes",
+        total: count,
+        product: rows,
+        length: rows.length // esta linea sirve para ver cuantos productos traen por paginado
+      })
+      : res.status(404).json({ message: `Product name not found ${name}` })
+      // const productBDd = await Product.findAll({
+      //   where: {
+      //     name: {
+      //       [Op.iLike]: `%${name}%`,
+      //     }
+      //   },
+      //   include: Dessert,
+      // })
+      // if (!productBDd.length > 0) {
+      //   res.status(404).json({ message: `Product name not found ${name}` })
+      // } else {
+      //   res.status(200).json(productBDd)
+      // }
     } else {
-      const productBdd = await Product.findAll({ include: Dessert })
-        res.status(200).json(productBdd);
+      // const productBdd = await Product.findAll({ include: Dessert }) // Esta linea trae todos los productos sin paginar.
+      //   res.status(200).json(productBdd);
+      const {count, rows} = await Product.findAndCountAll(option)
+      res.json({
+        status: "succes",
+        total: count,
+        product: rows,
+        // length: rows.length // esta linea sirve para ver cuantos productos traen por paginado
+      })
       }
     } catch (error) {
       res.status(500).json({ message: error.message })
