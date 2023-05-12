@@ -1,5 +1,5 @@
 
-import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_ID, LIMPIAR_DETAILS, SEARCH_PRODUCTS } from "../actions";
+import { GET_ALL_PRODUCTS,  GET_PRODUCT_BY_ID, LIMPIAR_DETAILS, SEARCH_PRODUCTS } from "../actions";
 
 
 
@@ -15,18 +15,7 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state, allProducts:action.payload
             }       
-        case GET_PRODUCT_BY_NAME:
-            if (action.payload.length !== 0) {
-                return {
-                ...state,
-                allProducts: action.payload,
-                };
-            }
-            else {
-                return {
-                ...state
-                }
-            }
+
         case GET_PRODUCT_BY_ID:
             return {
                 ...state,
@@ -39,11 +28,6 @@ function rootReducer(state = initialState, action) {
                 idProduct: []
             }     
            
-        case SEARCH_PRODUCTS:
-            return {
-                ...state,
-                products: action.payload
-            }
         case SEARCH_PRODUCTS:
             return {
                 ...state,
