@@ -50,6 +50,12 @@ function Navbar() {
               <button class={style.nav} href="#" style={{color: "white", fontSize: "1.1rem", fontWeight:"bold"}}>Login</button>
             </li>
           </ul>
+          <ul></ul>
+          <ul></ul>
+          <ul></ul>
+          <ul></ul>
+          <ul></ul>
+         <SearchBar/>
         </div>
       </nav>
   </div>
