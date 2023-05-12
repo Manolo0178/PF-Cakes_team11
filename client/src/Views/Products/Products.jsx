@@ -58,7 +58,7 @@ function Products() {
                         <option value="desc">Z-A</option>
                     </select>                    
                 </div>
-                <Cards products={products} />
+                <Cards products={products}/>
             </div>
           </section>
         </div>

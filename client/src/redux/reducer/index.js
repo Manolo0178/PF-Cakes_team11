@@ -1,6 +1,6 @@
 
 
-import { GET_ALL_PRODUCTS,  GET_PRODUCT_BY_ID, LIMPIAR_DETAILS, SEARCH_PRODUCTS,ORDER_PRODUCTS } from "../actions";
+import { GET_ALL_PRODUCTS,  GET_PRODUCT_BY_ID, LIMPIAR_DETAILS, SEARCH_PRODUCTS,ORDER_PRODUCTS, GET_DESSERT } from "../actions";
 
 
 
@@ -8,6 +8,7 @@ import { GET_ALL_PRODUCTS,  GET_PRODUCT_BY_ID, LIMPIAR_DETAILS, SEARCH_PRODUCTS,
 const initialState = {
   allProducts: [],
   idProduct:{},
+  dessert:[]
   
 };
 
@@ -28,12 +29,17 @@ function rootReducer(state = initialState, action) {
             return{
                 ...state,
                 idProduct: []
+            }
+        case GET_DESSERT:
+            return{
+                ...state,
+                dessert: action.payload
             }     
            
         case SEARCH_PRODUCTS:
             return {
                 ...state,
-                products: action.payload
+                allProducts: action.payload
             }
         case ORDER_PRODUCTS:
             const order = action.payload === "max-min" ? state.allProducts.sort((a,b)=>b.price - a.price) : 
