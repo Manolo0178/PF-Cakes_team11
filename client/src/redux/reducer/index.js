@@ -2,6 +2,7 @@
 import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID, LIMPIAR_DETAILS, SEARCH_PRODUCTS } from "../actions";
 
 
+
 const initialState = {
   allProducts: [],
   idProduct:{}
