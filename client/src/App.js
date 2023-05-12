@@ -6,6 +6,7 @@ import Home from './Views/Home/home';
 import Products from './Views/Products/Products';
 import CreateUser from './Views/CreateUser/CreateUser';
 import Login from './Views/Login/Login';
+import About from './Views/About/About'
 
 
 function App() {
@@ -19,8 +20,8 @@ function App() {
         <Route path="/Products" component={Products} />
         <Route path="/createUser" component={CreateUser} />
         <Route path="/login" component={Login} />
-        {/* <Route exact path="/home/about" component={About} />
-        <Route exact path="/home/budget" component={Budget} />
+        <Route exact path="/home/about" component={About} />
+        {/*<Route exact path="/home/budget" component={Budget} />
         <Route exact path="/home/contact" component={Contact} />
 
         <Route path="/home/:id" component={Detail} /> */}
