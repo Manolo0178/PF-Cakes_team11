@@ -41,7 +41,7 @@ Dessert.belongsToMany(Product, { through: 'productAll' });//************ */
 Product.belongsToMany(Cart, { through: OrderItem });
 Cart.belongsToMany(Product, { through: OrderItem });
 OrderItem.belongsTo(Product);
-OrderItem.belongsTo(Cart);
+OrderItem.belongsTo(Cart)
 
 Product.hasMany(Review) // Aquí se establece una relación de "uno a muchos" entre los modelos Product y Reviews. Esto significa que un producto puede tener varios comentarios.
 User.hasMany(Review) // Esta línea establece una relación de "uno a muchos" entre los modelos Users y Reviews. Esto significa que un usuario puede tener varios comentarios.
@@ -49,7 +49,7 @@ User.hasMany(Review) // Esta línea establece una relación de "uno a muchos" en
 Review.belongsTo(Product) // Aquí se establece que una reseña pertenece a un solo producto.
 Review.belongsTo(User) // Aquí se establece que una reseña pertenece a un solo usuario.
 
-
+// comentario de prueba
 
 
 module.exports = {

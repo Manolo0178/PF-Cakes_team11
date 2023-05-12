@@ -1,4 +1,4 @@
-const {DataTypes} = require("sequelize")
+const { DataTypes } = require("sequelize")
 
 module.exports = (sequelize) => {
     sequelize.define("address", {
@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
         shippingAddress: {
             type: DataTypes.TEXT,
             allowNull: false
-          },
+          }, // horacio 
     }, {
         timesStamps: false,
         freezeTableName: true,
