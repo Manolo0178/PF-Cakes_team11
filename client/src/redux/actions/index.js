@@ -7,8 +7,10 @@ import axios from "axios"
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_DETAILS = "GET_DETAILS";
-export const LIMPIAR_DETAILS = "LIMPIAR_DETAILS"
-export const SEARCH_PRODUCTS = "SEARCH_PRODUCTS"
+export const LIMPIAR_DETAILS = "LIMPIAR_DETAILS";
+export const SEARCH_PRODUCTS = "SEARCH_PRODUCTS";
+export const ORDER_PRODUCTS = "ORDER_PRODUCTS";
+
 
 
 //******** Get all products **********/
@@ -50,3 +52,12 @@ export function searchProducts(search){
     alert("Postre no encontrado");
   }
 }}
+
+
+//********Order products ********/
+
+export function orderProducts(value){
+  return{
+    type: ORDER_PRODUCTS, payload: value
+  }
+}
