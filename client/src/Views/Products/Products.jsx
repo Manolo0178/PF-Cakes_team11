@@ -37,17 +37,19 @@ function Products() {
               <h5>Categorías</h5>
             </div>
             <div className={styles.cardsCont}>
-                <div className={styles.orderBy}>
-                    <label htmlFor="">ordenar por:</label>
-                    <select onChange = {handlerOrderProducts}>
-                        <option value="order" disabled selected>Order</option>
-                        <option value="max-min">Precio: Menor a Mayor</option>
-                        <option value="min-max">Precio: Mayor a Menor</option>
-                        <option value="asc">A-Z</option>
-                        <option value="desc">Z-A</option>
-                    </select>                    
-                </div>
-                <Cards products={products} />
+              <div className={styles.orderBy}>
+                <label htmlFor="">ordenar por:</label>
+                <select onChange={handlerOrderProducts}>
+                  <option value="order" disabled selected>
+                    Order
+                  </option>
+                  <option value="max-min">Precio: Mayor a Menor</option>
+                  <option value="min-max">Precio: Menor a Mayor</option>
+                  <option value="asc">A-Z</option>
+                  <option value="desc">Z-A</option>
+                </select>
+              </div>
+              <Cards products={products} />
             </div>
           </section>
         </div>
