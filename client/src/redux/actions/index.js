@@ -53,7 +53,7 @@ export function searchProducts(search){
 }}
 
 
-export function postDressert(payload){
+export function postDessert(payload){
   return async function (dispatch){
       const response = await axios.post("http://localhost:3001/dressert",payload)
       console.log(response)
