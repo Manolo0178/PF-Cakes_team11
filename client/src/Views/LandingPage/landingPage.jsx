@@ -6,7 +6,7 @@ function Landing() {
     
   return (
     
-    <div className="bg-image d-flex align-items-center">
+    <div className={styles.landingCont}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-6 text-center">
