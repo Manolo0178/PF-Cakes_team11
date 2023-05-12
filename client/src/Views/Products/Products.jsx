@@ -23,7 +23,8 @@ function Products() {
       <div className={styles.products}>
         <NavBar />
         <div>
-          <h1>Products</h1>
+          <br></br>
+          <h1 className={styles.h1}>Products</h1>
           <section className={styles.cont}>
             <div className={styles.category}>
               <h5>Categorías</h5>
