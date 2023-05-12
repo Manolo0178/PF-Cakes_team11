@@ -62,7 +62,7 @@ productRouter.get("/", async (req, res) => {
       res.status(500).json({ message: error.message })
   }
 })
-
+//se agrego un controlador que hace un pedido a una api creada por url
         
 productRouter.post("/", async (req, res) => {
   try {
