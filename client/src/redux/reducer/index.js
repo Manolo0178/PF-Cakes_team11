@@ -1,11 +1,17 @@
-import { GET_ALL_PRODUCTS,  GET_PRODUCT_BY_ID, LIMPIAR_DETAILS, SEARCH_PRODUCTS,ORDER_PRODUCTS } from "../actions";
+
+
+
+import { GET_ALL_PRODUCTS,  GET_PRODUCT_BY_ID, LIMPIAR_DETAILS, SEARCH_PRODUCTS,ORDER_PRODUCTS, GET_DESSERT } from "../actions";
 
 
 
 
 const initialState = {
   allProducts: [],
-  idProduct:{}
+
+  idProduct:{},
+  dessert:[]
+  
 
 };
 
@@ -28,6 +34,11 @@ function rootReducer(state = initialState, action) {
             return{
                 ...state,
                 idProduct: []
+            }
+        case GET_DESSERT:
+            return{
+                ...state,
+                dessert: action.payload
             }     
            
         case SEARCH_PRODUCTS:

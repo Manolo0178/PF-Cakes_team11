@@ -29,7 +29,7 @@ function Navbar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-                <button
+                <Link to='/home'><button
                   className={style.nav}
                   href="#"
                   style={{
@@ -39,7 +39,7 @@ function Navbar() {
                   }}
                 >
                   Inicio
-                </button>
+                </button></Link>
               </li>
               <ul></ul>
               <li className="nav-item">
@@ -105,7 +105,7 @@ function Navbar() {
               </li>
               <ul></ul>
               <li className="nav-item">
-                <button
+                <Link to="/create"><button
                   className={style.nav}
                   href="#"
                   style={{
@@ -114,12 +114,12 @@ function Navbar() {
                     fontWeight: "bold",
                   }}
                 >
-                  Create User
-                </button>
+                  Create Dessert
+                </button></Link>
               </li>
               <ul></ul>
               <li className="nav-item">
-                <button
+                <Link to='/login'><button
                   className={style.nav}
                   href="#"
                   style={{
@@ -129,7 +129,7 @@ function Navbar() {
                   }}
                 >
                   Login
-                </button>
+                </button></Link>
               </li>
             </ul>
           </div>
