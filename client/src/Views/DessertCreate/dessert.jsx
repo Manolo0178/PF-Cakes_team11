@@ -2,7 +2,7 @@ import React, { useState,useEffect} from "react";
 import {Link, useHistory} from 'react-router-dom';
 import {postDessert, getDessert} from '../../redux/actions/index';
 import { useDispatch, useSelector } from "react-redux";
-import Navbar from "../../components/Navbar/Navbar";
+import NavBar from "../../components/Navbar/Navbar";
 import style from "./dessert.module.css";
 
 function validate(input){
@@ -90,7 +90,7 @@ export default function CreateDessert(){
 
     return(
         <div className={style.cont}>
-            <Navbar/>
+            <NavBar/>
             <h1>Crea tu postre!</h1>
             <form onSubmit={(e) => handleSubmit(e)} className="form">
 

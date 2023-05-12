@@ -1,142 +1,71 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import style from "./Navbar.module.css";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
 
-function Navbar() {
+import styles from "./Navbar.module.css";
+
+function NavBar() {
   return (
-    <div className="container-fluid navbar-dark bg-pink">
-      <div className="container-fluid">
-        <nav className="navbar navbar-expand-md container">
-          <div className="d-flex justify-content-start align-items-center">
-            
-            <SearchBar />
-          </div>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <ul></ul>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to='/home'><button
-                  className={style.nav}
-                  href="#"
-                  style={{
-                    color: "white",
-                    fontSize: "1.0rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Inicio
-                </button></Link>
-              </li>
-              <ul></ul>
-              <li className="nav-item">
-                <button
-                  className={style.nav}
-                  href="#"
-                  style={{
-                    color: "white",
-                    fontSize: "1.0rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  About us
-                </button>
-              </li>
-              <ul></ul>
-              <li className="nav-item">
-                <button
-                  className={style.nav}
-                  href="#"
-                  style={{
-                    color: "white",
-                    fontSize: "1.0rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Products
-                </button>
-              </li>
-              <ul></ul>
-              <li className="nav-item">
-                <button
-                  className={style.nav}
-                  href="#"
-                  style={{
-                    color: "white",
-                    fontSize: "1.0rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Contact
-                </button>
-              </li>
-              <ul></ul>
-              <img
+    <Navbar expand="lg" className={styles.navBarCont}>
+      <Container className={styles.cont}>
+        <Navbar.Brand href="#home" className={styles.logoCont}>
+          <Link to="/home">
+            <img
               className="navbar-brand"
               src="https://github.com/Manolo0178/PF-Cakes_team11/raw/main/cake.png"
               width="90px"
             />
-            <ul></ul>
-              <li className="nav-item">
-                <button
-                  className={style.nav}
-                  href="#"
-                  style={{
-                    color: "white",
-                    fontSize: "1.0rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Budget
-                </button>
-              </li>
-              <ul></ul>
-              <li className="nav-item">
-                <Link to="/create"><button
-                  className={style.nav}
-                  href="#"
-                  style={{
-                    color: "white",
-                    fontSize: "1.0rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Create Dessert
-                </button></Link>
-              </li>
-              <ul></ul>
-              <li className="nav-item">
-                <Link to='/login'><button
-                  className={style.nav}
-                  href="#"
-                  style={{
-                    color: "white",
-                    fontSize: "1.0rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Login
-                </button></Link>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </div>
+          </Link>
+        </Navbar.Brand>
+
+        <SearchBar />
+
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav" className={styles.linksCont}>
+          <Nav className={styles.linkCont}>
+            <Nav.Link>
+              <Link to="/home" className={styles.link}>
+                Home
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/about" className={styles.link}>
+                About
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/products" className={styles.link}>
+                Products
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/budget" className={styles.link}>
+                Presupuesto
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/contact" className={styles.link}>
+                Contacto
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/create" className={styles.link}>
+                crear
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/login" className={styles.link}>
+                Login
+              </Link>
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 
-export default Navbar;
+export default NavBar;
