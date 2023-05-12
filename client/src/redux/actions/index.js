@@ -7,8 +7,10 @@ import axios from "axios"
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_DETAILS = "GET_DETAILS";
-export const LIMPIAR_DETAILS = "LIMPIAR_DETAILS"
-export const SEARCH_PRODUCTS = "SEARCH_PRODUCTS"
+export const LIMPIAR_DETAILS = "LIMPIAR_DETAILS";
+export const SEARCH_PRODUCTS = "SEARCH_PRODUCTS";
+export const ORDER_PRODUCTS = "ORDER_PRODUCTS";
+
 
 
 
@@ -52,11 +54,10 @@ export function searchProducts(search){
   }
 }}
 
+//********Order products ********/
 
-export function postDessert(payload){
-  return async function (dispatch){
-      const response = await axios.post("http://localhost:3001/dressert",payload)
-      console.log(response)
-      return response;
+export function orderProducts(value){
+  return{
+    type: ORDER_PRODUCTS, payload: value
   }
 }
