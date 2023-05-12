@@ -3,11 +3,13 @@ import Button from "react-bootstrap/Button";
 //import icons
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
+import Navbar from '../../components/Navbar/Navbar';
 
 import styles from "./Login.module.css"
 const Login = () => {
   return (
     <div className={styles.cont}>
+      <Navbar/>
       <div className={styles.loginCont}>
         <h1>Iniciar sesión</h1>
         <div className={styles.inputCont}>
