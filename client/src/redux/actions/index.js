@@ -10,6 +10,14 @@ export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_DETAILS = "GET_DETAILS";
 export const LIMPIAR_DETAILS = "LIMPIAR_DETAILS"
 export const SEARCH_PRODUCTS = "SEARCH_PRODUCTS"
+export const ALL = "ALL";
+export const TARTS = "TARTS";
+export const FRUIT_SALADS = "FRUIT_SALADS";
+export const CUSTOM_CAKES = "CUSTOM_CAKES";
+export const INDIVIDUAL_PASTRIES = "INDIVIDUAL_PASTRIES";
+export const INDIVIDUAL_TARTS = "INDIVIDUAL_TARTS";
+export const BREAKFAST_SNACKS = "BREAKFAST_SNACKS";
+export const FILTER_BY_DESSERT= "FILTER_BY_DESSERT";
 
 
 export function getAllProducts() {
@@ -39,7 +47,6 @@ export function getProductsByName(name) {
   };
 }
 
-
 //******** Get products by id **********/
 export function getProductsById(id) {
   return (dispatch) => {
@@ -67,3 +74,11 @@ export function searchProducts(search){
     alert("Postre no encontrado");
   }
 }}
+
+//******** Filter By Dessert ********/
+export function filterByDessert(payload){
+  return {
+    type:FILTER_BY_DESSERT,
+    payload,
+  };
+}
