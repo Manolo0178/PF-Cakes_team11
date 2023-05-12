@@ -3,6 +3,8 @@ import { GET_ALL_PRODUCTS,  GET_PRODUCT_BY_ID, LIMPIAR_DETAILS, SEARCH_PRODUCTS,
 
 
 
+
+
 const initialState = {
   allProducts: [],
   idProduct:{}
@@ -15,7 +17,6 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state, allProducts:action.payload
             }       
-
         case GET_PRODUCT_BY_ID:
             return {
                 ...state,
@@ -52,6 +53,7 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 products: order
             }    
+
         default:
             return {
                 ...state
