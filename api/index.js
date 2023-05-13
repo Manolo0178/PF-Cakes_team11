@@ -24,7 +24,7 @@ const { bddCargada } = require('./src/routes/productDessert/bddCargada.js')
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   bddCargada(),
-  server.listen(3001, () => {
-    console.log('%s listening at 3001'); // eslint-disable-line no-console
-  });
+    server.listen(3001, () => {
+      console.log('%s listening at 3001'); // eslint-disable-line no-console
+    });
 });

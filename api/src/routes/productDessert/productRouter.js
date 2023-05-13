@@ -99,6 +99,44 @@ productRouter.post("/", async (req, res) => {
   }
 
 })
+
+productRouter.delete('/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+
+    const deleteProduct = await Product.findByPk(id);
+    if (!deleteProduct) {
+      return res.status(404).json({ message: 'El producto no existe' });
+    }
+    await deleteProduct.destroy();
+    res.json({ message: 'Producto eliminado exitosamente' });
+
+  } catch (error) {
+    res.status(500).json({ message: 'Ocurrió un error al eliminar el producto' });
+  }
+})
+
+productRouter.put('/:id', async (req, res) => {
+  const { id } = req.params
+  const { name, summary, description, price } = req.body;
+  try {
+    const product = await Product.findByPk(id);
+    if (!product) {
+      return res.status(404).json({ message: 'El producto no existe' });
+    }
+    product.name = name;
+    product.summary = summary;
+    product.description = description;
+    product.price = price;
+
+    await product.save();
+    res.json({ message: 'Producto actualizado exitosamente', product });
+
+  } catch (error) {
+    res.status(500).json({ message: 'Ocurrió un error al actualizar el producto' });
+  }
+})
+
 module.exports = productRouter;
 
 
