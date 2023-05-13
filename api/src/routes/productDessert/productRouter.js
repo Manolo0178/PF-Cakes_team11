@@ -124,6 +124,7 @@ productRouter.post("/", async (req, res) => {
 })
 
 
+
 productRouter.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { name, price, description, summary, image } = req.body;
@@ -151,7 +152,26 @@ productRouter.put("/:id", async (req, res) => {
 
 // Resto del código de la ruta GET paginada...
 
-module.exports = productRouter;
+
+//delete the products
+productRouter.delete("/:idProduct", (req, res) => {
+  let {idProduct} = req.params;
+  try {
+    if(idProduct) {
+    let deletedProduct = Product.destroy({
+      where: {
+        id: idProduct
+      }
+    })
+    res.status(200).json(deletedProduct)
+  } else {
+    res.status(404).json({message: "Product not found by id"})
+  }
+  } catch (error) {
+    res.status(500).json({message: error.message})
+  }
+})
+
       
         
 
