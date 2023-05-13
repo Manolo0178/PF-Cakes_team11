@@ -3,7 +3,7 @@ import styles from "./home.module.css"
 import React from "react"
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom/cjs/react-router-dom";
+import { Link } from "react-router-dom";
 
 import NavBar from "../../components/Navbar/Navbar"
 import CarouselSlide from "../../components/Carousel/Carousel"

@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsById } from "../../redux/actions";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import { SiMercadopago } from "react-icons/si";
 import { BsCurrencyBitcoin } from "react-icons/bs";
@@ -14,7 +16,7 @@ import styles from "./detail.module.css";
 
 export default function Detail() {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
@@ -23,7 +25,14 @@ export default function Detail() {
   }, [dispatch, id]);
 
   const myProduct = useSelector((state) => state.idProduct);
-
+  console.log(myProduct)
+  const handleDelete = async() => {
+    if (window.confirm("¿Estás seguro de eliminarlo?")) {
+      await axios
+        .delete(`http://localhost:3001/products/${myProduct.id}`)
+        .then(alert("se ha eliminado el producto"), navigate("/home"))
+    }
+  };
   return (
     <div className={styles.detailCont}>
       <NavBar />
@@ -33,7 +42,9 @@ export default function Detail() {
             <img className={styles.image} src={myProduct.image} alt="dessert" />
           </div>
           <div className={styles.textCont}>
-            <button className={styles.delete}>X</button>
+            <button className={styles.delete} onClick={handleDelete}>
+              X
+            </button>
             <h3>{myProduct.name}</h3>
             <h4>$ {myProduct.price}</h4>
             <div>

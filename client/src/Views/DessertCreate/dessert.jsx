@@ -1,5 +1,5 @@
 import React, { useState,useEffect} from "react";
-import {Link, useHistory} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import {postDessert, getDessert} from '../../redux/actions/index';
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../components/Navbar/Navbar";
@@ -24,7 +24,8 @@ function validate(input){
 
 export default function CreateDessert(){
     const dispatch = useDispatch()
-    const history = useHistory()
+    const navigate = useNavigate()
+
     const dessert = useSelector((state) => state.dessert)
     console.log(dessert)
     const [errors, setErrors] = useState({});
@@ -72,7 +73,6 @@ export default function CreateDessert(){
 
     function handleSubmit(e){
         e.preventDefault();
-        console.log(input)
         if(input.name === '' || input.summary === '' || input.description === '' ||  input.image === '') return alert('Pibe completame los campos porfa');
         dispatch(postDessert(input))
         alert("POSTRE CREADO!!")
@@ -84,10 +84,8 @@ export default function CreateDessert(){
             image: "",
             Dessert:[]
         })
-        history.push('/home')
+        navigate("/Products")
     }
-
-
     return(
         <div className={style.cont}>
             <NavBar/>
@@ -161,7 +159,6 @@ export default function CreateDessert(){
                     dessert?.map((el) => (
                         <option value={el} key={el}>{el}</option>
                     ))
-                    
                 }
                 
               </select>
