@@ -99,7 +99,7 @@ productRouter.post("/", async (req, res) => {
   }
 
 })
-//delete the product
+//delete the products
 productRouter.delete("/:idProduct", (req, res) => {
   let {idProduct} = req.params;
   try {
