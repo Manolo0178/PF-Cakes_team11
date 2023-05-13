@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 //import icons
 import { FaGoogle } from "react-icons/fa";
@@ -7,19 +8,52 @@ import NavBar from '../../components/Navbar/Navbar';
 import { Link } from "react-router-dom";
 
 import styles from "./Login.module.css"
+
+import validation from './Validation';
 const Login = () => {
+
+  const [userData,SetUserData] = useState({
+    username : "",
+    password : ""
+  });
+
+  const [errors,SetErrors] = useState({
+    username : "",
+    password : ""
+  }); 
+
+  const handleInputChange = (event) =>{
+    const property = event.target.name;
+    const value = event.target.value;
+
+    SetUserData({...userData, [property] : value});
+    SetErrors(validation({...userData, [property] : value},errors));
+};
+  
   return (
     <div className={styles.cont}>
       <NavBar/>
       <div className={styles.loginCont}>
         <h1>Iniciar sesión</h1>
         <div className={styles.inputCont}>
-          <input type="text" placeholder="Email" className={styles.input} />
+          <input 
+            type="text" 
+            placeholder="Email" 
+            className={!userData.username ? styles.input : errors.username ? styles.error : styles.success}
+            name="username"
+            value={userData.username} 
+            onChange={handleInputChange}
+            />
+          <span className="validation">{errors.username}</span>
           <input
             type="text"
             placeholder="Contraseña"
-            className={styles.input}
+            className={!userData.password ? styles.input : errors.password ? styles.error : styles.success}
+            name="password"
+            value={userData.password}
+            onChange={handleInputChange}
           />
+          <span className="validation">{errors.password}</span>
           <div className={styles.forgotPassword}>
             <p>¿olvidaste tu contraseña?</p>
           </div>
