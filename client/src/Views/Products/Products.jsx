@@ -1,24 +1,20 @@
 import React from "react";
-
 import { useEffect, useState } from "react";
-
 import { useSelector, useDispatch } from "react-redux";
-
-
 
 import NavBar from "../../components/Navbar/Navbar"
 import Cards from "../../components/Cards/cards";
-
 
 import { getAllProducts,orderProducts } from "../../redux/actions";
 
 import styles from "./Products.module.css"
 
+
 function Products() {
     const dispatch = useDispatch()
     const products = useSelector(state => state.allProducts)
-    const [order,setOrder] = useState("");
-
+    const [order, setOrder] = useState("");
+    console.log(products);
 
     useEffect(() => {
         dispatch(getAllProducts());

@@ -27,15 +27,15 @@ export default function CreateDessert(){
     const navigate = useNavigate()
 
     const dessert = useSelector((state) => state.dessert)
-    console.log(dessert)
+    
     const [errors, setErrors] = useState({});
 
     const [input, setInput] = useState ({
         name: "",
         summary: "",
         description: "",
-        price: "",
         image: "",
+        price: "",
         dessert:[]
     })
 
@@ -48,7 +48,7 @@ export default function CreateDessert(){
             ...input,
             [e.target.name] : e.target.value
         }));
-        console.log(input)
+
     }
 
     function handleDelete(el){
@@ -80,8 +80,8 @@ export default function CreateDessert(){
             name: "",
             summary: "",
             description: "",
-            price:"",
             image: "",
+            price:"",
             Dessert:[]
         })
         navigate("/Products")
