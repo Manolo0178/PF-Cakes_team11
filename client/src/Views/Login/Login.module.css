@@ -19,7 +19,7 @@
     width: 300px;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: .8rem;
 }
 .input{
     height: 40px;
@@ -55,4 +55,14 @@
 }
 .links p{
     font-size: 1rem;
+}
+
+.error{
+    height: 40px;
+    border: 3px solid red;
+}
+
+.success{
+    height: 40px;
+    border: 3px solid rgb(181, 247, 184);
 }
