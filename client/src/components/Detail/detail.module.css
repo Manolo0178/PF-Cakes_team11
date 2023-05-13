@@ -1,8 +1,9 @@
-.detailCont{
+.detailCont {
     height: 100%;
     min-height: 100vh;
 }
-.productCont{
+
+.productCont {
     width: 80%;
     margin: 0 auto;
     display: flex;
@@ -11,7 +12,8 @@
     margin-top: 50px;
 
 }
-.imageCont{
+
+.imageCont {
     width: 100%;
     max-width: 400px;
     height: 100%;
@@ -22,10 +24,12 @@
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
 }
-.image{
+
+.image {
     object-fit: cover;
 }
-.textCont{
+
+.textCont {
     padding-left: 20px;
     padding-right: 20px;
     width: 350px;
@@ -39,7 +43,8 @@
     border-bottom-right-radius: 6px;
     border-top-right-radius: 6px;
 }
-.delete{
+
+.delete {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -52,24 +57,28 @@
     align-items: center;
     justify-content: center;
 }
-.buttonCont{
+
+.buttonCont {
     width: 100%;
     display: flex;
     justify-content: center;
 }
-.iconsCont{
+
+.iconsCont {
     display: flex;
     width: 100%;
     justify-content: flex-start;
     gap: 10px;
     margin-bottom: 20px;
 }
-.cantCont{
+
+.cantCont {
     display: flex;
     flex-direction: column;
     gap: 10px;
     align-items: flex-start;
 }
-.cantCont input{
+
+.cantCont input {
     width: 50px;
 }

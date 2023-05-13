@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsById } from "../../redux/actions";
 import { useEffect } from "react";
@@ -10,64 +10,58 @@ import Button from "react-bootstrap/Button";
 
 import NavBar from "../Navbar/Navbar";
 
-import styles from "./detail.module.css"
+import styles from "./detail.module.css";
 
-export default function Detail(){
-    
-    const dispatch = useDispatch()
-    
-    const {id} = useParams()
-    
-    useEffect(() => {
-        dispatch(getProductsById(id));
-        return(() => dispatch({type:"LIMPIAR_DETAILS"}))
-    },[dispatch, id])
-    
-    const myProduct = useSelector((state) => state.idProduct)
+export default function Detail() {
+  const dispatch = useDispatch();
 
-    return (
-      <div className={styles.detailCont}>
-        <NavBar />
-        {myProduct ? (
-          <section className={styles.productCont}>
-            <div className={styles.imageCont}>
-              <img
-                className={styles.image}
-                src={myProduct.image}
-                alt="dessert"
-              />
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(getProductsById(id));
+    return () => dispatch({ type: "LIMPIAR_DETAILS" });
+  }, [dispatch, id]);
+
+  const myProduct = useSelector((state) => state.idProduct);
+
+  return (
+    <div className={styles.detailCont}>
+      <NavBar />
+      {myProduct ? (
+        <section className={styles.productCont}>
+          <div className={styles.imageCont}>
+            <img className={styles.image} src={myProduct.image} alt="dessert" />
+          </div>
+          <div className={styles.textCont}>
+            <button className={styles.delete}>X</button>
+            <h3>{myProduct.name}</h3>
+            <h4>$ {myProduct.price}</h4>
+            <div>
+              <div className={styles.iconsCont}>
+                <SiMercadopago size="1.5rem" />
+                <BsCurrencyBitcoin size="1.5rem" />
+              </div>
+              <p>Ver medios de Pago</p>
             </div>
-            <div className={styles.textCont}>
-              <button className={styles.delete}>X</button>
-              <h3>{myProduct.name}</h3>
-              <h4>$ {myProduct.price}</h4>
-              <div>
-                <div className={styles.iconsCont}>
-                  <SiMercadopago size="1.5rem" />
-                  <BsCurrencyBitcoin size="1.5rem" />
-                </div>
-                <p>Ver medios de Pago</p>
-              </div>
-              <div className={styles.cantCont}>
-                <label htmlFor="">Cantidad</label>
-                <input type="number" />
-              </div>
-              <div className={styles.buttonCont}>
-                <Button variant="primary">Agregar al carrito</Button>{" "}
-              </div>
+            <div className={styles.cantCont}>
+              <label htmlFor="">Cantidad</label>
+              <input type="number" />
             </div>
-          </section>
-        ) : (
-          <p>Loading..</p>
-        )}
-        {myProduct ? (
-          <section>
-            <p>{myProduct.description}</p>
-          </section>
-        ) : (
-          <div></div>
-        )}
-      </div>
-    );
+            <div className={styles.buttonCont}>
+              <Button variant="primary">Agregar al carrito</Button>{" "}
+            </div>
+          </div>
+        </section>
+      ) : (
+        <p>Loading..</p>
+      )}
+      {myProduct ? (
+        <section>
+          <p>{myProduct.description}</p>
+        </section>
+      ) : (
+        <div></div>
+      )}
+    </div>
+  );
 }
-  
