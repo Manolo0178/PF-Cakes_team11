@@ -3,9 +3,9 @@ import styles from "./home.module.css"
 import React from "react"
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom/cjs/react-router-dom";
+import { Link } from "react-router-dom";
 
-import Navbar from "../../components/Navbar/Navbar"
+import NavBar from "../../components/Navbar/Navbar"
 import CarouselSlide from "../../components/Carousel/Carousel"
 import Cards from "../../components/Cards/cards";
 
@@ -24,7 +24,7 @@ function Home() {
     products.length=12
     return (
       <div className={styles.homeCont}>
-            <Navbar />
+            <NavBar />
             <CarouselSlide />
             <section className={styles.cardsCont}>
                 <h3>Algunos de nuestros productos</h3>

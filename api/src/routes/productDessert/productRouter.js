@@ -36,32 +36,55 @@ productRouter.get("/:idProduct", async (req, res) => {
 })
 
 
-
 productRouter.get("/", async (req, res) => {
   try {
-    const { name } = req.query;
+    const { name, size = 0, page = 10, sort, sortBy } = req.query;
+
+    let option = {
+      limit: Number(size),
+      offset: Number(page) * Number(size),
+      include: Dessert,
+      order: []
+    };
+
+    if (sortBy && sortBy === 'price') {
+      option.order.push(['price', sort === 'desc' ? 'DESC' : 'ASC']);
+    } else {
+      option.order.push(['name', sort === 'desc' ? 'DESC' : 'ASC']);
+    }
+
     if (name) {
-      const productBDd = await Product.findAll({
+      let optionName = {
+        limit: Number(size),
+        offset: Number(page) * Number(size),
         where: {
           name: {
             [Op.iLike]: `%${name}%`,
           }
         },
         include: Dessert,
-      })
-      if (!productBDd.length > 0) {
-        res.status(404).json({ message: `Product name not found ${name}` })
+        order: []
+      };
+
+      if (sortBy && sortBy === 'price') {
+        optionName.order.push(['price', sort === 'desc' ? 'DESC' : 'ASC']);
       } else {
-        res.status(200).json(productBDd)
+        optionName.order.push(['name', sort === 'desc' ? 'DESC' : 'ASC']);
       }
+
+      const { count, rows } = await Product.findAndCountAll(optionName);
+      const product = rows.length;
+
+      product ? res.json({ status: "success", total: count, product: rows, length: rows.length }) : res.status(404).json({ message: `Product name not found ${name}` });
     } else {
-      const productBdd = await Product.findAll({ include: Dessert })
-      res.status(200).json(productBdd);
+      const { count, rows } = await Product.findAndCountAll(option);
+      res.json({ status: "success", total: count, product: rows, length: rows.length });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    res.status(500).json({ message: error.message });
   }
-})
+});
+
 //se agrego un controlador que hace un pedido a una api creada por url
 
 productRouter.post("/", async (req, res) => {
@@ -100,44 +123,55 @@ productRouter.post("/", async (req, res) => {
 
 })
 
-productRouter.delete('/:id', async (req, res) => {
-  const { id } = req.params
-  try {
 
-    const deleteProduct = await Product.findByPk(id);
-    if (!deleteProduct) {
-      return res.status(404).json({ message: 'El producto no existe' });
-    }
-    await deleteProduct.destroy();
-    res.json({ message: 'Producto eliminado exitosamente' });
 
-  } catch (error) {
-    res.status(500).json({ message: 'Ocurrió un error al eliminar el producto' });
-  }
-})
+productRouter.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { name, price, description, summary, image } = req.body;
 
-productRouter.put('/:id', async (req, res) => {
-  const { id } = req.params
-  const { name, summary, description, price } = req.body;
   try {
     const product = await Product.findByPk(id);
+
     if (!product) {
-      return res.status(404).json({ message: 'El producto no existe' });
+      return res.status(404).json({ message: `Product with id ${id} not found` });
     }
-    product.name = name;
-    product.summary = summary;
-    product.description = description;
-    product.price = price;
+
+    product.name = name || product.name;
+    product.price = price || product.price;
+    product.description = description || product.description;
+    product.summary = summary || product.summary
+    product.image = image || product.image
 
     await product.save();
-    res.json({ message: 'Producto actualizado exitosamente', product });
 
+    res.json({ status: `the ${product.name} product was successfully modified`, product });
   } catch (error) {
-    res.status(500).json({ message: 'Ocurrió un error al actualizar el producto' });
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Resto del código de la ruta GET paginada...
+
+
+//delete the products
+productRouter.delete("/:idProduct", (req, res) => {
+  let { idProduct } = req.params;
+  try {
+    if (idProduct) {
+      let deletedProduct = Product.destroy({
+        where: {
+          id: idProduct
+        }
+      })
+      res.status(200).json(deletedProduct)
+    } else {
+      res.status(404).json({ message: "Product not found by id" })
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message })
   }
 })
 
-module.exports = productRouter;
 
 
 

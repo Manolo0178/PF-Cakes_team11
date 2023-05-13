@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from "../../components/Navbar/Navbar"
+import NavBar from "../../components/Navbar/Navbar"
 import CreadorasOhana from "../../assets/images/CreadorasOhana.png"
 
 
 function About(){
     return (
         <div>
-            <Navbar />
+            <NavBar />
 
             <h2>Nos presentamos: </h2>
 
