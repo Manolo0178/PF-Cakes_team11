@@ -99,6 +99,24 @@ productRouter.post("/", async (req, res) => {
   }
 
 })
+//delete the products
+productRouter.delete("/:idProduct", (req, res) => {
+  let {idProduct} = req.params;
+  try {
+    if(idProduct) {
+    let deletedProduct = Product.destroy({
+      where: {
+        id: idProduct
+      }
+    })
+    res.status(200).json(deletedProduct)
+  } else {
+    res.status(404).json({message: "Product not found by id"})
+  }
+  } catch (error) {
+    res.status(500).json({message: error.message})
+  }
+})
 module.exports = productRouter;
       
         

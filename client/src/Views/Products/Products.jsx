@@ -1,13 +1,16 @@
 import React from "react";
+
 import { useEffect, useState } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
+
 
 
 import NavBar from "../../components/Navbar/Navbar"
 import Cards from "../../components/Cards/cards";
 
-import { getAllProducts,orderProducts } from "../../redux/actions";
 
+import { getAllProducts,orderProducts } from "../../redux/actions";
 
 import styles from "./Products.module.css"
 
@@ -16,15 +19,18 @@ function Products() {
     const products = useSelector(state => state.allProducts)
     const [order,setOrder] = useState("");
 
+
     useEffect(() => {
         dispatch(getAllProducts());
     }, [dispatch])
     
+   
 
     const handlerOrderProducts = (event) =>{
       dispatch(orderProducts(event.target.value));
       setOrder(`${event.target.value}`);
     }
+
 
     return (
       <div className={styles.products}>
@@ -33,8 +39,16 @@ function Products() {
           <br></br>
           <h1 className={styles.h1}>Products</h1>
           <section className={styles.cont}>
+          <div className={styles.categoryBox}>
             <div className={styles.category}>
               <h5>Categorías</h5>
+                    <select>
+                        <option value="">Tortas</option>
+                        <option value="">Tartas</option>
+                        <option value="">Alfajores</option>
+                        <option value="">Otros</option>
+                    </select>   
+            </div>
             </div>
             <div className={styles.cardsCont}>
                 <div className={styles.orderBy}>
@@ -47,7 +61,7 @@ function Products() {
                         <option value="desc">Z-A</option>
                     </select>                    
                 </div>
-                <Cards products={products} />
+                <Cards products={products}/>
             </div>
           </section>
         </div>

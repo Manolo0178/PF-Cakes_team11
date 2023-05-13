@@ -1,7 +1,4 @@
 .searchbar {
-    position: absolute;
-    top: 0;
-    left: 30px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -21,14 +18,18 @@
     padding: 10px 20px;
     margin-right: 10px;
   }
-  
-  .searchbar__submit {
+    .submit{
+      background: none;
+      border: none;
+      
+    }
+  /* .searchbar__submit {
     border: none;
     border-radius: 25px;
-    background-color: #ff8c94;
+    background-color: #F7C9C9;
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     font-size: 1rem;
-  }
+  } */

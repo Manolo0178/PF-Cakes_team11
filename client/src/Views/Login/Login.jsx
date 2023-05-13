@@ -4,6 +4,8 @@ import Button from "react-bootstrap/Button";
 //import icons
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
+import NavBar from '../../components/Navbar/Navbar';
+import { Link } from "react-router-dom";
 
 import styles from "./Login.module.css"
 
@@ -30,6 +32,7 @@ const Login = () => {
   
   return (
     <div className={styles.cont}>
+      <NavBar/>
       <div className={styles.loginCont}>
         <h1>Iniciar sesión</h1>
         <div className={styles.inputCont}>
@@ -70,7 +73,9 @@ const Login = () => {
         <Button variant="primary">Login</Button>{" "}
         <div className={styles.links}>
           <p>No puedes iniciar sesión?</p>
-          <p>Crear cuenta</p>
+          <Link to="/createUser">
+            Crear cuenta
+          </Link>
         </div>
       </div>
     </div>
