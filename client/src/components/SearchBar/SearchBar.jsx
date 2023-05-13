@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { searchProducts } from "../../redux/actions/index";
 import style from "./SearchBar.module.css";
 
+import { FcSearch } from "react-icons/fc";
+
 export default function SearchBar() {
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
@@ -29,7 +31,7 @@ export default function SearchBar() {
           onChange={onInputChange}
           value={search}
         />
-        <input className={style.searchbar__submit} type="submit" value="Buscar" />
+        <button className={style.submit} type="submit"><FcSearch size="2.3rem"/></button>
       </form>
     </div>
   );
