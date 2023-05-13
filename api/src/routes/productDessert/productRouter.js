@@ -39,7 +39,7 @@ productRouter.get("/:idProduct", async (req, res) => {
 
 productRouter.get("/", async (req, res) => {
   try {
-    const { name, order, priceOrder } = req.query;
+    const { name } = req.query;
     if (name) {
       const productBDd = await Product.findAll({
         where: {
@@ -55,18 +55,13 @@ productRouter.get("/", async (req, res) => {
         res.status(200).json(productBDd)
       }
     } else {
-      const productBdd = await Product.findAll({ 
-        include: Dessert, 
-        // order: order === "asc" ? [["name",  "ASC"]] : order === "desc" ? [["name", "DESC"]] : null,
-        // order: priceOrder === "asc" ? [["price", "ASC"]] : priceOrder === "desc" ? [["price", "DESC"]] : null
-      })
+      const productBdd = await Product.findAll({ include: Dessert })
         res.status(200).json(productBdd);
       }
     } catch (error) {
       res.status(500).json({ message: error.message })
   }
 })
-
 //se agrego un controlador que hace un pedido a una api creada por url
         
 productRouter.post("/", async (req, res) => {
@@ -103,6 +98,23 @@ productRouter.post("/", async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 
+})
+productRouter.delete("/:idProduct", (req, res) => {
+  let {idProduct} = req.params;
+  try {
+    if(idProduct) {
+    let deletedProduct = Product.destroy({
+      where: {
+        id: idProduct
+      }
+    })
+    res.status(200).json(deletedProduct)
+  } else {
+    res.status(404).json({message: "Product not found by id"})
+  }
+  } catch (error) {
+    res.status(500).json({message: error.message})
+  }
 })
 module.exports = productRouter;
       
