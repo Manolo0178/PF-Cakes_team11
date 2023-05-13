@@ -80,3 +80,11 @@ export function getDessert(){
     }
 
 }
+
+
+export function changeDetails(payload,id) {
+  return async function () {
+    console.log(payload)
+    return await axios.put(`http://localhost:3001/products/${id}`, payload);
+  }
+}
