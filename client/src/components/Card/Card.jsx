@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Card.module.css"
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom";
 function Card({ product }) {
     const {name, image, description, price, id}=product
     return (

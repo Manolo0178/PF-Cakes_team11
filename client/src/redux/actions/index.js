@@ -12,9 +12,12 @@ export const LIMPIAR_DETAILS = "LIMPIAR_DETAILS";
 export const SEARCH_PRODUCTS = "SEARCH_PRODUCTS";
 export const ORDER_PRODUCTS = "ORDER_PRODUCTS";
 export const GET_DESSERT = "GET_DESSERT";
+/************************************ */
+export const CREATE_DESERT = "CREATE_DESERT";
+export const FORM_ERROR = "FORM_ERROR"
 
 
-
+export const FILTER_PRODUCTS = "FILTER_PRODUCTS";
 
 //******** Get all products **********/
 export function getAllProducts() {
@@ -66,12 +69,12 @@ export function orderProducts(value){
 }
 
 
-export function postDessert(payload){
-  return async function (dispatch){
-      const response = await axios.post("http://localhost:3001/products",payload)
-      return response;
-  }
-}
+// export function postDessert(payload){
+//   return async function (dispatch){
+//       const response = await axios.post("http://localhost:3001/products",payload)
+//       return response;
+//   }
+// }
 
 export function getDessert(){
     return (dispatch) => {
@@ -79,4 +82,45 @@ export function getDessert(){
       .then((response) => {dispatch({type: GET_DESSERT, payload: response.data})})
     }
 
+}
+
+
+export function changeDetails(payload,id) {
+  return async function () {
+    console.log(payload)
+    return await axios.put(`http://localhost:3001/products/${id}`, payload);
+  }
+}
+
+export const postDessert = (form) => {
+  return async (dispatch) => {
+    try {
+      let response = await axios.post("http://localhost:3001/products", form);
+      let formData = await response.data;
+      if (formData.length > 0) {
+        dispatch({
+          type: CREATE_DESERT,
+          payload: formData,
+        });
+      } else {
+        dispatch({
+          type: FORM_ERROR,
+          payload: "Postre creado",
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: FORM_ERROR,
+        payload: "Postre no creado",
+      });
+      console.log(error);
+    }
+  };
+};
+
+export const filterProducts = (filter) => {
+  return {
+    type: FILTER_PRODUCTS,
+    payload: filter,
+  };
 }

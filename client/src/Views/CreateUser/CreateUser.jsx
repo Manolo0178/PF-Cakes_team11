@@ -3,7 +3,8 @@ import { useState } from "react";
 
 import styles from "./CreateUser.module.css";
 import Button from "react-bootstrap/Button";
-
+import Footer from "../../components/Footer/Footer";
+import NavBar from "../../components/Navbar/Navbar";
 const CreateUser = () => {
   const [form, setForm] = useState({
     name: "",
@@ -65,6 +66,7 @@ const CreateUser = () => {
 
   return (
     <div className={styles.cont}>
+      <NavBar/>
       <div className={styles.formCont}>
         <h1>Crear usuario</h1>
         <form className={styles.form}>
@@ -122,6 +124,7 @@ const CreateUser = () => {
           </div>
         </form>
       </div>
+      <Footer/>
     </div>
   );
 };

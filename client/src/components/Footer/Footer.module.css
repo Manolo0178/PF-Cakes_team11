@@ -1,0 +1,17 @@
+.footerCont{
+    width: 100%;
+    height: 150px;
+    background-color: #f89fa5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+.footerIconsCont{
+    width: 100%;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+}
