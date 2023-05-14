@@ -11,7 +11,7 @@ function About(){
 
             <h2>Nos presentamos: </h2>
 
-            <img src={CreadorasOhana} height="600px"></img>
+            <img src={CreadorasOhana} height="600px" alt='aylen'></img>
             <h4>Mi madre y yo siempre hemos tenido una pasión por la cocina y la pastelería. Cuando terminé mi carrera de chef, decidimos crear nuestra propia pastelería desde cero. Comenzamos con muy poco dinero, pero con nuestras habilidades culinarias y nuestro entusiasmo por el negocio, compramos los ingredientes necesarios para nuestras primeras creaciones.
 
             Preparamos los pasteles, los cupcakes, las galletas y los macarons más deliciosos que jamás habíamos hecho y los presentamos en una pequeña mesa en la entrada de nuestra casa. Los primeros clientes que llegaron fueron amigos y familiares, pero pronto comenzamos a recibir pedidos de personas que habían probado nuestras deliciosas creaciones.

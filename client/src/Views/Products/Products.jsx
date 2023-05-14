@@ -39,18 +39,18 @@ function Products() {
             <div className={styles.category}>
               <h5>Categorías</h5>
                     <select>
-                        <option value="">Tortas</option>
-                        <option value="">Tartas</option>
-                        <option value="">Alfajores</option>
-                        <option value="">Otros</option>
+                        <option value="tortas">Tortas</option>
+                        <option value="tartas">Tartas</option>
+                        <option value="alfajores">Alfajores</option>
+                        <option value="otros">Otros</option>
                     </select>   
             </div>
             </div>
             <div className={styles.cardsCont}>
                 <div className={styles.orderBy}>
                     <label htmlFor="">ordenar por:</label>
-                    <select onChange = {handlerOrderProducts}>
-                        <option value="order" disabled selected>Order</option>
+                    <select onChange = {handlerOrderProducts} value={order}>
+                        <option value="" disabled >Order</option>
                         <option value="max-min">Precio: Menor a Mayor</option>
                         <option value="min-max">Precio: Mayor a Menor</option>
                         <option value="asc">A-Z</option>
