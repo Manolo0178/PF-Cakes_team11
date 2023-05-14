@@ -4,7 +4,7 @@ import {postDessert, getDessert} from '../../redux/actions/index';
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../components/Navbar/Navbar";
 import style from "./dessert.module.css";
-
+import Footer from "../../components/Footer/Footer";
 function validate(input){
     let errors = {};
     if(!input.name){
@@ -177,6 +177,7 @@ export default function CreateDessert(){
                     </div>
                 )
             }
+            <Footer/>
         </div>
     )
 

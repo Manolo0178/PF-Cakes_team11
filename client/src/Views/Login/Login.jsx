@@ -6,7 +6,7 @@ import { FaGoogle } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import NavBar from '../../components/Navbar/Navbar';
 import { Link } from "react-router-dom";
-
+import Footer from "../../components/Footer/Footer";
 import styles from "./Login.module.css"
 
 import validation from './Validation';
@@ -78,6 +78,7 @@ const Login = () => {
           </Link>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

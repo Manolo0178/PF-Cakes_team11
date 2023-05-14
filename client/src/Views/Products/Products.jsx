@@ -14,7 +14,7 @@ function Products() {
     const dispatch = useDispatch()
     const products = useSelector(state => state.allProducts)
     const [order, setOrder] = useState("");
-    console.log(products);
+
 
     useEffect(() => {
         dispatch(getAllProducts());

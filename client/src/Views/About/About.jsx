@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import NavBar from "../../components/Navbar/Navbar"
 import CreadorasOhana from "../../assets/images/CreadorasOhana.png"
+import Footer from '../../components/Footer/Footer';
 
 
 function About(){
@@ -19,6 +19,7 @@ function About(){
             Nuestra pastelería se hizo famosa en la ciudad y, con el tiempo, la pequeña mesa se convirtió en un mostrador, el mostrador en una tienda y la tienda en una franquicia de pastelerías. Trabajamos arduamente para mantener la calidad y el sabor de nuestras creaciones, y nuestro negocio siguió creciendo año tras año.
 
             Aunque tuvimos momentos difíciles, nunca perdimos el entusiasmo y la pasión por nuestro negocio, y asi nacio OHANA PASTELERIA. </h4>
+            <Footer/>
         </div>
     )
         

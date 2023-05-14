@@ -97,7 +97,12 @@
 
 .nameCont{
     display: flex;
-    gap: 20px;
+    gap: 10px;
+    justify-content: flex-start;
+}
+.name{
+    display: flex;
+    justify-content: flex-start;
 }
 .nameButton{
     background: none;
@@ -127,7 +132,8 @@
     font-size: 1.5rem;
 }
 .descriptionCont{
-    margin-top: 30px;
+    margin-top: 40px;
     width: 60%;
     margin: 0 auto;
+    margin-bottom: 60px;
 }

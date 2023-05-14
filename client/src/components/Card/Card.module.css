@@ -3,6 +3,8 @@
     max-width: 320px;
     cursor: pointer;
     position: relative;
+    text-decoration: none;
+    color: black;
 }
 .imageCont{
     width: 100%;

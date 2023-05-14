@@ -8,10 +8,11 @@ import { Link } from "react-router-dom";
 import NavBar from "../../components/Navbar/Navbar"
 import CarouselSlide from "../../components/Carousel/Carousel"
 import Cards from "../../components/Cards/cards";
-
+import Footer from "../../components/Footer/Footer";
 
 import { getAllProducts } from "../../redux/actions";
-
+import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
     const dispatch = useDispatch();
@@ -21,16 +22,26 @@ function Home() {
         dispatch(getAllProducts())
     }, [dispatch])
     
-    products.length=12
+    products.length = 12
+    
+    const navigate = useNavigate()
+    const navigation = () => {
+        navigate("/Products")
+    }
     return (
       <div className={styles.homeCont}>
-            <NavBar />
-            <CarouselSlide />
-            <section className={styles.cardsCont}>
-                <h3>Algunos de nuestros productos</h3>
-                <Cards products={products} />
-                <Link to="/products">ver más</Link>
-            </section>
+        <NavBar />
+        <CarouselSlide />
+        <section className={styles.cardsCont}>
+          <h3>Algunos de nuestros productos</h3>
+          <Cards products={products} />
+          <div className={styles.buttonCont}>
+            <Button onClick={navigation} variant="primary">
+              Ver mas productos
+            </Button>{" "}
+          </div>
+        </section>
+        <Footer />
       </div>
     );
 }
