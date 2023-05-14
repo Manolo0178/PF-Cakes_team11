@@ -125,20 +125,23 @@ export default function CreateDessert() {
         onSubmit={(e) => handleSubmit(e)}
         className={style.form}
         autoComplete="off"
-        >
+      >
         <h1>Crea tu postre!</h1>
         <div className={style.textCont}>
           <div className={style.inputCont}>
-            <label className="label">Nombre:</label>
-            <input
-              type="text"
-              value={form.name}
-              name="name"
-              onChange={handleChange}
-            />
+            <div className={style.input}>
+              <label className="label">Nombre:</label>
+              <input
+                type="text"
+                value={form.name}
+                name="name"
+                onChange={handleChange}
+              />
+            </div>
             {errors.name && <p className="error">{errors.name}</p>}
           </div>
           <div className={style.inputCont}>
+            <div className={style.input}>
             <label>Summary:</label>
             <input
               type="text"
@@ -146,19 +149,25 @@ export default function CreateDessert() {
               name="summary"
               onChange={handleChange}
             />
+            </div>
             {errors.summary && <p className="error">{errors.summary}</p>}
           </div>
           <div className={style.inputCont}>
+            <div className={style.input}>
             <label>Descripcion:</label>
             <input
               type="text"
               value={form.description}
               name="description"
               onChange={handleChange}
-            />
-            {errors.description && <p className="error">{errors.description}</p>}
+              />
+            </div>
+            {errors.description && (
+              <p className="error">{errors.description}</p>
+            )}
           </div>
           <div className={style.inputCont}>
+            <div className={style.input}>
             <label>Price:</label>
             <input
               type="number"
@@ -166,17 +175,20 @@ export default function CreateDessert() {
               name="price"
               onChange={(e) => handleChange(e)}
               // defaultValue="0"
-            />
+              />
+            </div>
             {errors.price && <p className="error">{errors.price}</p>}
           </div>
           <div className={style.inputCont}>
+            <div className={style.input}>
             <label>Imagen PNG:</label>
             <input
               type="text"
               value={form.image}
               name="image"
               onChange={handleChange}
-            />
+              />
+            </div>
             {errors.image && <p className="error">{errors.image}</p>}
           </div>
           <label htmlFor="desserts">
@@ -208,7 +220,7 @@ export default function CreateDessert() {
           </button>
         </div>
       ))}
-      <Footer/>
+      <Footer />
     </div>
   );
 }

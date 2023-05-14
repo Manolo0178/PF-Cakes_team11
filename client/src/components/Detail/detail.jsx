@@ -38,7 +38,8 @@ export default function Detail() {
 
 
 //*********** handle changes *************
-  const changeImage = (prop) => {
+  
+  const changeImage = () => {
     let img = prompt("¿Que imágen desea colocarle?", `${myProduct.image}`);
     dispatch(changeDetails({ image: img }, myProduct.id));
     if (img) {
