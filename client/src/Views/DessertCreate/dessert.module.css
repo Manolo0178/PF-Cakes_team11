@@ -4,4 +4,26 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
+}
+.form{
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(230, 176, 185);
+    border-radius: 10px;    
+}
+.textCont{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.inputCont{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
 }

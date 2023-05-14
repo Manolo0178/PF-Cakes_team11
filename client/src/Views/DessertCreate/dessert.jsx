@@ -4,7 +4,7 @@ import { postDessert, getDessert } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../components/Navbar/Navbar";
 import style from "./dessert.module.css";
-
+import Footer from "../../components/Footer/Footer"
 export default function CreateDessert() {
   const dispatch = useDispatch();
   //   const navigate = useNavigate();
@@ -121,78 +121,80 @@ export default function CreateDessert() {
   return (
     <div className={style.cont}>
       <NavBar />
-      <h1>Crea tu postre!</h1>
       <form
         onSubmit={(e) => handleSubmit(e)}
-        className="form"
+        className={style.form}
         autoComplete="off"
-      >
-        <div>
-          <label className="label">Nombre:</label>
-          <input
-            type="text"
-            value={form.name}
-            name="name"
-            onChange={handleChange}
-          />
-          {errors.name && <p className="error">{errors.name}</p>}
-        </div>
-        <div>
-          <label>Summary:</label>
-          <input
-            type="text"
-            value={form.summary}
-            name="summary"
-            onChange={handleChange}
-          />
-          {errors.summary && <p className="error">{errors.summary}</p>}
-        </div>
-        <div>
-          <label>Descripcion:</label>
-          <input
-            type="text"
-            value={form.description}
-            name="description"
-            onChange={handleChange}
-          />
-          {errors.description && <p className="error">{errors.description}</p>}
-        </div>
-        <div>
-          <label>Price:</label>
-          <input
-            type="number"
-            value={form.price !== "null" ? form.price : "0"}
-            name="price"
-            onChange={(e) => handleChange(e)}
-            // defaultValue="0"
-          />
-          {errors.price && <p className="error">{errors.price}</p>}
-        </div>
-        <div>
-          <label>Imagen PNG:</label>
-          <input
-            type="text"
-            value={form.image}
-            name="image"
-            onChange={handleChange}
-          />
-          {errors.image && <p className="error">{errors.image}</p>}
-        </div>
-        <label htmlFor="desserts">
-          Dessert:
-          <select name="desserts" onChange={handleSelect}>
-            <option value="">Seleccionar</option>
-            {desserts?.map((dessert, index) => (
-              <option value={dessert} key={index}>
-                {dessert}
-              </option>
-            ))}
-          </select>
-        </label>
+        >
+        <h1>Crea tu postre!</h1>
+        <div className={style.textCont}>
+          <div className={style.inputCont}>
+            <label className="label">Nombre:</label>
+            <input
+              type="text"
+              value={form.name}
+              name="name"
+              onChange={handleChange}
+            />
+            {errors.name && <p className="error">{errors.name}</p>}
+          </div>
+          <div className={style.inputCont}>
+            <label>Summary:</label>
+            <input
+              type="text"
+              value={form.summary}
+              name="summary"
+              onChange={handleChange}
+            />
+            {errors.summary && <p className="error">{errors.summary}</p>}
+          </div>
+          <div className={style.inputCont}>
+            <label>Descripcion:</label>
+            <input
+              type="text"
+              value={form.description}
+              name="description"
+              onChange={handleChange}
+            />
+            {errors.description && <p className="error">{errors.description}</p>}
+          </div>
+          <div className={style.inputCont}>
+            <label>Price:</label>
+            <input
+              type="number"
+              value={form.price !== "null" ? form.price : "0"}
+              name="price"
+              onChange={(e) => handleChange(e)}
+              // defaultValue="0"
+            />
+            {errors.price && <p className="error">{errors.price}</p>}
+          </div>
+          <div className={style.inputCont}>
+            <label>Imagen PNG:</label>
+            <input
+              type="text"
+              value={form.image}
+              name="image"
+              onChange={handleChange}
+            />
+            {errors.image && <p className="error">{errors.image}</p>}
+          </div>
+          <label htmlFor="desserts">
+            Dessert:
+            <select name="desserts" onChange={handleSelect}>
+              <option value="">Seleccionar</option>
+              {desserts?.map((dessert, index) => (
+                <option value={dessert} key={index}>
+                  {dessert}
+                </option>
+              ))}
+            </select>
+          </label>
 
-        <br></br>
-        <p />
-        <h5>{form.desserts?.map((dessert) => dessert + " , ")}</h5>
+          <br></br>
+          <p />
+          <h5>{form.desserts?.map((dessert) => dessert + " , ")}</h5>
+        </div>
         <button type="submit" className="button">
           Crear Postre
         </button>
@@ -206,6 +208,7 @@ export default function CreateDessert() {
           </button>
         </div>
       ))}
+      <Footer/>
     </div>
   );
 }
