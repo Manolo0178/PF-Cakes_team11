@@ -17,9 +17,6 @@ export const CREATE_DESERT = "CREATE_DESERT";
 export const FORM_ERROR = "FORM_ERROR"
 
 
-
-
-
 //******** Get all products **********/
 export function getAllProducts() {
   return (dispatch) => {
@@ -118,3 +115,9 @@ export const postDessert = (form) => {
     }
   };
 };
+
+export const filterProducts = (filter) => {
+  return async (dispatch) => {
+    
+  }
+}

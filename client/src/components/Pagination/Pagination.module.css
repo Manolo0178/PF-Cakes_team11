@@ -1,0 +1,32 @@
+.paginationCont {
+    width: 80%;
+    margin: 0 auto;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+}
+
+.pageCont {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pageChange {
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #f89fa5;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 3px;
+}
+
+.pageNum {
+    color: #fff;
+    background-color: transparent;
+    border: 1px solid #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+}

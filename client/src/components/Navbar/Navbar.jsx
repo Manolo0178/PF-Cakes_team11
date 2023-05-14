@@ -5,6 +5,8 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
+import { MdOutlineLocalGroceryStore } from "react-icons/md";
+
 import styles from "./Navbar.module.css";
 
 function NavBar() {
@@ -12,13 +14,11 @@ function NavBar() {
     <Navbar expand="lg" className={styles.navBarCont}>
       <Container className={styles.cont}>
         <Navbar.Brand as={Link} to="/home" className={styles.logoCont}>
-
-            <img
-              className="navbar-brand"
-              src="https://github.com/Manolo0178/PF-Cakes_team11/raw/main/cake.png"
-              width="90px"
-            />
-
+          <img
+            className="navbar-brand"
+            src="https://github.com/Manolo0178/PF-Cakes_team11/raw/main/cake.png"
+            width="90px" alt="logo"
+          />
         </Navbar.Brand>
 
         <SearchBar />
@@ -35,14 +35,14 @@ function NavBar() {
             <Nav.Link as={Link} to="/products" className={styles.link}>
               Products
             </Nav.Link>
-            <Nav.Link as={Link} to="/budget" className={styles.link}>
-              Presupuesto
-            </Nav.Link>
             <Nav.Link as={Link} to="/create" className={styles.link}>
-              Crear
+              Crear Postre
             </Nav.Link>
             <Nav.Link as={Link} to="/login" className={styles.link}>
               Login
+            </Nav.Link>
+            <Nav.Link className={styles.link}>
+              <MdOutlineLocalGroceryStore color="white" size="1.6rem"/>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

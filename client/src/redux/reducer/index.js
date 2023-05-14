@@ -13,6 +13,8 @@ const initialState = {
   allProducts: [],
   productByDessert: [],
 
+  filteredProducts: [],
+
   idProduct: {},
   dessert: [],
   dessertCreate: [],
@@ -26,6 +28,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         allProducts: action.payload,
         productByDessert: action.payload,
+        filteredProducts: action.payload,
       };
 
     case GET_PRODUCT_BY_ID:

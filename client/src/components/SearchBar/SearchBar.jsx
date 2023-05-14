@@ -4,15 +4,20 @@ import { searchProducts } from "../../redux/actions/index";
 import style from "./SearchBar.module.css";
 
 import { FcSearch } from "react-icons/fc";
-
+import { useNavigate } from "react-router-dom";
 export default function SearchBar() {
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
-
+  const navigate = useNavigate()
   function onSubmit(el) {
     el.preventDefault();
     if (search.length === 0) return alert("Debes ingresar un producto");
-    dispatch(searchProducts(search));
+    if (window.location.pathname !== "/Products") {
+      navigate("/Products")
+      setTimeout(() => {
+        dispatch(searchProducts(search));
+      }, 100);
+    }
     setSearch("");
   }
 
