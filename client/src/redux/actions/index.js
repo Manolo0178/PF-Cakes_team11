@@ -17,6 +17,8 @@ export const CREATE_DESERT = "CREATE_DESERT";
 export const FORM_ERROR = "FORM_ERROR"
 
 
+export const FILTER_PRODUCTS = "FILTER_PRODUCTS";
+
 //******** Get all products **********/
 export function getAllProducts() {
   return (dispatch) => {
@@ -117,7 +119,8 @@ export const postDessert = (form) => {
 };
 
 export const filterProducts = (filter) => {
-  return async (dispatch) => {
-    
-  }
+  return {
+    type: FILTER_PRODUCTS,
+    payload: filter,
+  };
 }

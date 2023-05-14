@@ -16,7 +16,7 @@ function Products() {
     const products = useSelector(state => state.allProducts)
     const [order, setOrder] = useState("");
     const desserts = useSelector((state) => state.dessert);
-  
+
     useEffect(() => {
       dispatch(getAllProducts());
       dispatch(getDessert());
@@ -26,10 +26,11 @@ function Products() {
       dispatch(orderProducts(event.target.value));
       setOrder(`${event.target.value}`);
   }
-  const handleFilter = (e, des) => {
-    if (e.target.checked) {
-      dispatch(filterProducts(des));
-    }
+
+
+  const handleFilter = (event) => {
+    dispatch(filterProducts(event.target.value));
+    setOrder(`${event.target.value}`);
   }
 
 
@@ -66,20 +67,14 @@ function Products() {
             <div className={styles.categoryBox}>
               <div className={styles.category}>
                 <h5>Categorías</h5>
-                <div>
+                <select onChange={handleFilter}>
+                  <option value="all">Todos</option>
                   {desserts?.map((des, index) => (
-                    <div key={index}>
-                      <input
-                        type="checkbox"
-                        name=""
-                        id=""
-                        value={des}
-                        onChange={(e) => handleFilter(e, des)}
-                      />
-                      <p>{des}</p>
-                    </div>
+                    <option key={index} value={des}>
+                      {des}
+                    </option>
                   ))}
-                </div>
+                </select>
               </div>
             </div>
             <div className={styles.cardsCont}>
@@ -89,8 +84,8 @@ function Products() {
                   <option value="" disabled>
                     Order
                   </option>
-                  <option value="max-min">Precio: Mayor a Menor</option>
                   <option value="min-max">Precio: Menor a Mayor</option>
+                  <option value="max-min">Precio: Mayor a Menor</option>
                   <option value="asc">A-Z</option>
                   <option value="desc">Z-A</option>
                 </select>

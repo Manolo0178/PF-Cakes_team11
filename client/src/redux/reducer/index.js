@@ -7,6 +7,7 @@ import {
   GET_DESSERT,
   CREATE_DESERT,
   FORM_ERROR,
+  FILTER_PRODUCTS,
 } from "../actions";
 
 const initialState = {
@@ -85,6 +86,13 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         errorForm: action.payload,
+      };
+    
+    case FILTER_PRODUCTS:
+      let filtred = action.payload === "all"? state.filteredProducts : state.filteredProducts.filter(product=>product.desserts[0].name.includes(action.payload))
+      return {
+        ...state,
+        allProducts: filtred,
       };
     default:
       return {
