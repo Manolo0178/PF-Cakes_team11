@@ -18,6 +18,9 @@ export default function SearchBar() {
         dispatch(searchProducts(search));
       }, 100);
     }
+    if (window.location.pathname === "/Products") {
+      dispatch(searchProducts(search))
+    }
     setSearch("");
   }
 
