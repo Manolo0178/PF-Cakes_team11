@@ -32,7 +32,7 @@ const Pagination = ({
       <div className={styles.pageCont}>
         {numberPages?.map((pag, i) => (
           <button
-            className={styles.pageNum}
+            className={`${styles.pageNum} ${page === pag && styles.active}`}
             key={i}
             onClick={() => paginate(pag)}
           >

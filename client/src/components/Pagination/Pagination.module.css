@@ -30,3 +30,6 @@
     font-size: 0.9rem;
     cursor: pointer;
 }
+.active{
+    background-color: #f89fa5;
+}
