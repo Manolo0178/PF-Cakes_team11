@@ -2,21 +2,15 @@ const {DataTypes} = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define("cart", {
-    id: {
+    userId: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
       allowNull: false,
-      autoIncrement: true
-    },
-    order: {
-      type: DataTypes.ARRAY(DataTypes.JSON),
-      allowNull: false
     },
     deleted: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: false,
-    },
+      defaultValue: true
+    }
   }, {
     timestamps: false,
     freezeTableName: true,
