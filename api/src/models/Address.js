@@ -6,7 +6,12 @@ module.exports = (sequelize) => {
         shippingAddress: {
             type: DataTypes.TEXT,
             allowNull: false
-          }, // horacio 
+          }, // horacio
+          deleted: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: true
+          }
     }, {
         timesStamps: false,
         freezeTableName: true,
