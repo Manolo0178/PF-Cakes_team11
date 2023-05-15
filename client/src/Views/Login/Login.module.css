@@ -1,0 +1,70 @@
+.cont{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+.loginCont{
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background-color: rgb(230, 176, 185);
+    border-radius: 10px;
+}
+.inputCont{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+.input{
+    height: 40px;
+}
+.forgotPassword{
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+}
+.forgotPassword p{
+    font-size: 0.8rem;
+}
+.loginElse{
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+
+}
+.checkbox{
+    width: 80%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+.links{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+}
+.links p{
+    font-size: 1rem;
+}
+
+.error{
+    height: 40px;
+    border: 3px solid red;
+}
+
+.success{
+    height: 40px;
+    border: 3px solid rgb(181, 247, 184);
+}

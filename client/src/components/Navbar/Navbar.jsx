@@ -1,66 +1,54 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import "./Navbar.module.css";
-import style from "./Navbar.module.css";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
 
-function Navbar() {
+import { MdOutlineLocalGroceryStore } from "react-icons/md";
+
+import styles from "./Navbar.module.css";
+
+function NavBar() {
   return (
-    <div class="container-fluid navbar-dark bg-pink">
-    <div class="container-fluid">
-        <nav class="navbar navbar-expand-md container">
-        <img class="navbar-brand" src="https://github.com/Manolo0178/PF-Cakes_team11/raw/main/cake.png" width="90px"></img>
-        <ul></ul>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    <Navbar expand="lg" className={styles.navBarCont}>
+      <Container className={styles.cont}>
+        <Navbar.Brand as={Link} to="/home" className={styles.logoCont}>
+          <img
+            className="navbar-brand"
+            src="https://github.com/Manolo0178/PF-Cakes_team11/raw/main/cake.png"
+            width="90px" alt="logo"
+          />
+        </Navbar.Brand>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <button class={style.nav} href="#" style={{color: "white", fontSize: "1.1rem", fontWeight:"bold"}}>Inicio</button>
-            </li>
-            <ul></ul>   
-            <li class="nav-item">
-              <button class={style.nav} href="#" style={{color: "white", fontSize: "1.1rem", fontWeight:"bold"}}>Know us</button>
-            </li>
-            <ul></ul>
-            <li class="nav-item">
-              <button class={style.nav} href="#" style={{color: "white", fontSize: "1.1rem", fontWeight:"bold"}}>Products</button>
-            </li>
-            <ul></ul>
-            <li class="nav-item">
-              <button class={style.nav} href="#" style={{color: "white", fontSize: "1.1rem", fontWeight:"bold"}}>Contact</button>
-            </li>
-            <ul></ul>
-            <li class="nav-item">
-              <button class={style.nav} href="#" style={{color: "white", fontSize: "1.1rem", fontWeight:"bold"}}>Budget</button>
-            </li>
-            <SearchBar/>
-            <ul></ul>
-            <ul></ul>
-            <ul></ul>
-            <li class="nav-item">
-              <button class={style.nav} href="#" style={{color: "white", fontSize: "1.1rem", fontWeight:"bold"}}>Create User</button>
-            </li>
-            <ul></ul>
-            <li class="nav-item">
-              <button class={style.nav} href="#" style={{color: "white", fontSize: "1.1rem", fontWeight:"bold"}}>Login</button>
-            </li>
-          </ul>
-          <ul></ul>
-          <ul></ul>
-          <ul></ul>
-          <ul></ul>
-          <ul></ul>
-         <SearchBar/>
-        </div>
-      </nav>
-  </div>
-</div>
+        <SearchBar />
+
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav" className={styles.linksCont}>
+          <Nav className={styles.linkCont}>
+            <Nav.Link as={Link} to="/home" className={styles.link}>
+              Home
+            </Nav.Link>
+            <Nav.Link as={Link} to="/about" className={styles.link}>
+              About
+            </Nav.Link>
+            <Nav.Link as={Link} to="/products" className={styles.link}>
+              Products
+            </Nav.Link>
+            <Nav.Link as={Link} to="/create" className={styles.link}>
+              Crear Postre
+            </Nav.Link>
+            <Nav.Link as={Link} to="/login" className={styles.link}>
+              Login
+            </Nav.Link>
+            <Nav.Link className={styles.link}>
+              <MdOutlineLocalGroceryStore color="white" size="1.6rem"/>
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 
-export default Navbar;
+export default NavBar;
