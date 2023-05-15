@@ -6,11 +6,11 @@ sequelize.define("dessert", {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    deleted: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
-    }
+    // deleted: {
+    //   type: DataTypes.BOOLEAN,
+    //   allowNull: false,
+    //   defaultValue: true
+    // }
   }, {
     timestamps: false,
     freezeTableName: true,
