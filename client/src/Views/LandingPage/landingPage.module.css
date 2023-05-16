@@ -2,16 +2,30 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  background-color: #fca2cf; /* rosa */
 }
 
 .leftSide {
-  background-color: #fca2cf; /* rosa */
-  padding: 155px;
+  padding: 80px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .rightSide {
   background-color: #fca2cf; /* marrón clarito */
-  padding: 90px;
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.loginForm {
+  margin-right: 70px;
 }
 
 .btn {

@@ -22,8 +22,8 @@ function Landing() {
             </Link>
           </div>
           <div className={`col-md-6 ${styles.rightSide}`}>
-            <div className={styles.loginForm}>
-              <LoginForm/>
+          <div className={`${styles.loginForm} right-align`}>
+            <LoginForm />
             </div>
           </div>
         </div>
