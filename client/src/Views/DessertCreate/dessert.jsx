@@ -5,12 +5,22 @@ import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../components/Navbar/Navbar";
 import style from "./dessert.module.css";
 import Footer from "../../components/Footer/Footer"
+import validation from "./Validation";
 export default function CreateDessert() {
   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
 
   const desserts = useSelector((state) => state.dessert);
   const errorForm = useSelector((state) => state.errorForm);
+ 
+  const [form, setForm] = useState({
+    name: "",
+    summary: "",
+    description: "",
+    image: "",
+    price: "",
+    desserts: [],
+  });
+  
   const [errors, setErrors] = useState({
     name: "",
     summary: "",
@@ -20,63 +30,12 @@ export default function CreateDessert() {
     desserts: [],
   });
 
-  const [form, setForm] = useState({
-    name: "",
-    summary: "",
-    description: "",
-    image: "",
-    price: "",
-    desserts: [],
-  });
+  function handleChange(event) {
+    const property = event.target.name;
+    const value = event.target.value;
 
-  function validate() {
-    let newErrors = {};
-    if (!form.name) {
-      newErrors.name = "Se requiere un nombre para el postre";
-    } else if (!/^[a-zA-Z ]+$/.test(form.name)) {
-      newErrors.name = "No se permiten numeros";
-    } else {
-      newErrors.name = "";
-    }
-
-    if (!form.summary) {
-      newErrors.summary = "Se requiere completar el summary";
-    } else {
-      newErrors.summary = "";
-    }
-
-    if (!form.description) {
-      newErrors.description = "Se requiere completar la descripcion";
-    } else {
-      newErrors.description = "";
-    }
-
-    // if (!/^https?:\/\/[\da-z.-]+\.[a-z.]{2,6}(\/[\w .-]*)*\/?$/.test(form.image)) {
-    //   newErrors.image = "Se requiere una url";
-    // } else {
-    //   newErrors.image = "";
-    // }
-
-    if (!form.desserts) {
-      newErrors.desserts = "Se requiere conocer el postre";
-    } else {
-      newErrors.desserts = "";
-    }
-
-    setErrors({ ...errors, ...newErrors });
-  }
-
-  function handleChange(e) {
-    e.target.name === "dessert"
-      ? setForm({
-          ...form,
-          desserts: [...form.desserts, e.target.value],
-        })
-      : setForm({
-          ...form,
-          [e.target.name]: e.target.value,
-        });
-    validate(e.target.value);
+    setForm({ ...form, [property]: value });
+    setErrors(validation({...form,[property]:value},errors))
   }
 
   function handleDelete(value) {
@@ -92,11 +51,13 @@ export default function CreateDessert() {
 
   function handleSelect(e) {
     const selectedDessert = e.target.value;
-    setForm({
-      ...form,
-      desserts: [...form.desserts, selectedDessert],
-    });
-    e.target.value = ""; //limpiar el valor seleccionado
+    if (form.desserts.length < 2) {
+      setForm({
+        ...form,
+        desserts: [...form.desserts, selectedDessert],
+      });
+      e.target.value = "";
+    }
   }
 
   function handleSubmit(e) {

@@ -32,28 +32,44 @@ const Login = () => {
   
   return (
     <div className={styles.cont}>
-      <NavBar/>
+      <NavBar />
       <div className={styles.loginCont}>
         <h1>Iniciar sesión</h1>
         <div className={styles.inputCont}>
-          <input 
-            type="text" 
-            placeholder="Email" 
-            className={!userData.username ? styles.input : errors.username ? styles.error : styles.success}
-            name="username"
-            value={userData.username} 
-            onChange={handleInputChange}
+            <input
+              type="text"
+              placeholder="Email"
+              className={
+                !userData.username
+                  ? styles.input
+                  : errors.username
+                  ? styles.error
+                  : styles.success
+              }
+              name="username"
+              value={userData.username}
+              onChange={handleInputChange}
             />
-          <span className="validation">{errors.username}</span>
-          <input
-            type="text"
-            placeholder="Contraseña"
-            className={!userData.password ? styles.input : errors.password ? styles.error : styles.success}
-            name="password"
-            value={userData.password}
-            onChange={handleInputChange}
-          />
-          <span className="validation">{errors.password}</span>
+            {errors.username !== "" && (
+              <span className={styles.validationEmail}>{errors.username}</span>
+            )}
+            <input
+              type="password"
+              placeholder="Contraseña"
+              className={
+                !userData.password
+                  ? styles.input
+                  : errors.password
+                  ? styles.error
+                  : styles.success
+              }
+              name="password"
+              value={userData.password}
+              onChange={handleInputChange}
+            />
+            {errors.password !== "" && (
+              <span className={styles.validationPassword}>{errors.password}</span>
+            )}
           <div className={styles.forgotPassword}>
             <p>¿olvidaste tu contraseña?</p>
           </div>
@@ -73,12 +89,10 @@ const Login = () => {
         <Button variant="primary">Login</Button>{" "}
         <div className={styles.links}>
           <p>No puedes iniciar sesión?</p>
-          <Link to="/createUser">
-            Crear cuenta
-          </Link>
+          <Link to="/createUser">Crear cuenta</Link>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
