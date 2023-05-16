@@ -16,7 +16,7 @@ export default function CreateDessert() {
     name: "",
     summary: "",
     description: "",
-    image: "",
+    imageFile: null,
     price: "",
     desserts: [],
   });
@@ -32,7 +32,7 @@ export default function CreateDessert() {
 
   function handleChange(event) {
     const property = event.target.name;
-    const value = event.target.value;
+    const value = event.target.type === "file" ? event.target.files[0] : event.target.value;
 
     setForm({ ...form, [property]: value });
     setErrors(validation({...form,[property]:value},errors))
@@ -63,9 +63,17 @@ export default function CreateDessert() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    dispatch(postDessert(form));
+    const formData = new FormData();
+  formData.append("name", form.name);
+  formData.append("summary", form.summary);
+  formData.append("description", form.description);
+  formData.append("image", form.imageFile);
+  formData.append("price", form.price);
+  formData.append("desserts", JSON.stringify(form.desserts));
 
-    resetForm();
+  dispatch(postDessert(formData));
+
+  resetForm();
     // navigate("/Products");
   }
 
@@ -141,16 +149,11 @@ export default function CreateDessert() {
             {errors.price && <p className="error">{errors.price}</p>}
           </div>
           <div className={style.inputCont}>
-            <div className={style.input}>
+          <div className={style.input}>
             <label>Imagen PNG:</label>
-            <input
-              type="text"
-              value={form.image}
-              name="image"
-              onChange={handleChange}
-              />
+            <input type="file" name="imageFile" onChange={handleChange} accept="image/png" />
             </div>
-            {errors.image && <p className="error">{errors.image}</p>}
+              {errors.image && <p className="error">{errors.image}</p>}
           </div>
           <label htmlFor="desserts">
             Dessert:
@@ -164,7 +167,6 @@ export default function CreateDessert() {
             </select>
           </label>
 
-          <br></br>
           <p />
           <h5>{form.desserts?.map((dessert) => dessert + " , ")}</h5>
         </div>

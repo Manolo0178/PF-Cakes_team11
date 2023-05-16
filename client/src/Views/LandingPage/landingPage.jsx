@@ -3,13 +3,11 @@ import { Link } from "react-router-dom";
 import styles from "./landingPage.module.css";
 
 function Landing() {
-    
   return (
-    
     <div className={styles.landingCont}>
       <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-md-6 text-center">
+        <div className="row">
+          <div className={`col-md-6 ${styles.leftSide}`}>
             <img
               className={styles.img}
               src="https://github.com/Manolo0178/PF-Cakes_team11/raw/main/cake.png"
@@ -17,16 +15,28 @@ function Landing() {
               alt="Logo"
             />
             <h1 className="text-uppercase mb-4">Bienvenidos a nuestra pastelería</h1>
-            <p className="lead mb-5">
-              En nuestra pastelería encontrarás los más deliciosos postres y dulces,
-              hechos con ingredientes de alta calidad y mucho amor.
-            </p>
             
-            <Link to="/home">
-                <button className={styles.btn}>
-                Ingresar
-                </button>
-            </Link>
+          </div>
+          <div className={`col-md-6 ${styles.rightSide}`}>
+            <div className={`${styles.loginForm} ${styles.centeredLoginForm}`}>
+              <h2>Log in</h2>
+              <form>
+                <div className="form-group">
+                  <label htmlFor="username">User</label>
+                  <input type="text" className={`form-control ${styles.widerInput}`} id="username" />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
+                  <input type="password" className={`form-control ${styles.widerInput}`} id="password" />
+                </div>
+                <br />
+                <div className={styles.buttonContainer}>
+                  <button type="submit" className={styles.btn}>Login</button>
+                  <p className="lead mb-1">or</p>
+                  <Link to="/home" ><button className={styles.btn}>login without user</button></Link>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
