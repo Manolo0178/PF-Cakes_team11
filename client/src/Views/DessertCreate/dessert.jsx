@@ -6,7 +6,7 @@ import NavBar from "../../components/Navbar/Navbar";
 import style from "./dessert.module.css";
 import Footer from "../../components/Footer/Footer"
 import Swal from "sweetalert2";
-
+import { BsFillFileEarmarkArrowUpFill } from "react-icons/bs";
 import validation from "./Validation";
 export default function CreateDessert() {
   const dispatch = useDispatch();
@@ -53,7 +53,8 @@ export default function CreateDessert() {
 
   function handleSelect(e) {
     const selectedDessert = e.target.value;
-    if (form.desserts.length < 2) {
+    if (form.desserts.length < 2 && selectedDessert !== form.desserts) {
+      
       setForm({
         ...form,
         desserts: [...form.desserts, selectedDessert],
@@ -64,7 +65,7 @@ export default function CreateDessert() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!form.name || !form.summary || !form.description || !form.image || !form.price || !form.desserts) {
+    if (!errors.name && !errors.description && !errors.image &&!errors.price && !errors.desserts) {
       dispatch(postDessert(form));
       Swal.fire({
         title: "Creaste un Postre",
@@ -73,9 +74,12 @@ export default function CreateDessert() {
       });
       resetForm();
     }
-
-  resetForm();
-    // navigate("/Products");
+      Swal.fire({
+        title: "Completa todos los datos por favor",
+        icon: "error",
+        showConfirmButton:false,
+        timer:1500
+      });    
   }
 
   const resetForm = () => {
@@ -98,89 +102,100 @@ export default function CreateDessert() {
       >
         <h1>Crea tu postre!</h1>
         <div className={style.textCont}>
-          <div className={style.inputCont}>
-            <div className={style.input}>
-              <label className="label">Nombre:</label>
-              <input
-                type="text"
-                value={form.name}
-                name="name"
-                onChange={handleChange}
-              />
-            </div>
-            {errors.name && <p className="error">{errors.name}</p>}
+          <div className={style.input}>
+            <label className="label">Nombre:</label>
+            <input
+              type="text"
+              value={form.name}
+              name="name"
+              onChange={handleChange}
+              placeholder="Nombre"
+            />
+            {errors.name && <p className={style.error}>{errors.name}</p>}
           </div>
-          <div className={style.inputCont}>
-            <div className={style.input}>
+
+          <div className={style.input}>
             <label>Resumen:</label>
             <input
               type="text"
               value={form.summary}
               name="summary"
               onChange={handleChange}
+              placeholder="Summary"
             />
-            </div>
-            {errors.summary && <p className="error">{errors.summary}</p>}
+            {errors.summary && <p className={style.error}>{errors.summary}</p>}
           </div>
-          <div className={style.inputCont}>
-            <div className={style.input}>
+
+          <div className={style.input}>
             <label>Descripción:</label>
             <input
               type="text"
               value={form.description}
               name="description"
               onChange={handleChange}
-              />
-            </div>
+              placeholder="Descripción"
+            />
             {errors.description && (
-              <p className="error">{errors.description}</p>
+              <p className={style.error}>{errors.description}</p>
             )}
           </div>
-          <div className={style.inputCont}>
-            <div className={style.input}>
+
+          <div className={style.priceCont}>
             <label>Precio:</label>
             <input
               type="number"
               value={form.price !== "null" ? form.price : "0"}
               name="price"
               onChange={(e) => handleChange(e)}
+            />
+          </div>
+          <div className={style.imageCont}>
+            <label>Imágen: </label>
+            <div className={style.logoCont}>
+              <input
+                type="file"
+                name=""
+                onChange={handleChange}
+                accept="image/png"
               />
+              <BsFillFileEarmarkArrowUpFill className={style.logoFile} />
             </div>
-            {errors.price && <p className="error">{errors.price}</p>}
           </div>
-          <div className={style.inputCont}>
-          <div className={style.input}>
-            <label>Imagen PNG:</label>
-            <input type="file" name="imageFile" onChange={handleChange} accept="image/png" />
-            </div>
-              {errors.image && <p className="error">{errors.image}</p>}
-          </div>
-          <label htmlFor="desserts">
-            Tipo de Postre:
-            <select name="desserts" onChange={handleSelect}>
-              <option value="">Seleccionar</option>
-              {desserts?.map((dessert, index) => (
-                <option value={dessert} key={index}>
-                  {dessert}
+
+          <div className={style.dessertCont}>
+            <div className={style.dessert}>
+              <label>Tipo de Postre:</label>
+              <select name="desserts" onChange={handleSelect}>
+                <option value="" selected disabled hidden>
+                  Seleccionar
                 </option>
+                {desserts?.map((dessert, index) => (
+                  <option value={dessert} key={index}>
+                    {dessert}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className={style.desCont}>
+              {form.desserts?.map((dessert, index) => (
+                <div key={index} className={style.des}>
+                  <p>{dessert}</p>
+                  <button
+                    className={style.botonX}
+                    onClick={() => handleDelete(dessert)}
+                  >
+                    X
+                  </button>
+                </div>
               ))}
-            </select>
-          </label>
-          <h5>{form.desserts?.map((dessert) => dessert + " , ")}</h5>
+            </div>
+          </div>
         </div>
-        <button type="submit" className="button">
+        <button type="submit" className={style.button}>
           Crear Postre
         </button>
-        {errorForm !== "" ? <h6>{errorForm}</h6> : ""}
       </form>
-      {form.desserts?.map((dessert, index) => (
-        <div className="divOcc" key={index}>
-          <p className="divOcc">{dessert}</p>
-          <button className=" botonX" onClick={() => handleDelete(dessert)}>
-            X
-          </button>
-        </div>
-      ))}
+
       <Footer />
     </div>
   );
