@@ -172,7 +172,7 @@ productRouter.delete("/:idProduct", (req, res) => {
   }
 })
 
-
+module.exports = productRouter;
 
 
 

@@ -1,7 +1,7 @@
 const axios = require("axios")
-const {Product, Dessert} = require("../db.js")
+const { Product, Dessert } = require("../db.js")
 
-const apiDb = async() => {
+const apiDb = async () => {
   try {
     let response = await axios.get(`https://run.mocky.io/v3/b3535cfe-0d6e-4956-bb17-196a7a74b885`);
     let dataProduct = await response.data.map(product => {
@@ -16,7 +16,7 @@ const apiDb = async() => {
       }
     })
     return dataProduct
-    
+
   } catch (error) {
     console.log(error.message)
   }
@@ -25,14 +25,14 @@ const apiDb = async() => {
 // console.log(apiDb().then(dat => {console.log(dat)}))
 
 
-const dataBs = async() => {
+const dataBs = async () => {
   try {
     let apiData = await apiDb()
     for (let i = 0; i < apiData.length; i++) {
       try {
-        const {name, description, summary, image, price, desserts} = apiData[i]
+        const { name, description, summary, image, price, desserts } = apiData[i]
         const existingProduct = await Product.findOne({ where: { name } })
-        if(existingProduct) {
+        if (existingProduct) {
           // console.log(`Product name already exists, skipping...`)
           continue
         }
@@ -43,20 +43,20 @@ const dataBs = async() => {
           image,
           price
         })
-        if(Array.isArray(desserts)) {
+        if (Array.isArray(desserts)) {
           const newInstances = await Promise.all(desserts.map(async dessert => {
-            const [newInstances] = await Dessert.findOrCreate({where: {name: dessert}})
+            const [newInstances] = await Dessert.findOrCreate({ where: { name: dessert } })
             return newInstances
           }))
           await newProduct.addDesserts(newInstances)
         }
       } catch (error) {
-        console.log({message:error.message})
+        console.log({ message: error.message })
       }
     }
     // console.log(apiData)
-    } catch (error) {
-      console.log({message:error.message})
+  } catch (error) {
+    console.log({ message: error.message })
   }
 }
-module.exports = {dataBs}
+module.exports = { dataBs }
