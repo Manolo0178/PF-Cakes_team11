@@ -28,6 +28,11 @@ module.exports = (sequelize) => {
       allowNull: false,
       defaultValue: true
     },
+    deleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    }
     
   }, {
     timestamps: true,

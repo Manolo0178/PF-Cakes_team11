@@ -1,0 +1,37 @@
+.paginationCont {
+    width: 80%;
+    margin: 0 auto;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.pageCont {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pageChange {
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #fea8bd;
+    color: #fff;
+    border: 1px solid #fea8bd;
+    border-radius: 3px;
+}
+
+.pageNum {
+    color: #fea8bd;
+    background-color: transparent;
+    border: 1px solid #fea8bd;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+.active{
+    background-color: #fea8bd;
+    color: #fff;
+}

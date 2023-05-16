@@ -1,8 +1,11 @@
 .cont{
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    gap: 30px;
+    font-family: 'Raleway', sans-serif;
 }
 
 .formCont{
@@ -14,7 +17,7 @@
     align-items: center;
     gap: 30px;
     border-radius: 10px;
-    background-color: rgb(230, 176, 185);
+    background-color: #fea8bd;
 }
 .form{
     display: flex;

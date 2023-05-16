@@ -61,10 +61,10 @@ cartRouter.post('/:userId/:productId', async (req, res) => {
 
 cartRouter.delete('/:userId/:productId', async (req, res) => {
     try {
-
+        //se comento
         const userId = req.params.userId;
         const productId = req.params.productId;
-
+        //omenr
         const cart = await Cart.findOne({ where: { userId } });
 
         if (!cart) {

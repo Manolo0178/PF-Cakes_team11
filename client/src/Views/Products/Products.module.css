@@ -1,5 +1,6 @@
 .products{
     min-height: 100vh;
+    font-family: 'Raleway', sans-serif;
 }
 .cont{
     display: flex;
@@ -24,7 +25,6 @@
     justify-content: flex-end;
 }
 .h1{
-    margin-right: -75px;
     text-align: center;
 }
 

@@ -5,7 +5,7 @@
     margin-top: 80px;
 }
 .btn {
-    background-color: #FF69B4; /* rosa */
+    background-color: #fea8bd; /* rosa */
     color: #fff; /* blanco */
     border: none;
     border-radius: 10px;
@@ -35,12 +35,11 @@
   }
   
   .btn:hover {
-    background-color: #FF1493; /* rosa oscuro */
+    background-color: #fea8bd; /* rosa oscuro */
   }
 
   h1 {
     font-size: 36px;
-    font-family: "Pacifico", cursive;
     font-weight: normal;
     color: #f58c6d;
     text-align: center;
@@ -49,7 +48,6 @@
   
   p {
     font-size: 18px;
-    font-family: "Lato", sans-serif;
     font-weight: normal;
     color: #5c5c5c;
     text-align: center;

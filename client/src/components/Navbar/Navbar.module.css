@@ -1,6 +1,7 @@
 .navBarCont{
   width: 100%;
-  background-color: #f89fa5;
+  background-color: #fea8bd;
+  font-family: 'Raleway', sans-serif;
 }
 .cont{
   display: flex;
@@ -11,13 +12,12 @@
 }
 .linkCont{
   margin-right: 0;
-  gap: 5px;
+  gap: 15px;
 }
 .link{
-  font-size: 1.2rem;
-  text-decoration: none;
-  color: #fff;
+  font-size: 1.3rem !important;
+  color: #fff!important;
 }
 .link:hover{
-  font-weight: 600;
+  font-weight: 600 !important;
 }

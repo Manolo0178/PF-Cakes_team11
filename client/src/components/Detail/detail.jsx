@@ -8,12 +8,14 @@ import axios from "axios";
 
 import { SiMercadopago } from "react-icons/si";
 import { BsCurrencyBitcoin } from "react-icons/bs";
+import { HiPencilAlt } from "react-icons/hi";
+
 import Button from "react-bootstrap/Button";
 
 import NavBar from "../Navbar/Navbar";
-
+import Footer from "../../components/Footer/Footer";
 import styles from "./detail.module.css";
-
+import { changeDetails } from "../../redux/actions";
 export default function Detail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,14 +27,49 @@ export default function Detail() {
   }, [dispatch, id]);
 
   const myProduct = useSelector((state) => state.idProduct);
-  console.log(myProduct)
+
   const handleDelete = async() => {
     if (window.confirm("¿Estás seguro de eliminarlo?")) {
       await axios
         .delete(`http://localhost:3001/products/${myProduct.id}`)
-        .then(alert("se ha eliminado el producto"), navigate("/home"))
+        .then(alert("se ha eliminado el producto"), navigate("/Products"))
     }
   };
+
+
+//*********** handle changes *************
+  
+  const changeImage = () => {
+    let img = prompt("¿Que imágen desea colocarle?", `${myProduct.image}`);
+    dispatch(changeDetails({ image: img }, myProduct.id));
+    if (img) {
+      window.location.reload(true);
+    }
+  }
+  const changeName = () => {
+    let named = prompt("¿Que nombre desea colocarle?", `${myProduct.name}`);
+    dispatch(changeDetails({ name: named }, myProduct.id));
+    if (named) {
+      window.location.reload(true);
+    }
+  }
+  const changePrice = () => {
+    let priced = prompt("¿Que precio desea colocarle?", `${myProduct.price}`);
+    dispatch(changeDetails({ price: priced }, myProduct.id));   
+    if (priced) {
+      window.location.reload(true);
+    }
+  }
+  const changeDescription = () => {
+    let desc = prompt("¿Que descripción desea colocarle?", `${myProduct.description}`);
+    dispatch(changeDetails({ description: desc }, myProduct.id));
+    if (desc) {
+      window.location.reload(true);
+    }
+  }
+
+
+
   return (
     <div className={styles.detailCont}>
       <NavBar />
@@ -40,13 +77,26 @@ export default function Detail() {
         <section className={styles.productCont}>
           <div className={styles.imageCont}>
             <img className={styles.image} src={myProduct.image} alt="dessert" />
+            <button onClick={changeImage} className={styles.imageButton}>
+              <HiPencilAlt />
+            </button>
           </div>
           <div className={styles.textCont}>
             <button className={styles.delete} onClick={handleDelete}>
               X
             </button>
-            <h3>{myProduct.name}</h3>
-            <h4>$ {myProduct.price}</h4>
+            <div className={styles.nameCont}>
+              <h3>{myProduct.name}</h3>
+              <button onClick={changeName} className={styles.nameButton}>
+                <HiPencilAlt />
+              </button>
+            </div>
+            <div className={styles.priceCont}>
+              <h4>$ {myProduct.price}</h4>
+              <button onClick={changePrice} className={styles.priceButton}>
+                <HiPencilAlt />
+              </button>
+            </div>
             <div>
               <div className={styles.iconsCont}>
                 <SiMercadopago size="1.5rem" />
@@ -67,12 +117,19 @@ export default function Detail() {
         <p>Loading..</p>
       )}
       {myProduct ? (
-        <section>
+        <section className={styles.descriptionCont}>
           <p>{myProduct.description}</p>
+          <button
+            onClick={changeDescription}
+            className={styles.descriptionButton}
+          >
+            <HiPencilAlt color="black" />
+          </button>
         </section>
       ) : (
         <div></div>
       )}
+      <Footer/>
     </div>
   );
 }

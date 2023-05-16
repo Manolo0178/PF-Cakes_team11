@@ -3,18 +3,18 @@ const validation = (userData,errorsState) =>{
     const errors = { ...errorsState }; 
 
     if(!userData.username) 
-        errors.username ="Por favor completa este campo";
+        errors.username ="";
     else if(userData.username.length>35) 
         errors.username ="No debe superar 35 caracteres";
     else if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/.test(userData.username)) {
-        errors.username ="invalido";
+        errors.username ="su email no es válido";
     } else {
         errors.username ="";
     }
         
     // password
     if(!userData.password)
-        errors.password ="Por favor completa este campo";
+        errors.password ="";
     else if(!/[A-Za-z0-9]/.test(userData.password))
         errors.password ="La contraseña deben ser numeros y letras";
     else if (userData.password.length<6 || userData.password.length>20)
