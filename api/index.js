@@ -22,15 +22,8 @@ const { conn } = require('./src/db.js');
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-<<<<<<< HEAD
   bddCargada(),
     server.listen(3001, () => {
       console.log('%s listening at 3001'); // eslint-disable-line no-console
     });
-=======
-  
-  server.listen(3001, () => {
-    console.log("%s listening at 3001"); // eslint-disable-line no-console
-  });
->>>>>>> 6db8720e6ab5f7f561d7e9ca0a9100b90d8e8eae
 });
