@@ -1,0 +1,81 @@
+.loginCont {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background-color: #fea8bd;
+    border-radius: 10px;
+
+    box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.21);
+    -webkit-box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.21);
+    -moz-box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.21);
+}
+
+.inputCont {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.input {
+    height: 40px;
+    width: 100%;
+}
+
+.forgotPassword {
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.forgotPassword p {
+    font-size: 0.8rem;
+}
+
+.loginElse {
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.checkbox {
+    width: 80%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.links {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+}
+
+.links p {
+    font-size: 1rem;
+}
+
+.emailCont{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+}
+.emailCont label{
+    font-weight: 600;
+}
+.validation {
+    position: absolute;
+    font-weight: 400;
+    font-size: 0.8rem;
+    bottom: -23px;
+}
