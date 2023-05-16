@@ -80,8 +80,8 @@ function Products() {
             <div className={styles.cardsCont}>
               <div className={styles.orderBy}>
                 <label htmlFor="">ordenar por:</label>
-                <select onChange={handlerOrderProducts} value={order}>
-                  <option value="" disabled>
+                <select onChange={handlerOrderProducts} value="order">
+                  <option value="order" disabled>
                     Order
                   </option>
                   <option value="min-max">Precio: Menor a Mayor</option>
