@@ -7,10 +7,10 @@ function Card({ product }) {
         <Link className={styles.cardCont} to={`/home/${id}`}>
             <div className={styles.imageCont}>
                 <img className={styles.image} src={image} alt="product" />
+                <p className={styles.description}>{description}</p>
             </div>
             <h4 className={styles.name}>{name}</h4>
             <p className={styles.price}>${price}</p>
-            <p className={styles.description}>{description}</p>
       </Link>
   );
 }

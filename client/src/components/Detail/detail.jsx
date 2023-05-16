@@ -123,7 +123,7 @@ export default function Detail() {
             onClick={changeDescription}
             className={styles.descriptionButton}
           >
-            <HiPencilAlt />
+            <HiPencilAlt color="black" />
           </button>
         </section>
       ) : (

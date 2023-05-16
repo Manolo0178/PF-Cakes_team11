@@ -27,19 +27,19 @@ function NavBar() {
         <Navbar.Collapse id="basic-navbar-nav" className={styles.linksCont}>
           <Nav className={styles.linkCont}>
             <Nav.Link as={Link} to="/home" className={styles.link}>
-              Home
+              Inicio
             </Nav.Link>
             <Nav.Link as={Link} to="/about" className={styles.link}>
-              About
+              Sobre Nosotros
             </Nav.Link>
             <Nav.Link as={Link} to="/products" className={styles.link}>
-              Products
+              Productos
             </Nav.Link>
             <Nav.Link as={Link} to="/create" className={styles.link}>
               Crear Postre
             </Nav.Link>
             <Nav.Link as={Link} to="/login" className={styles.link}>
-              Login
+              Ingresá
             </Nav.Link>
             <Nav.Link className={styles.link}>
               <MdOutlineLocalGroceryStore color="white" size="1.6rem"/>

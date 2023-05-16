@@ -5,13 +5,13 @@ import Button from "react-bootstrap/Button";
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import NavBar from '../../components/Navbar/Navbar';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import styles from "./Login.module.css"
 
 import validation from './Validation';
 const Login = () => {
-
+  const Navigate = useNavigate()
   const [userData,SetUserData] = useState({
     username : "",
     password : ""
@@ -29,11 +29,13 @@ const Login = () => {
     SetUserData({...userData, [property] : value});
     SetErrors(validation({...userData, [property] : value},errors));
 };
-  
+  const handleSubmit = (e) => {
+    Navigate("/home")
+  }
   return (
     <div className={styles.cont}>
       <NavBar />
-      <div className={styles.loginCont}>
+      <form className={styles.loginCont} onSubmit={(e)=>handleSubmit(e)} >
         <h1>Iniciar sesión</h1>
         <div className={styles.inputCont}>
             <input
@@ -86,12 +88,12 @@ const Login = () => {
           <input type="checkbox" />
           <label htmlFor="">Permanecer conectado</label>
         </div>
-        <Button variant="primary">Login</Button>{" "}
+        <Button variant="primary" type="submit" >Login</Button>{" "}
         <div className={styles.links}>
           <p>No puedes iniciar sesión?</p>
           <Link to="/createUser">Crear cuenta</Link>
         </div>
-      </div>
+      </form>
       <Footer />
     </div>
   );

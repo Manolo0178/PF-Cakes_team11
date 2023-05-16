@@ -56,7 +56,7 @@ export default function CreateDessert() {
         ...form,
         desserts: [...form.desserts, selectedDessert],
       });
-      e.target.value = "";
+
     }
   }
 
@@ -66,7 +66,7 @@ export default function CreateDessert() {
     dispatch(postDessert(form));
 
     resetForm();
-    // navigate("/Products");
+
   }
 
   const resetForm = () => {
@@ -103,7 +103,7 @@ export default function CreateDessert() {
           </div>
           <div className={style.inputCont}>
             <div className={style.input}>
-            <label>Summary:</label>
+            <label>Resumen:</label>
             <input
               type="text"
               value={form.summary}
@@ -115,7 +115,7 @@ export default function CreateDessert() {
           </div>
           <div className={style.inputCont}>
             <div className={style.input}>
-            <label>Descripcion:</label>
+            <label>Descripción:</label>
             <input
               type="text"
               value={form.description}
@@ -129,20 +129,19 @@ export default function CreateDessert() {
           </div>
           <div className={style.inputCont}>
             <div className={style.input}>
-            <label>Price:</label>
+            <label>Precio:</label>
             <input
               type="number"
               value={form.price !== "null" ? form.price : "0"}
               name="price"
               onChange={(e) => handleChange(e)}
-              // defaultValue="0"
               />
             </div>
             {errors.price && <p className="error">{errors.price}</p>}
           </div>
           <div className={style.inputCont}>
             <div className={style.input}>
-            <label>Imagen PNG:</label>
+            <label>Imágen PNG:</label>
             <input
               type="text"
               value={form.image}
@@ -153,7 +152,7 @@ export default function CreateDessert() {
             {errors.image && <p className="error">{errors.image}</p>}
           </div>
           <label htmlFor="desserts">
-            Dessert:
+            Tipo de Postre:
             <select name="desserts" onChange={handleSelect}>
               <option value="">Seleccionar</option>
               {desserts?.map((dessert, index) => (
@@ -163,9 +162,6 @@ export default function CreateDessert() {
               ))}
             </select>
           </label>
-
-          <br></br>
-          <p />
           <h5>{form.desserts?.map((dessert) => dessert + " , ")}</h5>
         </div>
         <button type="submit" className="button">
