@@ -64,7 +64,7 @@ cartRouter.delete('/:userId/:productId', async (req, res) => {
     //se comento
     const userId = req.params.userId;
     const productId = req.params.productId;
-   
+   //omenr
     const cart = await Cart.findOne({ where: { userId } });
     
     if (!cart) {
