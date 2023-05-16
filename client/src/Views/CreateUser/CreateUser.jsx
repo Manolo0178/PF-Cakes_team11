@@ -8,6 +8,7 @@ import NavBar from "../../components/Navbar/Navbar";
 
 import validation from "./Validation";
 const CreateUser = () => {
+  
   const [form, setForm] = useState({
     name: "",
     address: "",
