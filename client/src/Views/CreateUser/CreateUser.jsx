@@ -30,7 +30,7 @@ const CreateUser = () => {
     setForm({ ...form, [property]: value });
     setErrors(validation({ ...form, [property]: value }, errors));
   };
-
+  
   return (
     <div className={styles.cont}>
       <NavBar/>

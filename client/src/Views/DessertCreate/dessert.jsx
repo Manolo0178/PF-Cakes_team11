@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../components/Navbar/Navbar";
 import style from "./dessert.module.css";
 import Footer from "../../components/Footer/Footer"
+import Swal from "sweetalert2";
+
 import validation from "./Validation";
 export default function CreateDessert() {
   const dispatch = useDispatch();
@@ -62,10 +64,15 @@ export default function CreateDessert() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    dispatch(postDessert(form));
-
-    resetForm();
+    if (!form.name || !form.summary || !form.description || !form.image || !form.price || !form.desserts) {
+      dispatch(postDessert(form));
+      Swal.fire({
+        title: "Creaste un Postre",
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
+      resetForm();
+    }
 
   }
 
