@@ -42,7 +42,7 @@ const CreateUser = () => {
               <label htmlFor="">Nombre:</label>
               <input type="text" onChange={handleChange} name="name" />
             </div>
-            {errors.name && errors.name != "" && (
+            {errors.name && errors.name !== "" && (
               <span className={styles.error}>{errors.name}</span>
             )}
           </div>
@@ -51,7 +51,7 @@ const CreateUser = () => {
               <label htmlFor="">tel:</label>
               <input type="text" onChange={handleChange} name="contact" />
             </div>
-            {errors.contact && errors.contact != "" && (
+            {errors.contact && errors.contact !== "" && (
               <span className={styles.error}>{errors.contact}</span>
             )}
           </div>
@@ -60,7 +60,7 @@ const CreateUser = () => {
               <label htmlFor="">Email:</label>
               <input type="text" onChange={handleChange} name="email" />
             </div>
-            {errors.email && errors.email != "" && (
+            {errors.email && errors.email !== "" && (
               <span className={styles.error}>{errors.email}</span>
             )}
           </div>
@@ -69,7 +69,7 @@ const CreateUser = () => {
               <label htmlFor="">Contraseña:</label>
               <input type="password" onChange={handleChange} name="password" />
             </div>
-            {errors.password && errors.password != "" && (
+            {errors.password && errors.password !== "" && (
               <span className={styles.error}>{errors.password}</span>
             )}
           </div>
@@ -82,7 +82,7 @@ const CreateUser = () => {
                 name="confirmpassword"
               />
             </div>
-            {errors.confirmpassword && errors.confirmpassword != "" && (
+            {errors.confirmpassword && errors.confirmpassword !== "" && (
               <span className={styles.error}>{errors.confirmpassword}</span>
             )}
           </div>

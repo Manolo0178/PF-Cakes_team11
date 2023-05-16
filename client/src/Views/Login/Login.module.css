@@ -5,6 +5,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 40px;
+    font-family: 'Raleway', sans-serif;
 }
 .loginCont{
     width: 100%;
@@ -14,8 +15,12 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    background-color: rgb(230, 176, 185);
+    background-color: #fea8bd;
     border-radius: 10px;
+    
+    box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.21);
+        -webkit-box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.21);
+        -moz-box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.21);
 }
 .inputCont{
     width: 300px;
