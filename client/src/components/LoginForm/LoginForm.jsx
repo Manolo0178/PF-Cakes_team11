@@ -31,11 +31,9 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     Navigate("/home");
     Swal.fire({
+      title: "Te has Logueado con éxito",
       icon: "success",
-      title: "Te Logeaste con éxito",
-      showConfirmButton: false,
-      timer: 2500,
-    });
+    });    
   };
   return (
     <form className={styles.loginCont} onSubmit={(e) => handleSubmit(e)}>

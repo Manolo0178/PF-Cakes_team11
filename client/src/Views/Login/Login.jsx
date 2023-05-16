@@ -5,6 +5,7 @@ import Footer from "../../components/Footer/Footer";
 import styles from "./Login.module.css"
 
 const Login = () => {
+  
   return (
     <div className={styles.cont}>
       <NavBar />
