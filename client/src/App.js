@@ -13,7 +13,10 @@ import Detail from "./components/Detail/detail"
 import Cart from './components/Cart/Cart';
 
 
+import MiPerfil from './Views/miPerfil/MiPerfil';
+
 function App() {
+
   return (
     <div className="App">
       <Routes>
@@ -27,8 +30,9 @@ function App() {
         <Route path="/about" element={<About/>} />
         <Route path="/create" element={<CreateDessert/>} />
 
-        <Route path="/home/:id" element={<Detail/>} />
-        <Route path="/cart" element={<Cart/>} />
+        <Route path="/home/:id" element={<Detail />} />
+        {/* <Route path="/miPerfil" element={<MiPerfil />} /> */}
+        
         {/* <Route exact path="/budget" component={Budget} />
         <Route exact path="/contact" component={Contact} /> */}
        

@@ -116,7 +116,7 @@ export default function Detail() {
             </div>
             <div className={styles.cantCont}>
               <label htmlFor="">Cantidad</label>
-              <input type="number" />
+              <input type="number" min="0" defaultValue="1"/>
             </div>
             <div className={styles.buttonCont}>
               <Button variant="primary" onClick={() => handleAddToCart(myProduct)}>Agregar al carrito</Button>{" "}
