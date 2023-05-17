@@ -10,6 +10,8 @@ import About from './Views/About/About'
 import CreateDessert from './Views/DessertCreate/dessert';
 
 import Detail from "./components/Detail/detail"
+import Cart from './components/Cart/Cart';
+
 
 function App() {
   return (
@@ -26,8 +28,10 @@ function App() {
         <Route path="/create" element={<CreateDessert/>} />
 
         <Route path="/home/:id" element={<Detail/>} />
+        <Route path="/cart" element={<Cart/>} />
         {/* <Route exact path="/budget" component={Budget} />
         <Route exact path="/contact" component={Contact} /> */}
+       
       </Routes>
     </div>
   );

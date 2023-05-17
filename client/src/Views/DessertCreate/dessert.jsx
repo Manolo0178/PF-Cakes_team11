@@ -65,6 +65,13 @@ export default function CreateDessert() {
 
   function handleSubmit(e) {
     e.preventDefault();
+  const formData = new FormData();
+  formData.append("name", form.name);
+  formData.append("summary", form.summary);
+  formData.append("description", form.description);
+  formData.append("image", form.imageFile);
+  formData.append("price", form.price);
+  formData.append("desserts", JSON.stringify(form.desserts));
     if (!errors.name && !errors.description && !errors.image &&!errors.price && !errors.desserts) {
       dispatch(postDessert(form));
       Swal.fire({
@@ -154,7 +161,7 @@ export default function CreateDessert() {
             <div className={style.logoCont}>
               <input
                 type="file"
-                name=""
+                name="imageFile"
                 onChange={handleChange}
                 accept="image/png"
               />

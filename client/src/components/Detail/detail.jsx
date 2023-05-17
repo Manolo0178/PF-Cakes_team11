@@ -15,18 +15,28 @@ import Button from "react-bootstrap/Button";
 import NavBar from "../Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import styles from "./detail.module.css";
-import { changeDetails } from "../../redux/actions";
+import { changeDetails, addToCart } from "../../redux/actions";
+
+
+
 export default function Detail() {
+  const myProduct = useSelector((state) => state.idProduct);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
+
+
+  const handleAddToCart = (item) => {
+    dispatch(addToCart(item));
+    alert("El producto fue agregado al carrito");
+  };
 
   useEffect(() => {
     dispatch(getProductsById(id));
     return () => dispatch({ type: "LIMPIAR_DETAILS" });
   }, [dispatch, id]);
 
-  const myProduct = useSelector((state) => state.idProduct);
+  
 
   const handleDelete = async() => {
     if (window.confirm("¿Estás seguro de eliminarlo?")) {
@@ -109,7 +119,7 @@ export default function Detail() {
               <input type="number" />
             </div>
             <div className={styles.buttonCont}>
-              <Button variant="primary">Agregar al carrito</Button>{" "}
+              <Button variant="primary" onClick={() => handleAddToCart(myProduct)}>Agregar al carrito</Button>{" "}
             </div>
           </div>
         </section>

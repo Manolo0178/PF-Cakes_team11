@@ -16,8 +16,14 @@ export const GET_DESSERT = "GET_DESSERT";
 export const CREATE_DESERT = "CREATE_DESERT";
 export const FORM_ERROR = "FORM_ERROR"
 
-
 export const FILTER_PRODUCTS = "FILTER_PRODUCTS";
+/********************************** */
+export const ADD_TO_CART = "ADD_TO_CART";
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+export const INCREASE_QUANTITY = "INCREASE_QUANTITY";
+export const DECREASE_QUANTITY  = "DECREASE_QUANTITY ";
+
+
 
 //******** Get all products **********/
 export function getAllProducts() {
@@ -124,3 +130,40 @@ export const filterProducts = (filter) => {
     payload: filter,
   };
 }
+
+//Agregar productos al carrito
+export const addToCart = (product) => {
+  return (dispatch) => {
+    dispatch({
+      type: 'ADD_TO_CART',
+      payload: product,
+    });
+  
+  };
+};
+
+//Eliminar productos del carrito
+export const removeFromCart = (itemId) => {
+  return {
+    type: REMOVE_FROM_CART,
+    payload: itemId,
+  };
+};
+export const increaseQuantity = (itemId) => {
+  return {
+    type: INCREASE_QUANTITY,
+    payload: {
+      itemId: itemId,
+    },
+  };
+};
+
+
+export const decreaseQuantity = (itemId) => {
+  return {
+    type: DECREASE_QUANTITY,
+    payload: {
+      itemId: itemId,
+    },
+  };
+};
