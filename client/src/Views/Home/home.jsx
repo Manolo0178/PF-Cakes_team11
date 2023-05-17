@@ -1,7 +1,6 @@
 import styles from "./home.module.css"
 
-import React from "react"
-import { useEffect } from "react";
+import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux";
 
 import NavBar from "../../components/Navbar/Navbar"
@@ -12,6 +11,10 @@ import Footer from "../../components/Footer/Footer";
 import { getAllProducts } from "../../redux/actions";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
+
+import Cart from "../../components/Cart/Cart"
+
+
 
 function Home() {
     const dispatch = useDispatch();
@@ -27,8 +30,13 @@ function Home() {
     const navigation = () => {
         navigate("/Products")
     }
+
+   
     return (
+      
       <div className={styles.homeCont}>
+       
+        <Cart/>
         <NavBar />
         <CarouselSlide />
         <section className={styles.cardsCont}>
@@ -41,6 +49,7 @@ function Home() {
           </div>
         </section>
         <Footer />
+      
       </div>
     );
 }

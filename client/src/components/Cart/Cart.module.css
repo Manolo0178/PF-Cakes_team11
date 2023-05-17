@@ -1,0 +1,139 @@
+.carritos{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 300ms ease-in-out;
+  background-color: rgba(0, 0, 0, .6);
+  z-index: 2;
+  padding-bottom: 5rem;
+  visibility: hidden; 
+}
+.carrito{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 60%;
+  height: 80%;
+  border-radius: 8px;
+  overflow-x: scroll;
+  transition: all 300ms ease-in-out;
+  background-color: #f9e5ea; /* Color rosa clarito */
+  opacity: 0;
+  visibility: hidden;
+
+}
+.carrito h2{
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 1.0rem;
+  position: relative; /* Agrega esta propiedad */
+  background-color: #d46482; /* Agrega el color de fondo rosa más oscuro */
+  color: white; /* Cambia el color del texto a blanco */
+  padding: 0.5rem 1rem; /* Ajusta el espaciado interno */
+  border-radius: 4px; /* Agrega bordes redondeados */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Agrega una sombra */
+}
+.carritos.show{
+  visibility: visible;
+}
+.carrito.show{
+transform: translate(-50%, -50%)
+scale(1.1);
+opacity: 1;
+visibility: visible;
+}
+
+.carrito__close box-icon{
+  display: inline-block;
+  width: 30px;
+  height: 50px;
+  cursor: pointer;
+  transform: all 300ms ease-in-out;
+  margin: 1rem 0 0 2rem;
+}
+.carrito__close box-icon:hover{
+  fill:crimson;
+}
+.carrito__center{
+  width: 90%;
+  margin: 0 auto;
+}
+.carrito__item{
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+  width: 80%;
+  margin: 2rem auto;
+  box-shadow: 0 1px 10px #08a05c;
+  border-radius: 5px;
+}
+.carrito__item img{
+  width: 200px;
+  height: 100%;
+  object-fit: contain;
+}
+
+.carrito__item h3{
+  margin-top: 3rem;
+  font-family: Helvetica;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+.carrito__item .price{
+  color: #1a202c;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-left: 1rem;
+}
+.carrito__item box-icon{
+  fill: #08a05c;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  margin-top: .7rem;
+}
+.carrito__item .cantidad{
+  font-size: 1.8rem;
+  margin-top: .0rem;
+  font-weight: bold;
+}
+.carrito__item .remove__item box-icon{
+  width: 40px;
+  height: 60px;
+  fill: crimson;
+  margin-top: 3rem;
+}
+.carrito__footer{
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.carrito__footer h3{
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.carrito__footer .btnn{
+  display: inline-block;
+  padding: .5rem 2rem; /* Ajusta el padding para hacerlo más ancho */
+  width: 150px; /* Ajusta el ancho del botón */
+  font-size: 1.2rem;
+  background-color: #d46482;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+.carrito__footer .btnn:hover{
+  background-color: #e0d9db; /* Color rosa claro al hacer hover */
+  color: #d46482; /* Cambia el color del texto a rosa más oscuro */
+}
+.carrito__close {
+  position: absolute;
+  top: 0rem;
+  left: 1rem;
+  cursor: pointer;
+  z-index: 3;
+}

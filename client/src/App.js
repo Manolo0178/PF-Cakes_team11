@@ -11,7 +11,6 @@ import CreateDessert from './Views/DessertCreate/dessert';
 
 import Detail from "./components/Detail/detail"
 
-import MiPerfil from './Views/miPerfil/MiPerfil';
 
 function App() {
 
@@ -33,6 +32,7 @@ function App() {
         
         {/* <Route exact path="/budget" component={Budget} />
         <Route exact path="/contact" component={Contact} /> */}
+       
       </Routes>
     </div>
   );
