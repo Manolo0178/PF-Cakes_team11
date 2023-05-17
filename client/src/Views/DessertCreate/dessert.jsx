@@ -12,11 +12,9 @@ export default function CreateDessert() {
   const dispatch = useDispatch();
 
   const desserts = useSelector((state) => state.dessert);
-  const errorForm = useSelector((state) => state.errorForm);
  
   const [form, setForm] = useState({
     name: "",
-    summary: "",
     description: "",
     imageFile: null,
     price: "",
@@ -25,7 +23,6 @@ export default function CreateDessert() {
   
   const [errors, setErrors] = useState({
     name: "",
-    summary: "",
     description: "",
     image: "",
     price: "",
@@ -85,7 +82,6 @@ export default function CreateDessert() {
   const resetForm = () => {
     setForm({
       name: "",
-      summary: "",
       description: "",
       image: "",
       price: "",
@@ -113,19 +109,6 @@ export default function CreateDessert() {
             />
             {errors.name && <p className={style.error}>{errors.name}</p>}
           </div>
-
-          <div className={style.input}>
-            <label>Resumen:</label>
-            <input
-              type="text"
-              value={form.summary}
-              name="summary"
-              onChange={handleChange}
-              placeholder="Summary"
-            />
-            {errors.summary && <p className={style.error}>{errors.summary}</p>}
-          </div>
-
           <div className={style.input}>
             <label>Descripción:</label>
             <input
@@ -146,6 +129,7 @@ export default function CreateDessert() {
               type="number"
               value={form.price !== "null" ? form.price : "0"}
               name="price"
+              min="0"
               onChange={(e) => handleChange(e)}
             />
           </div>
