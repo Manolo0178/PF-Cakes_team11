@@ -29,7 +29,7 @@ function App() {
         <Route path="/create" element={<CreateDessert/>} />
 
         <Route path="/home/:id" element={<Detail />} />
-        <Route path="/miPerfil" element={<MiPerfil />} />
+        {/* <Route path="/miPerfil" element={<MiPerfil />} /> */}
         
         {/* <Route exact path="/budget" component={Budget} />
         <Route exact path="/contact" component={Contact} /> */}
