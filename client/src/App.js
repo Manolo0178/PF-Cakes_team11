@@ -10,10 +10,7 @@ import About from './Views/About/About'
 import CreateDessert from './Views/DessertCreate/dessert';
 
 import Detail from "./components/Detail/detail"
-import Cart from './components/Cart/Cart';
 
-
-import MiPerfil from './Views/miPerfil/MiPerfil';
 
 function App() {
 

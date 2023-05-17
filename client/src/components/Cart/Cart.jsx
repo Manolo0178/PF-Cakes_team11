@@ -61,7 +61,7 @@ const Cart = ({ isOpen, toggleCart }) => {
     <div className={`${style.carritos} ${style.show}`}>
       <div className={`${style.carrito} ${style.show}`}>
         <div className={`${style['carrito__close']} ${style.boxIcon}`} onClick={toggleCart}>
-          <box-icon name="x" size="md"></box-icon>
+          <box-icon name="exit" size="md"></box-icon>
         </div>
         <h2>Su carrito</h2>
         <div className={style.carrito__center}>
@@ -73,17 +73,9 @@ const Cart = ({ isOpen, toggleCart }) => {
                 <p className={`${style.price}`}>${item.price}</p>
               </div>
               <div>
-                <box-icon
-                  name="up-arrow"
-                  type="solid"
-                  onClick={() => handleIncreaseQuantity(item.id)}
-                ></box-icon>
+              <box-icon type='solid' name='upvote'  onClick={() => handleIncreaseQuantity(item.id)}></box-icon>
                 <p className={`${style.cantidad}`}>{item.quantity}</p>
-                <box-icon
-                  name="down-arrow"
-                  type="solid"
-                  onClick={() => handleDecreaseQuantity(item.id)}
-                ></box-icon>
+                <box-icon type='solid' name='downvote' onClick={() => handleDecreaseQuantity(item.id)}></box-icon>
               </div>
               <div className={style.remove__item} onClick={() => handleRemoveItem(item.id)}>
                 <box-icon name="trash"></box-icon>

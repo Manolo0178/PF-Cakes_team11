@@ -28,7 +28,13 @@
 .carrito h2{
   text-align: center;
   font-size: 2rem;
-  margin-top: 2.5rem;
+  margin-top: 1.0rem;
+  position: relative; /* Agrega esta propiedad */
+  background-color: #d46482; /* Agrega el color de fondo rosa más oscuro */
+  color: white; /* Cambia el color del texto a blanco */
+  padding: 0.5rem 1rem; /* Ajusta el espaciado interno */
+  border-radius: 4px; /* Agrega bordes redondeados */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Agrega una sombra */
 }
 .carritos.show{
   visibility: visible;
@@ -87,11 +93,11 @@ visibility: visible;
   width: 40px;
   height: 40px;
   cursor: pointer;
-  margin-top: .3rem;
+  margin-top: .7rem;
 }
 .carrito__item .cantidad{
   font-size: 1.8rem;
-  margin-top: .3rem;
+  margin-top: .0rem;
   font-weight: bold;
 }
 .carrito__item .remove__item box-icon{
@@ -111,16 +117,18 @@ visibility: visible;
 }
 .carrito__footer .btnn{
   display: inline-block;
-  padding: .3rem 1rem;
+  padding: .5rem 2rem; /* Ajusta el padding para hacerlo más ancho */
+  width: 150px; /* Ajusta el ancho del botón */
   font-size: 1.2rem;
-  background-color: #08a05c;
+  background-color: #d46482;
   border: 0;
   outline: 0;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
 .carrito__footer .btnn:hover{
-  background-color:#0f5c39;
-  color: white;
+  background-color: #e0d9db; /* Color rosa claro al hacer hover */
+  color: #d46482; /* Cambia el color del texto a rosa más oscuro */
 }
 .carrito__close {
   position: absolute;
