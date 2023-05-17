@@ -6,36 +6,42 @@ import { FaGoogle } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import validation from "./Validation";
 import styles from "./LoginForm.module.css"
+import axios from "axios";
 
-const LoginForm = () => {
-  const Navigate = useNavigate();
-  const [userData, SetUserData] = useState({
-    username: "",
-    password: "",
-  });
-
-  const [errors, SetErrors] = useState({
-    username: "",
-    password: "",
-  });
-
-  const handleInputChange = (event) => {
-    const property = event.target.name;
-    const value = event.target.value;
-
-    SetUserData({ ...userData, [property]: value });
-    SetErrors(validation({ ...userData, [property]: value }, errors));
+const LoginForm = ({ setToken }) => {
+  const Navigate = useNavigate()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/api/login", { email, password });
+      const token = response.data.token;
+      localStorage.setItem("token", token);
+      setToken(token);
+    } catch (error) {
+      throw new Error("error al iniciar sesión");
+    }
   };
-  const handleSubmit = (e) => {
-    Navigate("/home");
+  const handleSubmitLogin = (e) => {
+    e.preventDefault();
+    // hay que validar si el usuario existe, en caso que exista hace esto, en caso
+    // contrario, poner otra alerta de error
+    Swal.fire({
+      title: "Te has logueado de forma exitosa",
+      icon: "success",
+      text: "Serás redireccionado al inicio",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Navigate("/home");
+      }
+    });
   };
-
-
 
   return (
-    <form className={styles.loginCont} onSubmit={(e) => handleSubmit(e)}>
+    <form className={styles.loginCont} onSubmit={(e) => handleSubmitLogin(e)}>
       <h1>Iniciar sesión</h1>
       <div className={styles.inputCont}>
         <div className={styles.emailCont}>
@@ -45,12 +51,9 @@ const LoginForm = () => {
             placeholder="Email"
             className={styles.input}
             name="username"
-            value={userData.username}
-            onChange={handleInputChange}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
-        {errors.username !== "" && (
-          <span className={styles.validation}>{errors.username}</span>
-        )}
         </div>
         <div className={styles.emailCont}>
           <label>Contraseña: </label>
@@ -59,12 +62,9 @@ const LoginForm = () => {
             placeholder="Contraseña"
             className={styles.input}
             name="password"
-            value={userData.password}
-            onChange={handleInputChange}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-        {errors.password !== "" && (
-          <span className={styles.validation}>{errors.password}</span>
-        )}
         </div>
         <div className={styles.forgotPassword}>
           <p>¿olvidaste tu contraseña?</p>
@@ -91,6 +91,6 @@ const LoginForm = () => {
       </div>
     </form>
   );
-}
+};
 
 export default LoginForm

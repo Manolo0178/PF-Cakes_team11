@@ -8,6 +8,9 @@ import Footer from "../../components/Footer/Footer"
 import Swal from "sweetalert2";
 import { BsFillFileEarmarkArrowUpFill } from "react-icons/bs";
 import validation from "./Validation";
+
+
+
 export default function CreateDessert() {
   const dispatch = useDispatch();
 
@@ -62,21 +65,23 @@ export default function CreateDessert() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!errors.name && !errors.description && !errors.image &&!errors.price && !errors.desserts) {
-      dispatch(postDessert(form));
+    if (form.name &&
+      form.description &&
+      form.imageFile &&
+      form.price &&
+      form.desserts
+    ){
       Swal.fire({
         title: "Creaste un Postre",
         icon: "success",
         confirmButtonText: "Ok",
-      });
-      resetForm();
-    }
-      Swal.fire({
-        title: "Completa todos los datos por favor",
-        icon: "error",
-        showConfirmButton:false,
-        timer:1500
-      });    
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(postDessert(form));
+          resetForm();
+        }
+      })
+    }   
   }
 
   const resetForm = () => {
