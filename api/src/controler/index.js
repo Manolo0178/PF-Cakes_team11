@@ -1,10 +1,17 @@
 const axios = require("axios")
 const {Product, Dessert} = require("../db.js")
-
+// const {cloudinary} = requiere("cloudinary").v2
+// require("dotenv").config()
+// cloudinary.config({
+// ,
+// API_KEY,
+// API_SECRET
+// }) 
 const apiDb = async() => {
   try {
-    let response = await axios.get(`https://run.mocky.io/v3/b3535cfe-0d6e-4956-bb17-196a7a74b885`);
+    let response = await axios.get(`https://run.mocky.io/v3/64646805-bddf-4518-882b-a3d97613ea0c`);
     let dataProduct = await response.data.map(product => {
+      // const 
       // console.log(dataProduct)
       return {
         name: product.name,
