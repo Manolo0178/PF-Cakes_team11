@@ -11,7 +11,9 @@ import CreateDessert from './Views/DessertCreate/dessert';
 
 import Detail from "./components/Detail/detail"
 
+
 function App() {
+
   return (
     <div className="App">
       <Routes>
@@ -25,9 +27,12 @@ function App() {
         <Route path="/about" element={<About/>} />
         <Route path="/create" element={<CreateDessert/>} />
 
-        <Route path="/home/:id" element={<Detail/>} />
+        <Route path="/home/:id" element={<Detail />} />
+        {/* <Route path="/miPerfil" element={<MiPerfil />} /> */}
+        
         {/* <Route exact path="/budget" component={Budget} />
         <Route exact path="/contact" component={Contact} /> */}
+       
       </Routes>
     </div>
   );

@@ -1,7 +1,7 @@
 .loginCont {
     width: 100%;
     max-width: 400px;
-    padding: 20px;
+    padding: 10px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,7 +18,7 @@
     width: 300px;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 20px;
 }
 
 .input {
@@ -62,6 +62,7 @@
 
 .links p {
     font-size: 1rem;
+    margin: 0;
 }
 
 .emailCont{

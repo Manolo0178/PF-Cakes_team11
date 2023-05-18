@@ -6,25 +6,38 @@
     display: flex;
     gap: 30px;
 }
-.category{
-    width: 100%;
-    max-width: 220px;
-    margin-left: 10px;
-}
+
 .cardsCont{
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 40px;
+    padding: 40px 0;
 
-}
-.orderBy{
-    width: 90%;
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
 }
 .h1{
     text-align: center;
 }
+.categoryBox{
+    max-width: 220px;
+    width: 100%;
+    border-right: 1px solid #fea8bd;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+}
 
+.orderBy{
+    width: 100%;
+    max-width: 220px;
+    margin-left: 10px;
+}
+.category {
+    width: 100%;
+    max-width: 220px;
+    margin-left: 10px;
+}
+.orderBy select, .category select{
+    width: 180px;
+}

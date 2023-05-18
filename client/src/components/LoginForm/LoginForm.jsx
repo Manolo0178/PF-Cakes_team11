@@ -30,13 +30,10 @@ const LoginForm = () => {
   };
   const handleSubmit = (e) => {
     Navigate("/home");
-    Swal.fire({
-      icon: "success",
-      title: "Te Logeaste con éxito",
-      showConfirmButton: false,
-      timer: 2500,
-    });
   };
+
+
+
   return (
     <form className={styles.loginCont} onSubmit={(e) => handleSubmit(e)}>
       <h1>Iniciar sesión</h1>
