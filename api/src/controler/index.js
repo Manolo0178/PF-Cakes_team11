@@ -3,7 +3,7 @@ const { Product, Dessert } = require("../db.js")
 
 const apiDb = async () => {
   try {
-    let response = await axios.get(`https://run.mocky.io/v3/b3535cfe-0d6e-4956-bb17-196a7a74b885`);
+    let response = await axios.get(`https://run.mocky.io/v3/f82aa808-0f2e-41fb-a107-9adf0297c3cc`);
     let dataProduct = await response.data.map(product => {
       // console.log(dataProduct)
       return {

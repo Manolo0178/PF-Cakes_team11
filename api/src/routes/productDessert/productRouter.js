@@ -113,8 +113,9 @@ productRouter.get("/", async (req, res) => {
 //se agrego un controlador que hace un pedido a una api creada por url
 
 productRouter.post("/", async (req, res) => {
+  let { name, summary, description, image, price, desserts } = req.body;
+
   try {
-    let { name, summary, description, image, price, desserts } = req.body;
     const existingProduct = await Product.findOne({ where: { name } });
     // verifica si existe un producto con el mismo  nombre en la db salta a la sgte iteracion
     // evitando la creacion con el mismo nombre
