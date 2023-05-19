@@ -17,7 +17,8 @@ userRouter.post("/login", async (req, res) => {
 
     if (email) {
       user = await User.findOne({ where: { email, deleted: false }});
-    } else {
+    }
+    else {
       user = await User.findOne({ where: { contact, deleted: false } });
       console.log(`nombre ${user.name}`)
     }
@@ -33,7 +34,6 @@ userRouter.post("/login", async (req, res) => {
       res.status(401).send("Credenciales inválidas");
     }
   } catch (error) {
-    console.log(error);
     res.status(400).json({ error: error.message });
   }
 });
@@ -43,7 +43,7 @@ userRouter.post("/login", async (req, res) => {
 
 userRouter.post("/create", async (req, res) => { // Esta ruta es para crear un usuario
   const { name, email, contact, lastName, password, image } = req.body;
-
+  
   try {
     let user = await User.create({ name, email, contact, lastName, password, image });
 

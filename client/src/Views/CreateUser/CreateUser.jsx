@@ -5,7 +5,7 @@ import styles from "./CreateUser.module.css";
 import Button from "react-bootstrap/Button";
 import Footer from "../../components/Footer/Footer";
 import NavBar from "../../components/Navbar/Navbar";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 import validation from "./Validation";
 import axios from "axios";
 
@@ -15,10 +15,9 @@ const CreateUser = () => {
 
   const [form, setForm] = useState({
     name: "",
-    lastName: "",
     email:"",
     contact: "",
-    addresses: [],
+    lastName: "",
     password: "",
   });
 
@@ -38,10 +37,8 @@ const CreateUser = () => {
     setErrors(validation({ ...form, [property]: value }, errors));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault()
-    //si estan todos los campos correctos hacer lo siguiente, sino colocar alerta
-    //de error
     if (
       form.name &&
       !errors.name &&
@@ -53,16 +50,12 @@ const CreateUser = () => {
       !errors.password &&
       !errors.confirmpassword
     ) {
-      Swal.fire({
-        title: "Has creado un usuario",
-        icon: "success",
-        text: "Serás redireccionado al inicio",
-      }).then(async(result) => {
-        if (result.isConfirmed) {
-          await axios.post("http://localhost:3001/user/create", form);
-          Navigate("/login");
+      await axios.post("http://localhost:3001/user/create", form)
+      .then((response) => {
+        if (response) {
+          Navigate("/login");    
         }
-      });
+      })
     }
   };
 
