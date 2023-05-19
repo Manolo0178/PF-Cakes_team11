@@ -3,18 +3,24 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #fca2cf; /* rosa */
+  background-color: #fca2cf;
+  /* background-image: linear-gradient(#fff5f5, #ffe4e4); */
+  height: 100vh;
 }
-
+.cont{
+  display: flex;
+  justify-content: center;
+}
 .leftSide {
-  padding: 80px;
+  padding: 0 80px;
   width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: auto;
+  gap: 30px;
 }
-
 .rightSide {
   background-color: #fca2cf; /* marrón clarito */
   padding: 16px;

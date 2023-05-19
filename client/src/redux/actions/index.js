@@ -24,6 +24,8 @@ export const INCREASE_QUANTITY = "INCREASE_QUANTITY";
 export const DECREASE_QUANTITY  = "DECREASE_QUANTITY ";
 /************************************************ */
 
+export const CREATE_USER = "CREATE_USER";
+
 
 
 //******** Get all products **********/
@@ -76,12 +78,7 @@ export function orderProducts(value){
 }
 
 
-// export function postDessert(payload){
-//   return async function (dispatch){
-//       const response = await axios.post("http://localhost:3001/products",payload)
-//       return response;
-//   }
-// }
+
 
 export function getDessert(){
     return (dispatch) => {
@@ -168,3 +165,15 @@ export const decreaseQuantity = (itemId) => {
     },
   };
 };
+// export const postUser = (form) => {
+//   return async (dispatch) => {
+//     let response = await axios.post("http://localhost:3001/user/create", form);
+//     let formData = await response.data;
+//     if (formData.length > 0) {
+//       dispatch({
+//         type: CREATE_USER,
+//         payload: formData,
+//       });
+//     }
+//   }
+// }
