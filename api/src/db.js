@@ -30,7 +30,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Product, Dessert, Cart, OrderItem, Review, User } = sequelize.models;
+const { Product, Dessert, Cart, OrderItem, Review, User, Address } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
@@ -48,6 +48,10 @@ User.hasMany(Review) // Esta línea establece una relación de "uno a muchos" en
 
 Review.belongsTo(Product) // Aquí se establece que una reseña pertenece a un solo producto.
 Review.belongsTo(User) // Aquí se establece que una reseña pertenece a un solo usuario.
+
+User.belongsToMany(Address, { through: 'UserAddress' }); 
+User.belongsToMany(Address, { through: 'UserAddress' });
+
 
 // comentario de prueba
 

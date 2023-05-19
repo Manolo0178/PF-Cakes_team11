@@ -83,7 +83,7 @@ function Products() {
               <h5>Ordenamiento</h5>
               <select onChange={handlerOrderProducts} value="order">
                 <option value="order" disabled>
-                  Order
+                  Orden
                 </option>
                 <option value="min-max">Precio: Menor a Mayor</option>
                 <option value="max-min">Precio: Mayor a Menor</option>

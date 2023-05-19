@@ -61,6 +61,7 @@ productRouter.get("/", async (req, res) => {
       res.status(500).json({ message: error.message })
   }
 })
+
 // productRouter.get("/", async (req, res) => {
 //   try {
 //     const { name, size = 0, page = 10, sort, sortBy } = req.query;
