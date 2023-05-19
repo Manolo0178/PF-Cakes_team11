@@ -16,6 +16,8 @@ import NavBar from "../Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import Comment from "../Comment/Comment";
 import styles from "./detail.module.css";
+
+import Swal from "sweetalert2";
 import { changeDetails, addToCart } from "../../redux/actions";
 
 
@@ -39,17 +41,35 @@ export default function Detail() {
 
   
 
-  const handleDelete = async() => {
-    if (window.confirm("¿Estás seguro de eliminarlo?")) {
-      await axios
-        .delete(`http://localhost:3001/products/${myProduct.id}`)
-        .then(alert("se ha eliminado el producto"), navigate("/Products"))
-    }
+
+  const handleDelete = () => {
+    Swal.fire({
+      title: "¿Estás seguro de eliminarlo?",
+      icon: "question",
+      showDenyButton:"true",
+      confirmButtonText: "Si",
+      denyButtonText:"No"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await axios
+          .delete(`http://localhost:3001/products/${myProduct.id}`)
+          .then(
+            navigate("/Products"),
+            setTimeout(() => {
+              Swal.fire({
+                title: "Se eliminó exitosamente",
+                icon: "success",
+                showConfirmButton:false,
+                timer:1500,
+              })
+            },500)
+          );
+      }
+    });
   };
 
 
 //*********** handle changes *************
-  
   const changeImage = () => {
     let img = prompt("¿Que imágen desea colocarle?", `${myProduct.image}`);
     dispatch(changeDetails({ image: img }, myProduct.id));
@@ -57,7 +77,7 @@ export default function Detail() {
       window.location.reload(true);
     }
   }
-  const changeName = () => {
+  const changeName = async() => {
     let named = prompt("¿Que nombre desea colocarle?", `${myProduct.name}`);
     dispatch(changeDetails({ name: named }, myProduct.id));
     if (named) {

@@ -42,6 +42,8 @@ Product.belongsToMany(Cart, { through: OrderItem });
 Cart.belongsToMany(Product, { through: OrderItem });
 OrderItem.belongsTo(Product);
 OrderItem.belongsTo(Cart)
+Cart.belongsTo(User, { foreignKey: 'userId' });
+User.hasOne(Cart, { foreignKey: 'userId' });
 
 Product.hasMany(Review) // Aquí se establece una relación de "uno a muchos" entre los modelos Product y Reviews. Esto significa que un producto puede tener varios comentarios.
 User.hasMany(Review) // Esta línea establece una relación de "uno a muchos" entre los modelos Users y Reviews. Esto significa que un usuario puede tener varios comentarios.
@@ -50,7 +52,7 @@ Review.belongsTo(Product) // Aquí se establece que una reseña pertenece a un s
 Review.belongsTo(User) // Aquí se establece que una reseña pertenece a un solo usuario.
 
 User.belongsToMany(Address, { through: 'UserAddress' }); 
-User.belongsToMany(Address, { through: 'UserAddress' });
+Address.belongsToMany(User, { through: "UserAddress" });
 
 
 // comentario de prueba
