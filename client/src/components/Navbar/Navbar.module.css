@@ -1,6 +1,7 @@
 .navBarCont{
   width: 100%;
-  background-color: #f89fa5;
+  background-color: #fea8bd;
+  font-family: 'Raleway', sans-serif;
 }
 .cont{
   display: flex;

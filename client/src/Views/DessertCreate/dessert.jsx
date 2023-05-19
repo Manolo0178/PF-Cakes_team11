@@ -5,78 +5,36 @@ import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../components/Navbar/Navbar";
 import style from "./dessert.module.css";
 import Footer from "../../components/Footer/Footer"
+import Swal from "sweetalert2";
+import { BsFillFileEarmarkArrowUpFill } from "react-icons/bs";
+import validation from "./Validation";
 export default function CreateDessert() {
   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
 
   const desserts = useSelector((state) => state.dessert);
-  const errorForm = useSelector((state) => state.errorForm);
-  const [errors, setErrors] = useState({
-    name: "",
-    summary: "",
-    description: "",
-    image: "",
-    price: "",
-    desserts: [],
-  });
-
+ 
   const [form, setForm] = useState({
     name: "",
-    summary: "",
+    description: "",
+    imageFile: null,
+    price: "",
+    desserts: [],
+  });
+  
+  const [errors, setErrors] = useState({
+    name: "",
     description: "",
     image: "",
     price: "",
     desserts: [],
   });
 
-  function validate() {
-    let newErrors = {};
-    if (!form.name) {
-      newErrors.name = "Se requiere un nombre para el postre";
-    } else if (!/^[a-zA-Z ]+$/.test(form.name)) {
-      newErrors.name = "No se permiten numeros";
-    } else {
-      newErrors.name = "";
-    }
+  function handleChange(event) {
+    const property = event.target.name;
+    const value = event.target.type === "file" ? event.target.files[0] : event.target.value;
 
-    if (!form.summary) {
-      newErrors.summary = "Se requiere completar el summary";
-    } else {
-      newErrors.summary = "";
-    }
-
-    if (!form.description) {
-      newErrors.description = "Se requiere completar la descripcion";
-    } else {
-      newErrors.description = "";
-    }
-
-    // if (!/^https?:\/\/[\da-z.-]+\.[a-z.]{2,6}(\/[\w .-]*)*\/?$/.test(form.image)) {
-    //   newErrors.image = "Se requiere una url";
-    // } else {
-    //   newErrors.image = "";
-    // }
-
-    if (!form.desserts) {
-      newErrors.desserts = "Se requiere conocer el postre";
-    } else {
-      newErrors.desserts = "";
-    }
-
-    setErrors({ ...errors, ...newErrors });
-  }
-
-  function handleChange(e) {
-    e.target.name === "dessert"
-      ? setForm({
-          ...form,
-          desserts: [...form.desserts, e.target.value],
-        })
-      : setForm({
-          ...form,
-          [e.target.name]: e.target.value,
-        });
-    validate(e.target.value);
+    setForm({ ...form, [property]: value });
+    setErrors(validation({...form,[property]:value},errors))
   }
 
   function handleDelete(value) {
@@ -92,26 +50,45 @@ export default function CreateDessert() {
 
   function handleSelect(e) {
     const selectedDessert = e.target.value;
-    setForm({
-      ...form,
-      desserts: [...form.desserts, selectedDessert],
-    });
-    e.target.value = ""; //limpiar el valor seleccionado
+    if (form.desserts.length < 2 && selectedDessert !== form.desserts) {
+      
+      setForm({
+        ...form,
+        desserts: [...form.desserts, selectedDessert],
+      });
+
+    }
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    dispatch(postDessert(form));
-
-    resetForm();
-    // navigate("/Products");
+  const formData = new FormData();
+  formData.append("name", form.name);
+  formData.append("summary", form.summary);
+  formData.append("description", form.description);
+  formData.append("image", form.imageFile);
+  formData.append("price", form.price);
+  formData.append("desserts", JSON.stringify(form.desserts));
+    if (!errors.name && !errors.description && !errors.image &&!errors.price && !errors.desserts) {
+      dispatch(postDessert(form));
+      Swal.fire({
+        title: "Creaste un Postre",
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
+      resetForm();
+    }
+      Swal.fire({
+        title: "Completa todos los datos por favor",
+        icon: "error",
+        showConfirmButton:false,
+        timer:1500
+      });    
   }
 
   const resetForm = () => {
     setForm({
       name: "",
-      summary: "",
       description: "",
       image: "",
       price: "",
@@ -128,98 +105,88 @@ export default function CreateDessert() {
       >
         <h1>Crea tu postre!</h1>
         <div className={style.textCont}>
-          <div className={style.inputCont}>
-            <div className={style.input}>
-              <label className="label">Nombre:</label>
-              <input
-                type="text"
-                value={form.name}
-                name="name"
-                onChange={handleChange}
-              />
-            </div>
-            {errors.name && <p className="error">{errors.name}</p>}
-          </div>
-          <div className={style.inputCont}>
-            <div className={style.input}>
-            <label>Summary:</label>
+          <div className={style.input}>
+            <label className="label">Nombre:</label>
             <input
               type="text"
-              value={form.summary}
-              name="summary"
+              value={form.name}
+              name="name"
               onChange={handleChange}
+              placeholder="Nombre"
             />
-            </div>
-            {errors.summary && <p className="error">{errors.summary}</p>}
+            {errors.name && <p className={style.error}>{errors.name}</p>}
           </div>
-          <div className={style.inputCont}>
-            <div className={style.input}>
-            <label>Descripcion:</label>
+          <div className={style.input}>
+            <label>Descripción:</label>
             <input
               type="text"
               value={form.description}
               name="description"
               onChange={handleChange}
-              />
-            </div>
+              placeholder="Descripción"
+            />
             {errors.description && (
-              <p className="error">{errors.description}</p>
+              <p className={style.error}>{errors.description}</p>
             )}
           </div>
-          <div className={style.inputCont}>
-            <div className={style.input}>
-            <label>Price:</label>
+
+          <div className={style.priceCont}>
+            <label>Precio:</label>
             <input
               type="number"
               value={form.price !== "null" ? form.price : "0"}
               name="price"
+              min="0"
               onChange={(e) => handleChange(e)}
-              // defaultValue="0"
-              />
-            </div>
-            {errors.price && <p className="error">{errors.price}</p>}
+            />
           </div>
-          <div className={style.inputCont}>
-            <div className={style.input}>
-            <label>Imagen PNG:</label>
-            <input
-              type="text"
-              value={form.image}
-              name="image"
-              onChange={handleChange}
+          <div className={style.imageCont}>
+            <label>Imágen: </label>
+            <div className={style.logoCont}>
+              <input
+                type="file"
+                name="imageFile"
+                onChange={handleChange}
+                accept="image/png"
               />
+              <BsFillFileEarmarkArrowUpFill className={style.logoFile} />
             </div>
-            {errors.image && <p className="error">{errors.image}</p>}
           </div>
-          <label htmlFor="desserts">
-            Dessert:
-            <select name="desserts" onChange={handleSelect}>
-              <option value="">Seleccionar</option>
-              {desserts?.map((dessert, index) => (
-                <option value={dessert} key={index}>
-                  {dessert}
-                </option>
-              ))}
-            </select>
-          </label>
 
-          <br></br>
-          <p />
-          <h5>{form.desserts?.map((dessert) => dessert + " , ")}</h5>
+          <div className={style.dessertCont}>
+            <div className={style.dessert}>
+              <label>Tipo de Postre:</label>
+              <select name="desserts" onChange={handleSelect}>
+                <option value="" selected disabled hidden>
+                  Seleccionar
+                </option>
+                {desserts?.map((dessert, index) => (
+                  <option value={dessert} key={index}>
+                    {dessert}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className={style.desCont}>
+              {form.desserts?.map((dessert, index) => (
+                <div key={index} className={style.des}>
+                  <p>{dessert}</p>
+                  <button
+                    className={style.botonX}
+                    onClick={() => handleDelete(dessert)}
+                  >
+                    X
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-        <button type="submit" className="button">
+        <button type="submit" className={style.button}>
           Crear Postre
         </button>
-        {errorForm !== "" ? <h6>{errorForm}</h6> : ""}
       </form>
-      {form.desserts?.map((dessert, index) => (
-        <div className="divOcc" key={index}>
-          <p className="divOcc">{dessert}</p>
-          <button className=" botonX" onClick={() => handleDelete(dessert)}>
-            X
-          </button>
-        </div>
-      ))}
+
       <Footer />
     </div>
   );

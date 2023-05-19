@@ -5,6 +5,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 30px;
+    font-family: 'Raleway', sans-serif;
 }
 
 .formCont{
@@ -16,7 +17,7 @@
     align-items: center;
     gap: 30px;
     border-radius: 10px;
-    background-color: rgb(230, 176, 185);
+    background-color: #fea8bd;
 }
 .form{
     display: flex;
@@ -27,14 +28,20 @@
 }
 .inputCont{
     display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    position: relative;
 }
 .inputCont input{
-    height: 25px;
+    height: 40px;
+    width: 100%;
+}
+.inputCont label{
+    font-weight: 600;
 }
 
 .error{
-    color: red;
+    position: absolute;
+    bottom: -25px;
 }

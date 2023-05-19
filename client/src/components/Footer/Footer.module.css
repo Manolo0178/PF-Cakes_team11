@@ -1,12 +1,13 @@
 .footerCont{
     width: 100%;
     height: 150px;
-    background-color: #f89fa5;
+    background-color: #fea8bd;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 20px;
     align-items: center;
+    font-family: 'Raleway', sans-serif;
 }
 .footerIconsCont{
     width: 100%;

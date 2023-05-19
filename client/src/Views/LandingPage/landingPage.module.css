@@ -1,57 +1,71 @@
-.landingCont{
-  min-height: 100vh;
+.landingCont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fca2cf; /* rosa */
 }
-.img{
-    margin-top: 80px;
-}
-.btn {
-    background-color: #FF69B4; /* rosa */
-    color: #fff; /* blanco */
-    border: none;
-    border-radius: 10px;
-    padding: 10px 20px;
-    font-size: 20px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .btn:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    background-color: rgba(240, 228, 228, 0.5); /* blanco translúcido */
-    z-index: -1;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .btn:hover:before {
-    width: 100%;
-  }
-  
-  .btn:hover {
-    background-color: #FF1493; /* rosa oscuro */
-  }
 
-  h1 {
-    font-size: 36px;
-    font-family: "Pacifico", cursive;
-    font-weight: normal;
-    color: #f58c6d;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  p {
-    font-size: 18px;
-    font-family: "Lato", sans-serif;
-    font-weight: normal;
-    color: #5c5c5c;
-    text-align: center;
-    margin-bottom: 40px;
-  }
+.leftSide {
+  padding: 80px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.rightSide {
+  background-color: #fca2cf; /* marrón clarito */
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.loginForm {
+  margin-right: 70px;
+}
+
+.btn {
+  background-color: #d35f7c; /* rosa */
+  color: #fff; /* blanco */
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgba(240, 228, 228, 0.5); /* blanco translúcido */
+  z-index: -1;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn:hover:before {
+  width: 100%;
+}
+
+.btn:hover {
+  background-color: #fea8bd; /* rosa oscuro */
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: normal;
+  color: #0e0c0b;
+  text-align: center;
+  margin-bottom: 20px;
+}
