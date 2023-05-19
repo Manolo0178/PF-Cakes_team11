@@ -1,0 +1,23 @@
+.content{
+    border: 1px solid #000;
+    border-radius: 1rem;
+    margin: 1rem auto;
+    padding: 1rem;
+    width: 50%;
+}
+
+.contentForm{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+    gap: 0.5rem;
+}
+
+.input{
+    width: 100%;
+}
+
+.button{
+    width: min-content;
+}

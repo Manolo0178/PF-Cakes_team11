@@ -14,6 +14,7 @@ import Button from "react-bootstrap/Button";
 
 import NavBar from "../Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+import Comment from "../Comment/Comment";
 import styles from "./detail.module.css";
 import { changeDetails, addToCart } from "../../redux/actions";
 
@@ -139,6 +140,7 @@ export default function Detail() {
       ) : (
         <div></div>
       )}
+      <Comment/>
       <Footer/>
     </div>
   );
