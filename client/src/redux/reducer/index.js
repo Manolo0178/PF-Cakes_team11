@@ -11,7 +11,7 @@ import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   INCREASE_QUANTITY,
-  DECREASE_QUANTITY
+  DECREASE_QUANTITY,
 } from "../actions";
 
 const initialState = {
@@ -22,7 +22,7 @@ const initialState = {
   dessert: [],
   dessertCreate: [],
   errorForm: null,
-  cartItems: []
+  cartItems: [],
 };
 
 function rootReducer(state = initialState, action) {
