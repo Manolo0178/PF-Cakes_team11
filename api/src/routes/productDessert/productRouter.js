@@ -4,7 +4,17 @@ const productRouter = express.Router();
 const { Product, Dessert } = require("../../db.js")
 const {dataBs} = require("../../controler/index.js")
 dataBs()
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
+dataBs()
 
+const cloudinary = require("cloudinary").v2;
+require("dotenv").config()
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_KEY_SECRET,
+}) 
 
 productRouter.get("/:idProduct", async (req, res) => {
   const { idProduct } = req.params
@@ -112,42 +122,86 @@ productRouter.get("/", async (req, res) => {
 // });
 
 //se agrego un controlador que hace un pedido a una api creada por url
-        
-productRouter.post("/", async (req, res) => {
+productRouter.post("/", upload.single("image"), async (req, res) => {
   try {
-    let { name, summary, description, image, price, desserts } = req.body;
-    const existingProduct = await Product.findOne({ where: { name } });
-    // verifica si existe un producto con el mismo  nombre en la db salta a la sgte iteracion
-    // evitando la creacion con el mismo nombre
-    if (existingProduct) {
-      return res.status(400).json({ message: "Product name already exists" });
-    }
+    let { name, summary, description, price, desserts } = req.body;
+    
+    // Aquí se carga la imagen en Cloudinary
+    
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "img",
+    });
+    // fs.unlink(req.file.path, (err) => {
+      //   if (err) {
+        //     console.error(err);
+        //   }
+        // });
+        console.log(result)
+        const existingProduct = await Product.findOne({ where: { name } });
+        if (existingProduct) {
+          return res.status(400).json({ message: "Product name already exists" });
+        }
     const newProduct = await Product.create({
       name,
       description,
       summary,
-      image,
-      price
-    })
+      image: result.secure_url, // Guardamos la URL de la imagen en Cloudinary
+      price,
+    });
+
     if (Array.isArray(desserts)) {
-      const dessertInstances = await Promise.all(desserts.map(async dessert => {
-        const [dessertInstances] = await Dessert.findOrCreate({ where: { name: dessert } })
-        return dessertInstances
-
-      }))
-      await newProduct.addDesserts(dessertInstances)
-      res.status(200).json(newProduct)
+      const dessertInstances = await Promise.all(
+        desserts.map(async (dessert) => {
+          const [dessertInstances] = await Dessert.findOrCreate({
+            where: { name: dessert },
+          });
+          return dessertInstances;
+        })
+      );
+      await newProduct.addDesserts(dessertInstances);
+      res.status(200).json(newProduct);
     } else {
-
-      res.status(404).json({ message: "product not Created" })
+      res.status(404).json({ message: "Product not created" });
     }
-
-
   } catch (error) {
-    res.status(500).json({ message: error.message })
+    res.status(500).json({ message: error.message });
   }
+});       
+// productRouter.post("/", async (req, res) => {
+//   try {
+//     let { name, summary, description, image, price, desserts } = req.body;
+//     const existingProduct = await Product.findOne({ where: { name } });
+//     // verifica si existe un producto con el mismo  nombre en la db salta a la sgte iteracion
+//     // evitando la creacion con el mismo nombre
+//     if (existingProduct) {
+//       return res.status(400).json({ message: "Product name already exists" });
+//     }
+//     const newProduct = await Product.create({
+//       name,
+//       description,
+//       summary,
+//       image,
+//       price
+//     })
+//     if (Array.isArray(desserts)) {
+//       const dessertInstances = await Promise.all(desserts.map(async dessert => {
+//         const [dessertInstances] = await Dessert.findOrCreate({ where: { name: dessert } })
+//         return dessertInstances
 
-})
+//       }))
+//       await newProduct.addDesserts(dessertInstances)
+//       res.status(200).json(newProduct)
+//     } else {
+
+//       res.status(404).json({ message: "product not Created" })
+//     }
+
+
+//   } catch (error) {
+//     res.status(500).json({ message: error.message })
+//   }
+
+// })
 
 
 
