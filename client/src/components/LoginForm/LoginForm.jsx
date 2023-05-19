@@ -9,39 +9,35 @@ import Swal from "sweetalert2";
 import styles from "./LoginForm.module.css"
 import axios from "axios";
 
-const LoginForm = ({ setToken }) => {
+const LoginForm = () => {
   const Navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const [rememberSession, setRememberSession] = useState(false);
+
+
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/login", { email, password });
-      const token = response.data.token;
-      localStorage.setItem("token", token);
-      setToken(token);
+      await axios.post("/user/login", { email, password })
+        .then((response) => {
+          const token = response.data.token;
+          localStorage.setItem("token", token);
+          Navigate("/home")
+      })
+
     } catch (error) {
       throw new Error("error al iniciar sesión");
     }
   };
-  const handleSubmitLogin = (e) => {
-    e.preventDefault();
-    // hay que validar si el usuario existe, en caso que exista hace esto, en caso
-    // contrario, poner otra alerta de error
-    Swal.fire({
-      title: "Te has logueado de forma exitosa",
-      icon: "success",
-      text: "Serás redireccionado al inicio",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Navigate("/home");
-      }
-    });
+
+  const handleRememberSessionChange = () => {
+    setRememberSession(!rememberSession);
   };
 
   return (
-    <form className={styles.loginCont} onSubmit={(e) => handleSubmitLogin(e)}>
+    <form className={styles.loginCont} onSubmit={(e) => handleLogin(e)}>
       <h1>Iniciar sesión</h1>
       <div className={styles.inputCont}>
         <div className={styles.emailCont}>
@@ -79,7 +75,12 @@ const LoginForm = ({ setToken }) => {
         </div>
       </div>
       <div className={styles.checkbox}>
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          name="rememberSession"
+          checked={rememberSession}
+          onChange={handleRememberSessionChange}
+        />
         <label htmlFor="">Permanecer conectado</label>
       </div>
       <Button variant="primary" type="submit">

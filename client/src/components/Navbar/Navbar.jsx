@@ -12,6 +12,7 @@ import styles from "./Navbar.module.css";
 import Cart from '../Cart/Cart';
 
 function NavBar() {
+  const storedToken = localStorage.getItem("token");
   const [cartVisible, setCartVisible] = useState(false);
 
   const toggleCart = () => {
@@ -47,9 +48,15 @@ function NavBar() {
             <Nav.Link as={Link} to="/create" className={styles.link}>
               Crear Postre
             </Nav.Link>
-            <Nav.Link as={Link} to="/login" className={styles.link}>
-              Ingresá
-            </Nav.Link>
+            {storedToken ? (
+              <Nav.Link as={Link} to="/profile" className={styles.link}>
+                Perfil
+              </Nav.Link>
+            ) : (
+              <Nav.Link as={Link} to="/login" className={styles.link}>
+                Ingresá
+              </Nav.Link>
+            )}
             <Nav.Link className={styles.link} onClick={toggleCart}>
               <MdOutlineLocalGroceryStore color="white" size="1.6rem" />
             </Nav.Link>
