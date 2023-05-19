@@ -2,23 +2,25 @@ import React from 'react';
 import NavBar from "../../components/Navbar/Navbar"
 import CreadorasOhana from "../../assets/images/CreadorasOhana.png"
 import Footer from '../../components/Footer/Footer';
-
+import styles from "./about.module.css"
 
 function About(){
     return (
         <div>
             <NavBar />
 
-            <h2>Nos presentamos: </h2>
-
             <img src={CreadorasOhana} height="600px" alt='aylen'></img>
-            <h4>Mi madre y yo siempre hemos tenido una pasión por la cocina y la pastelería. Cuando terminé mi carrera de chef, decidimos crear nuestra propia pastelería desde cero. Comenzamos con muy poco dinero, pero con nuestras habilidades culinarias y nuestro entusiasmo por el negocio, compramos los ingredientes necesarios para nuestras primeras creaciones.
 
-            Preparamos los pasteles, los cupcakes, las galletas y los macarons más deliciosos que jamás habíamos hecho y los presentamos en una pequeña mesa en la entrada de nuestra casa. Los primeros clientes que llegaron fueron amigos y familiares, pero pronto comenzamos a recibir pedidos de personas que habían probado nuestras deliciosas creaciones.
+            <h4>Hola! Soy aylen y junto con mi madre creamos Ohana Pasteleria. 
+            Luego de pasar por varias carreras decidi entrar en "Gastronomia y alta cocina", siempre me apasiono la cocina, pero tengo que decir que me gusta mucho mas la pasteleria. Asi que al recibirme nos pusimos manos a la obra junto a mi mamá (es medica), y decidimos poner un emprendimiento. No sabiamos como llamarlo, y como soy fanatica de disney le pusimos "Ohana" que en Hawaiano significa "Familia", el nombre le iba perfecto porque es un emprendimiento familiar.
 
-            Nuestra pastelería se hizo famosa en la ciudad y, con el tiempo, la pequeña mesa se convirtió en un mostrador, el mostrador en una tienda y la tienda en una franquicia de pastelerías. Trabajamos arduamente para mantener la calidad y el sabor de nuestras creaciones, y nuestro negocio siguió creciendo año tras año.
+            <h4>Al principio nuestras tartas, cupcakes y tortas(sobre todo jaja) no eran muy lindas, pero como con practica y pasion todo se puede, mejoramos muchisimo. 
+            Nuestros primeros clientes que la mayoria eran amigos, nos empezaron a recomendar y asi fue creciendo nuestro pequeño emprendimiento. Y asi ahora hacemos desde mini cakes, hasta mesas dulces en los cumpleaños.
+            Estamos super alegres de lo que logramos, con algo que nos apasiona tanto como es la pasteleria. Siempre estamos buscando que innovacion o reversion de postres podemos hacer, siempre con materia prima de primera, para poder brindar algo nuevo a los clientes.</h4>
 
-            Aunque tuvimos momentos difíciles, nunca perdimos el entusiasmo y la pasión por nuestro negocio, y asi nacio OHANA PASTELERIA. </h4>
+            <h4>Te invitamos a descubrir todos los exquisitos sabores que hay en esta tienda online, saludos y gracias.</h4>
+            
+            </h4>
             <Footer/>
         </div>
     )
