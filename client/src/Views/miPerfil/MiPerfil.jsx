@@ -6,9 +6,9 @@ import Footer from "../../components/Footer/Footer"
 import styles from "./MiPerfil.module.css";
 import { useState } from "react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const MiPerfil = () => {
-
+  const Navigate = useNavigate()
   const [perfil, setPerfil] = useState({})
   
   const storedToken = localStorage.getItem("token");
@@ -22,7 +22,10 @@ const MiPerfil = () => {
       })
       )
   }, [])
-    
+    const logoutButton = () => {
+      localStorage.removeItem("token");
+      Navigate("/home")
+    }
     return (
       <div className={styles.cont}>
         <NavBar />
@@ -34,7 +37,7 @@ const MiPerfil = () => {
             {perfil.name&&<h2>{perfil.name}</h2>}
             {perfil.email&&<h2>{perfil.email}</h2>}
             <MiPerfilNav />
-            <button>Salir</button>
+            <button onClick={logoutButton}>Salir</button>
           </div>
           <div className={styles.section}>
             <h2>Mis favoritos</h2>
