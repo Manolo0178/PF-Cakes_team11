@@ -3,7 +3,6 @@ const express = require("express");
 const productRouter = express.Router();
 const { Product, Dessert } = require("../../db.js")
 const {dataBs} = require("../../controler/index.js")
-dataBs()
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 dataBs()
@@ -167,42 +166,6 @@ productRouter.post("/", upload.single("image"), async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });       
-// productRouter.post("/", async (req, res) => {
-//   try {
-//     let { name, summary, description, image, price, desserts } = req.body;
-//     const existingProduct = await Product.findOne({ where: { name } });
-//     // verifica si existe un producto con el mismo  nombre en la db salta a la sgte iteracion
-//     // evitando la creacion con el mismo nombre
-//     if (existingProduct) {
-//       return res.status(400).json({ message: "Product name already exists" });
-//     }
-//     const newProduct = await Product.create({
-//       name,
-//       description,
-//       summary,
-//       image,
-//       price
-//     })
-//     if (Array.isArray(desserts)) {
-//       const dessertInstances = await Promise.all(desserts.map(async dessert => {
-//         const [dessertInstances] = await Dessert.findOrCreate({ where: { name: dessert } })
-//         return dessertInstances
-
-//       }))
-//       await newProduct.addDesserts(dessertInstances)
-//       res.status(200).json(newProduct)
-//     } else {
-
-//       res.status(404).json({ message: "product not Created" })
-//     }
-
-
-//   } catch (error) {
-//     res.status(500).json({ message: error.message })
-//   }
-
-// })
-
 
 
 productRouter.put("/:id", async (req, res) => {
