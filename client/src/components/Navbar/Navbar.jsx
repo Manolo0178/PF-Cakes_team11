@@ -57,6 +57,7 @@ function NavBar() {
                 Ingresá
               </Nav.Link>
             )}
+            
             <Nav.Link className={styles.link} onClick={toggleCart}>
               <MdOutlineLocalGroceryStore color="white" size="1.6rem" />
             </Nav.Link>

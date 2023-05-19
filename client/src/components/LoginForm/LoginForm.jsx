@@ -13,6 +13,7 @@ const LoginForm = () => {
   const Navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [rememberSession, setRememberSession] = useState(false);
 
 
@@ -20,12 +21,15 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/user/login", { email, password })
+      await axios
+        .post("http://localhost:3001/user/login", { email, password })
         .then((response) => {
           const token = response.data.token;
+          const userId = response.data.id
           localStorage.setItem("token", token);
-          Navigate("/home")
-      })
+          localStorage.setItem("userId", userId);
+          Navigate("/home");
+        });
 
     } catch (error) {
       throw new Error("error al iniciar sesión");

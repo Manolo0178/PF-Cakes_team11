@@ -11,6 +11,8 @@ const { SECRET } = process.env
 
 userRouter.post("/login", async (req, res) => {
   const { email, contact, password } = req.body;
+  console.log(email);
+  console.log(password);
   try {
     let user;
     let passwordsMatch = false;
@@ -29,7 +31,7 @@ userRouter.post("/login", async (req, res) => {
 
     if (passwordsMatch) {
       const token = jwt.sign({ id: user.id, name: user.name }, SECRET, { expiresIn: "1m" });
-      res.json({token});
+      res.json({token, id: user.id});
     } else {
       res.status(401).send("Credenciales inválidas");
     }
@@ -43,8 +45,11 @@ userRouter.post("/login", async (req, res) => {
 
 userRouter.post("/create", async (req, res) => { // Esta ruta es para crear un usuario
   const { name, email, contact, lastName, password, image } = req.body;
-  
   try {
+    const existingUser = await User.findOne({ where: { name } })
+    if (existingUser) {
+      res.status(400).json({message:"existing user"})
+    }
     let user = await User.create({ name, email, contact, lastName, password, image });
 
   const { password: userPassword, ...userWithoutPassword } = user.toJSON();
@@ -164,7 +169,35 @@ userRouter.delete("/delete/:idUser", async (req, res)=> {
     res.status(404).json({error: error.message})
   }
 })
+userRouter.get('/:idUser',  async (req, res) => {
+  try {
+    const { idUser } = req.params;
+    const userId = await User.findOne({
+      where: {
+        [Op.and]: [
+          { id: idUser },
+          { deleted: false }
+        ]
+      },
+      include: [
+        {
+          model: Address,
+          attributes: ['shippingAddress'],
+          through: { attributes: [] }
+        }
+      ]
+    })
+    const { password: userPassword, ...userWithoutPassword } = userId.toJSON();
 
+  if(!userId){
+              res.status(404).send('user not found by id')
+          }else{
+              res.status(200).json(userWithoutPassword)
+          }
+      } catch (error) {
+          res.status(500).json({message:error.message})
+      }
+  })
 
 // prueba de commit
 module.exports = userRouter
