@@ -7,7 +7,7 @@ const { Op } = require("sequelize")
 const { User, Address } = require("../../db");
 const { SECRET } = process.env
 
-
+// comitt de prueba
 
 userRouter.post("/login", async (req, res) => {
   const { email, contact, password } = req.body;
