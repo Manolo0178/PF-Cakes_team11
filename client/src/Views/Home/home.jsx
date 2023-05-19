@@ -43,7 +43,7 @@ function Home() {
           <h3>Algunos de nuestros productos</h3>
           <Cards products={products} />
           <div className={styles.buttonCont}>
-            <Button onClick={navigation} variant="primary">
+            <Button onClick={navigation} className={styles.button}>
               Ver mas productos
             </Button>{" "}
           </div>

@@ -12,13 +12,15 @@ import CreateDessert from './Views/DessertCreate/dessert';
 import Detail from "./components/Detail/detail"
 
 import MiPerfil from './Views/miPerfil/MiPerfil';
+import MisCompras from "./Views/miPerfil/MisCompras/MisCompras"
+import MisDatos from "./Views/miPerfil/MisDatos/MisDatos"
 function App() {
   const storedToken = localStorage.getItem("token");
 
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/" element={<Landing />} />
+        <Route exact path="/" element={<Landing storedToken={storedToken} />} />
 
         <Route exact path="/home" element={<Home />} />
 
@@ -29,9 +31,9 @@ function App() {
         <Route path="/create" element={<CreateDessert />} />
 
         <Route path="/home/:id" element={<Detail />} />
-        {storedToken &&
-        <Route path="/profile" element={<MiPerfil />} />
-        }
+        {storedToken && <Route path="/profile" element={<MiPerfil />} />}
+        {storedToken && <Route path="/profile/misCompras" element={<MisCompras />} />}
+        {storedToken && <Route path="/profile/misDatos" element={<MisDatos />} />}
       </Routes>
     </div>
   );
