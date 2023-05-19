@@ -6,8 +6,18 @@ const jwt = require("jsonwebtoken")
 const { Op } = require("sequelize")
 const { User, Address } = require("../../db");
 const { SECRET } = process.env
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
-// comitt de prueba
+
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_KEY_SECRET,
+}) 
+
+// RUTA LOGIN
 
 userRouter.post("/login", async (req, res) => {
   const { email, contact, password } = req.body;
@@ -16,7 +26,7 @@ userRouter.post("/login", async (req, res) => {
   try {
     let user;
     let passwordsMatch = false;
-
+    
     if (email) {
       user = await User.findOne({ where: { email, deleted: false }});
     }
@@ -40,26 +50,27 @@ userRouter.post("/login", async (req, res) => {
   }
 });
 
-
-
-
-userRouter.post("/create", async (req, res) => { // Esta ruta es para crear un usuario
-  const { name, email, contact, lastName, password, image } = req.body;
+// RUTA CREAR USUARIO
+userRouter.post("/create", upload.single("image") ,async (req, res) => { // Esta ruta es para crear un usuario
+  const { name, email, contact, lastName, password } = req.body;
   try {
     const existingUser = await User.findOne({ where: { name } })
     if (existingUser) {
-      res.status(400).json({message:"existing user"})
+      res.status(401).json({message:"existing user"})
     }
-    let user = await User.create({ name, email, contact, lastName, password, image });
-
-  const { password: userPassword, ...userWithoutPassword } = user.toJSON();
-        res.status(201).json(userWithoutPassword);
-
+    const resultUser = await cloudinary.uploader.upload(req.file.path, { folder: 'imgUser' })
+    
+    let user = await User.create({ name, email, contact, lastName, password, image: resultUser.secure_url });
+    
+    const { password: userPassword, ...userWithoutPassword } = user.toJSON();
+    res.status(201).json(userWithoutPassword);
+    
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
 
+// RUTA TODOS LOS USUARIO O POR NAME
 userRouter.get("/", async (req, res) => {
   const { name } = req.query;
   try {
@@ -111,7 +122,7 @@ userRouter.get("/", async (req, res) => {
 });
 
 
-
+// RUTA PARA MODIFICAR USUARIO !!!OJO SIN PASSWORD!!!
 userRouter.put("/modifyUser/:idUser", async (req, res) => {
   const { idUser } = req.params;
   const { name, email, contact, lastName, image } = req.body;
@@ -132,7 +143,7 @@ userRouter.put("/modifyUser/:idUser", async (req, res) => {
   res.json({ message: "Usuario modificado exitosamente" });
 });
 
-
+//  RUTA PARA MODIFICAR LA PASSWORD
 userRouter.put("/modifyPassword/:idUser", async (req, res) => {
   const { idUser } = req.params;
   let { password, newPassword } = req.body;
@@ -157,7 +168,7 @@ userRouter.put("/modifyPassword/:idUser", async (req, res) => {
   }
 });
 
-
+// RUTA PARA ELIMINAR USUARIO
 userRouter.delete("/delete/:idUser", async (req, res)=> {
   const { idUser } =req.params
   try {
@@ -169,6 +180,8 @@ userRouter.delete("/delete/:idUser", async (req, res)=> {
     res.status(404).json({error: error.message})
   }
 })
+
+// RUTA PARA BUSCAR POR ID
 userRouter.get('/:idUser',  async (req, res) => {
   try {
     const { idUser } = req.params;
@@ -179,6 +192,7 @@ userRouter.get('/:idUser',  async (req, res) => {
           { deleted: false }
         ]
       },
+      attributes:{ exclude: ['password'] },
       include: [
         {
           model: Address,
