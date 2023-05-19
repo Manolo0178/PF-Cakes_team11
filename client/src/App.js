@@ -14,12 +14,12 @@ import Detail from "./components/Detail/detail"
 import MiPerfil from './Views/miPerfil/MiPerfil';
 
 function App() {
-  const storedToken = localStorage.getItem("token");
+  
 
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/" element={<Landing storedToken={storedToken} />} />
+        <Route exact path="/" element={<Landing />} />
 
         <Route exact path="/home" element={<Home />} />
 
@@ -30,7 +30,7 @@ function App() {
         <Route path="/create" element={<CreateDessert />} />
 
         <Route path="/home/:id" element={<Detail />} />
-        {storedToken && <Route path="/profile" element={<MiPerfil />} />}
+        <Route path="/profile" element={<MiPerfil />} />
       </Routes>
     </div>
   );

@@ -7,6 +7,7 @@ import styles from "./MiPerfil.module.css";
 import { useState } from "react";
 import axios from "axios";
 
+
 const MiPerfil = () => {
   const [page, setPage] = useState("fav")
   const [perfil, setPerfil] = useState({})
@@ -17,6 +18,7 @@ const MiPerfil = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (storedToken) {
+        storedToken && id &&
         await axios.get(`http://localhost:3001/user/${id}`).then((response) => {
           setPerfil(response.data);
         });
@@ -28,15 +30,25 @@ const MiPerfil = () => {
   
   const change = async (e, val) => {
     e.preventDefault()
-    const url = `http://localhost:3001/modifyUser/${id}`;
+    const url = `http://localhost:3001/user/modifyUser/${id}`;
     let changeProp = prompt(`Qué valor desea cambiarle a ${val}?`, perfil[val]);
 
     if (changeProp !== null) {
-      const updatedPerfil = { ...perfil, [val]: changeProp };
+      const updatedPerfil = {...perfil, [val]: changeProp };
+      console.log(updatedPerfil);
       await axios.put(url, updatedPerfil);
-      setPerfil(updatedPerfil);
+      setPerfil(updatedPerfil)
     }
   }
+
+
+    if (Object.keys(perfil).length === 0) {
+      return (
+        <div>
+          <h1>Error 404</h1>
+        </div>
+      );
+    }
 
     return (
       <div className={styles.cont}>
@@ -60,7 +72,9 @@ const MiPerfil = () => {
                 </div>
                 <div>
                   <h6>Apellido: {perfil.lastName}</h6>
-                  <button onClick={(e) => change(e, "lastName")}>cambiar</button>
+                  <button onClick={(e) => change(e, "lastName")}>
+                    cambiar
+                  </button>
                 </div>
                 <div>
                   <h6>Email: {perfil.email}</h6>
@@ -76,6 +90,11 @@ const MiPerfil = () => {
           {page === "compras" && (
             <div className={styles.section}>
               <h2>Historial de compras</h2>
+            </div>
+          )}
+          {page === "direcciones" && (
+            <div className={styles.section}>
+              <h2>Direcciones</h2>
             </div>
           )}
         </section>

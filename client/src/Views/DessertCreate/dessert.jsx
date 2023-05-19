@@ -21,6 +21,7 @@ export default function CreateDessert() {
     description: "",
     imageFile: null,
     price: "",
+    summary:"",
     desserts: [],
   });
   
@@ -29,6 +30,7 @@ export default function CreateDessert() {
     description: "",
     image: "",
     price: "",
+    summary:"",
     desserts: [],
   });
 
@@ -129,6 +131,19 @@ export default function CreateDessert() {
             />
             {errors.description && (
               <p className={style.error}>{errors.description}</p>
+            )}
+          </div>
+          <div className={style.input}>
+            <label>Ingredientes:</label>
+            <input
+              type="text"
+              value={form.summary}
+              name="summary"
+              onChange={handleChange}
+              placeholder="Ingredientes"
+            />
+            {errors.summary && (
+              <p className={style.error}>{errors.summary}</p>
             )}
           </div>
 
