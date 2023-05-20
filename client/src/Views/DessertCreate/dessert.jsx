@@ -12,7 +12,7 @@ export default function CreateDessert() {
   const dispatch = useDispatch();
 
   const desserts = useSelector((state) => state.dessert);
- 
+
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -20,7 +20,7 @@ export default function CreateDessert() {
     price: "",
     desserts: [],
   });
-  
+
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -34,7 +34,7 @@ export default function CreateDessert() {
     const value = event.target.type === "file" ? event.target.files[0] : event.target.value;
 
     setForm({ ...form, [property]: value });
-    setErrors(validation({...form,[property]:value},errors))
+    setErrors(validation({ ...form, [property]: value }, errors))
   }
 
   function handleDelete(value) {
@@ -51,7 +51,7 @@ export default function CreateDessert() {
   function handleSelect(e) {
     const selectedDessert = e.target.value;
     if (form.desserts.length < 2 && selectedDessert !== form.desserts) {
-      
+
       setForm({
         ...form,
         desserts: [...form.desserts, selectedDessert],
@@ -62,14 +62,14 @@ export default function CreateDessert() {
 
   function handleSubmit(e) {
     e.preventDefault();
-  const formData = new FormData();
-  formData.append("name", form.name);
-  formData.append("summary", form.summary);
-  formData.append("description", form.description);
-  formData.append("image", form.imageFile);
-  formData.append("price", form.price);
-  formData.append("desserts", JSON.stringify(form.desserts));
-    if (!errors.name && !errors.description && !errors.image &&!errors.price && !errors.desserts) {
+    const formData = new FormData();
+    formData.append("name", form.name);
+    formData.append("summary", form.summary);
+    formData.append("description", form.description);
+    formData.append("image", form.imageFile);
+    formData.append("price", form.price);
+    formData.append("desserts", JSON.stringify(form.desserts));
+    if (!errors.name && !errors.description && !errors.image && !errors.price && !errors.desserts) {
       dispatch(postDessert(form));
       Swal.fire({
         title: "Creaste un Postre",
@@ -78,12 +78,12 @@ export default function CreateDessert() {
       });
       resetForm();
     }
-      Swal.fire({
-        title: "Completa todos los datos por favor",
-        icon: "error",
-        showConfirmButton:false,
-        timer:1500
-      });    
+    Swal.fire({
+      title: "Completa todos los datos por favor",
+      icon: "error",
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
 
   const resetForm = () => {
