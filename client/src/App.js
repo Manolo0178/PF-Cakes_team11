@@ -12,7 +12,7 @@ import CreateDessert from './Views/DessertCreate/dessert';
 import Detail from "./components/Detail/detail"
 
 import MiPerfil from './Views/miPerfil/MiPerfil';
-
+import Domicilio from './Views/Domicilio/Domicilio';
 function App() {
   
 
@@ -20,17 +20,16 @@ function App() {
     <div className="App">
       <Routes>
         <Route exact path="/" element={<Landing />} />
-
         <Route exact path="/home" element={<Home />} />
-
         <Route path="/Products" element={<Products />} />
         <Route path="/createUser" element={<CreateUser />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/create" element={<CreateDessert />} />
-
         <Route path="/home/:id" element={<Detail />} />
+
         <Route path="/profile" element={<MiPerfil />} />
+        <Route path="/address" element={<Domicilio />} />
       </Routes>
     </div>
   );

@@ -35,7 +35,7 @@ const MiPerfilNav = ({ perfil, setPage }) => {
         <button className={styles.button} onClick={e=>handleChange(e,"fav")}>Favoritos</button>
         <button className={styles.button} onClick={e=>handleChange(e,"data")}>Mis datos</button>
         <button className={styles.button} onClick={e=>handleChange(e,"compras")}>Mis compras</button>
-        <button className={styles.button} onClick={e=>handleChange(e,"direcciones")}>Direcciones</button>
+        <button className={styles.button} onClick={e=>handleChange(e,"direcciones")}>Domicilios</button>
         <button className={styles.button} onClick={logoutButton}>
           Salir
         </button>

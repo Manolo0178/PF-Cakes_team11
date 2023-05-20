@@ -73,7 +73,7 @@ return (
               type="text"
               onChange={handleChange}
               name="name"
-              placeholder="name"
+              placeholder="nombre"
             />
             {errors.name && errors.name !== "" && (
               <span className={styles.error}>{errors.name}</span>
