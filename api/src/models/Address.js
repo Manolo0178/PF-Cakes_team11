@@ -3,7 +3,7 @@ const { DataTypes } = require("sequelize")
 module.exports = (sequelize) => {
     sequelize.define("address", {
         
-        shippingAddress: {
+        street: {
             type: DataTypes.TEXT,
             allowNull: false
           },
@@ -11,11 +11,19 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
           },
+          province: {
+            type: DataTypes.STRING,
+            allowNull:false
+          },
+          number: {
+            type: DataTypes.STRING,
+            allowNull: false,
+          },
           city: {
             type: DataTypes.STRING,
             allowNull:false
           },
-          location: {
+          telephoneContact: {
             type: DataTypes.STRING,
             allowNull: false
           }

@@ -38,10 +38,8 @@ userRouter.post("/login", async (req, res) => {
     }
 
     if (passwordsMatch) {
-      const token = jwt.sign({ id: user.id, name: user.name }, SECRET, {
-        expiresIn: "1m",
-      });
-      res.json({ token, id: user.id });
+      const token = jwt.sign({ id: user.id, name: user.name }, SECRET, { expiresIn: "1m" });
+      res.json({token});
     } else {
       res.status(401).json({error:"Credenciales inválidas"});
     }
@@ -82,7 +80,7 @@ userRouter.get("/", async (req, res) => {
         include: [
           {
             model: Address,
-            attributes: ["shippingAddress", "postalCode", "city", "location"],
+            attributes: ['shippingAddress', 'postalCode', 'city', 'location'],
             through: { attributes: [] },
           },
         ],
@@ -104,7 +102,7 @@ userRouter.get("/", async (req, res) => {
         include: [
           {
             model: Address,
-            attributes: ["shippingAddress", "postalCode", "city", "location"],
+            attributes: ['shippingAddress', 'postalCode', 'city', 'location'],
             through: { attributes: [] },
           },
         ],
