@@ -16,6 +16,7 @@ import MisCompras from "./Views/miPerfil/MisCompras/MisCompras"
 import MisDatos from "./Views/miPerfil/MisDatos/MisDatos"
 function App() {
   const storedToken = localStorage.getItem("token");
+  
 
   return (
     <div className="App">

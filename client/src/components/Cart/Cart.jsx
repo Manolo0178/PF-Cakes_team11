@@ -4,12 +4,15 @@ import style from './Cart.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, increaseQuantity, decreaseQuantity } from '../../redux/actions';
 import Alert from 'react-bootstrap/Alert';
+import axios from 'axios';
+import StripeCheckout from 'react-stripe-checkout';
 
 const Cart = ({ isOpen, toggleCart }) => {
   const cartItems = useSelector((state) => state.cartItems);
   const dispatch = useDispatch();
   const [showAlert, setShowAlert] = useState(false);
   const [removedItemId, setRemovedItemId] = useState(null);
+  const [paymentCompleted, setPaymentCompleted] = useState(false);
 
   const calculateTotal = () => {
     return cartItems.reduce((accumulator, item) => {
@@ -35,6 +38,18 @@ const Cart = ({ isOpen, toggleCart }) => {
     dispatch(decreaseQuantity(itemId));
   };
 
+  const handlePayment = (token) => {
+    axios
+      .post('/api/pago', { token, amount: total })
+      .then(response => {
+        setPaymentCompleted(true);
+      })
+      .catch(error => {
+        console.error(error);
+        // Aquí puedes mostrar un mensaje de error
+      });
+  };
+
   const handleAlertClose = () => {
     setShowAlert(false);
     setRemovedItemId(null);
@@ -57,6 +72,16 @@ const Cart = ({ isOpen, toggleCart }) => {
     return null;
   }
 
+  if (paymentCompleted) {
+    return (
+      <div className={`${style.carritos} ${style.show}`}>
+        <div className={`${style.carrito} ${style.show}`}>
+          <h2>Pago completado</h2>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={`${style.carritos} ${style.show}`}>
       <div className={`${style.carrito} ${style.show}`}>
@@ -73,7 +98,7 @@ const Cart = ({ isOpen, toggleCart }) => {
                 <p className={`${style.price}`}>${item.price}</p>
               </div>
               <div>
-              <box-icon type='solid' name='upvote'  onClick={() => handleIncreaseQuantity(item.id)}></box-icon>
+                <box-icon type='solid' name='upvote' onClick={() => handleIncreaseQuantity(item.id)}></box-icon>
                 <p className={`${style.cantidad}`}>{item.quantity}</p>
                 <box-icon type='solid' name='downvote' onClick={() => handleDecreaseQuantity(item.id)}></box-icon>
               </div>
@@ -85,7 +110,14 @@ const Cart = ({ isOpen, toggleCart }) => {
         </div>
         <div className={style.carrito__footer}>
           <h3>Total: ${total}</h3>
-          <button className={style.btnn}>Pagar</button>
+          <StripeCheckout
+            token={handlePayment}
+            amount={total * 100} // El monto se especifica en centavos
+            currency="USD"
+            stripeKey="TU_CLAVE_PUBLICA_STRIPE"
+          >
+            <button className={style.btnn}>Pagar</button>
+          </StripeCheckout>
         </div>
       </div>
       <Alert
