@@ -13,27 +13,26 @@ const LoginForm = () => {
   const Navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [error, setError]=useState("")
   const [rememberSession, setRememberSession] = useState(false);
 
 
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      await axios
-        .post("http://localhost:3001/user/login", { email, password })
-        .then((response) => {
-          const token = response.data.token;
-          const userId = response.data.id
-          localStorage.setItem("token", token);
-          localStorage.setItem("userId", userId);
-          Navigate("/home");
-        });
+    await axios
+      .post("http://localhost:3001/user/login", { email, password })
+      .then((response) => {
+        const token = response.data.token;
+        const userId = response.data.id;
+        localStorage.setItem("token", token);
+        localStorage.setItem("userId", userId);
+        Navigate("/home");
+      })
+      .catch((error) => {
 
-    } catch (error) {
-      throw new Error("error al iniciar sesión");
-    }
+        setError(error.response.data.error)
+      });
   };
 
   const handleRememberSessionChange = () => {
@@ -44,6 +43,7 @@ const LoginForm = () => {
     <form className={styles.loginCont} onSubmit={(e) => handleLogin(e)}>
       <h1>Iniciar sesión</h1>
       <div className={styles.inputCont}>
+        {error && <p>{error}</p>}
         <div className={styles.emailCont}>
           <label>Email: </label>
           <input

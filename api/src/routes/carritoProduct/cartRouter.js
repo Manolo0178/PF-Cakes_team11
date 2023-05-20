@@ -1,13 +1,11 @@
 const express = require("express");
 const cartRouter = express.Router();
 
-const { Product, Cart} = require("../../db.js");
-
+const { User, Address, Product, Cart } = require("../../db.js");
 
 cartRouter.get('/:userId', async (req, res) => {
   try {
-    
-    const {userId} = req.params;
+    const { userId } = req.params;
     
     const cart = await Cart.findOne({
       where: { userId },
@@ -18,12 +16,18 @@ cartRouter.get('/:userId', async (req, res) => {
             attributes: ['quantity'],
           },
         },
+        {
+          model: User,
+          include: [Address],
+          attributes: {
+            exclude: ['password'],
+          },
+        },
       ],
     });
    
     res.json(cart);
   } catch (error) {
-   
     res.status(500).json({ message: error.message });
   }
 });
@@ -37,7 +41,7 @@ cartRouter.post('/:userId/:productId', async (req, res) => {
    
     const {quantity} = req.body || 1;
     
-    let cart = await Cart.findOne({ where: { userId } });
+    let cart = await Cart.findOne({ where: { userId }});
     
     if (!cart) {
       cart = await Cart.create({ userId });

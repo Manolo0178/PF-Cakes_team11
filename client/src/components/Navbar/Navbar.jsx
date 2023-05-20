@@ -68,13 +68,7 @@ function NavBar() {
               // </Nav.Link>
               <NavDropdown title="Perfil" id="basic-nav-dropdown">
                 <NavDropdown.Item>
-                  <Link to="/profile">Favoritos</Link>
-                </NavDropdown.Item>
-                <NavDropdown.Item>
-                  <Link to="/profile/misCompras">Compras</Link>
-                </NavDropdown.Item>
-                <NavDropdown.Item>
-                  <Link to="/profile/misDatos">Datos</Link>
+                  <Link to="/profile">Perfil</Link>
                 </NavDropdown.Item>
                 <NavDropdown.Item>
                   <button
@@ -90,7 +84,6 @@ function NavBar() {
                 Ingresá
               </Nav.Link>
             )}
-
             <Nav.Link className={styles.link} onClick={toggleCart}>
               <MdOutlineLocalGroceryStore color="white" size="1.6rem" />
             </Nav.Link>
