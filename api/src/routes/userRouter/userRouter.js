@@ -28,7 +28,7 @@ userRouter.post("/login", async (req, res) => {
 
     if (passwordsMatch) {
       const token = jwt.sign({ id: user.id, name: user.name }, SECRET, { expiresIn: "1m" });
-      res.json({token});
+      res.json({token, id: user.id});
     } else {
       res.status(401).send("Credenciales inválidas");
     }
@@ -66,7 +66,7 @@ userRouter.get("/", async (req, res) => {
         include: [
           {
             model: Address,
-            attributes: ['shippingAddress', 'postalCode', 'city', 'location'],
+            attributes: ['street', 'postalCode', 'city', 'province', "number", 'telephoneContact' ],
             through: { attributes: [] },
           },
         ],
@@ -88,7 +88,7 @@ userRouter.get("/", async (req, res) => {
         include: [
           {
             model: Address,
-            attributes: ['shippingAddress', 'postalCode', 'city', 'location'],
+            attributes: ['street', 'postalCode', 'city', 'province', "number", 'telephoneContact' ],
             through: { attributes: [] },
           },
         ],

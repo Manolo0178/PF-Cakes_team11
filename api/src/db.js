@@ -50,7 +50,7 @@ Review.belongsTo(Product) // Aquí se establece que una reseña pertenece a un s
 Review.belongsTo(User) // Aquí se establece que una reseña pertenece a un solo usuario.
 
 User.belongsToMany(Address, { through: 'UserAddress' }); 
-User.belongsToMany(Address, { through: 'UserAddress' });
+Address.belongsToMany(User, { through: 'UserAddress' });
 
 
 // comentario de prueba
