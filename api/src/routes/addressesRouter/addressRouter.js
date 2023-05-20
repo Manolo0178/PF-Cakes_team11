@@ -9,18 +9,18 @@ addressRouter.post('/:idUser', async (req, res) => {
   try {
     let user = await User.findOne({ where: { id: idUser } });
 
-    let [address, created] = await Address.findOrCreate({
+    let [address] = await Address.findOrCreate({
       where: { street, postalCode, city, province, number },
       defaults: { street, postalCode, city, province, number, telephoneContact }
     });
 
-    if (created) {
-      await user.addAddress(address);
-    }
+
+    await user.addAddress(address);
+
 
     res.send('La dirección se agregó con éxito');
   } catch (error) {
-    console.error(error);
+
     res.status(500).send('Error al crear o relacionar la dirección');
   }
 });
