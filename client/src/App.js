@@ -16,13 +16,14 @@ import MisCompras from "./Views/miPerfil/MisCompras/MisCompras"
 import MisDatos from "./Views/miPerfil/MisDatos/MisDatos";
 import Payment from './components/Payment/Payment';
 
+
 function App() {
-  const storedToken = localStorage.getItem("token");
+  
 
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/" element={<Landing storedToken={storedToken} />} />
+        <Route exact path="/" element={<Landing />} />
 
         <Route exact path="/home" element={<Home />} />
 
@@ -38,6 +39,7 @@ function App() {
         {storedToken && <Route path="/profile/misDatos" element={<MisDatos />} />}
 
         <Route path="/payment" element={<Payment/>} />
+
       </Routes>
     </div>
   );
