@@ -57,6 +57,8 @@ const Cart = ({ isOpen, toggleCart }) => {
     return null;
   }
 
+
+
   return (
     <div className={`${style.carritos} ${style.show}`}>
       <div className={`${style.carrito} ${style.show}`}>

@@ -11,7 +11,7 @@ import CreateDessert from './Views/DessertCreate/dessert';
 
 import Detail from "./components/Detail/detail"
 
-import MiPerfil from './Views/miPerfil/MiPerfil';
+
 
 function App() {
 
@@ -31,7 +31,7 @@ function App() {
         <Route path="/create" element={<CreateDessert />} />
 
         <Route path="/home/:id" element={<Detail />} />
-        <Route path="/profile" element={<MiPerfil />} />
+        
       </Routes>
     </div>
   );
