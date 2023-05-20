@@ -27,7 +27,7 @@ const Pagination = ({
           previousChange();
         }}
       >
-        Previous
+        Anterior
       </button>
       <div className={styles.pageCont}>
         {numberPages?.map((pag, i) => (
@@ -46,7 +46,7 @@ const Pagination = ({
           nextChange();
         }}
       >
-        Next
+        Siguiente
       </button>
     </div>
   );

@@ -6,38 +6,44 @@ import { FaGoogle } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import validation from "./Validation";
 import styles from "./LoginForm.module.css"
+import axios from "axios";
 
 const LoginForm = () => {
-  const Navigate = useNavigate();
-  const [userData, SetUserData] = useState({
-    username: "",
-    password: "",
-  });
+  const Navigate = useNavigate()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError]=useState("")
+  const [rememberSession, setRememberSession] = useState(false);
 
-  const [errors, SetErrors] = useState({
-    username: "",
-    password: "",
-  });
 
-  const handleInputChange = (event) => {
-    const property = event.target.name;
-    const value = event.target.value;
 
-    SetUserData({ ...userData, [property]: value });
-    SetErrors(validation({ ...userData, [property]: value }, errors));
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    await axios
+      .post("http://localhost:3001/user/login", { email, password })
+      .then((response) => {
+        const token = response.data.token;
+        const userId = response.data.id;
+        localStorage.setItem("token", token);
+        localStorage.setItem("userId", userId);
+        Navigate("/home");
+      })
+      .catch((error) => {
+
+        setError(error.response.data.error)
+      });
   };
-  const handleSubmit = (e) => {
-    Navigate("/home");
+
+  const handleRememberSessionChange = () => {
+    setRememberSession(!rememberSession);
   };
-
-
 
   return (
-    <form className={styles.loginCont} onSubmit={(e) => handleSubmit(e)}>
+    <form className={styles.loginCont} onSubmit={(e) => handleLogin(e)}>
       <h1>Iniciar sesión</h1>
       <div className={styles.inputCont}>
+        {error && <p>{error}</p>}
         <div className={styles.emailCont}>
           <label>Email: </label>
           <input
@@ -45,12 +51,9 @@ const LoginForm = () => {
             placeholder="Email"
             className={styles.input}
             name="username"
-            value={userData.username}
-            onChange={handleInputChange}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
-        {errors.username !== "" && (
-          <span className={styles.validation}>{errors.username}</span>
-        )}
         </div>
         <div className={styles.emailCont}>
           <label>Contraseña: </label>
@@ -59,12 +62,9 @@ const LoginForm = () => {
             placeholder="Contraseña"
             className={styles.input}
             name="password"
-            value={userData.password}
-            onChange={handleInputChange}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-        {errors.password !== "" && (
-          <span className={styles.validation}>{errors.password}</span>
-        )}
         </div>
         <div className={styles.forgotPassword}>
           <p>¿olvidaste tu contraseña?</p>
@@ -79,7 +79,12 @@ const LoginForm = () => {
         </div>
       </div>
       <div className={styles.checkbox}>
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          name="rememberSession"
+          checked={rememberSession}
+          onChange={handleRememberSessionChange}
+        />
         <label htmlFor="">Permanecer conectado</label>
       </div>
       <Button variant="primary" type="submit">
@@ -91,6 +96,6 @@ const LoginForm = () => {
       </div>
     </form>
   );
-}
+};
 
 export default LoginForm

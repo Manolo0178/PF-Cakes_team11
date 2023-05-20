@@ -1,24 +1,24 @@
 const validation = (form, errorsState) => {
   const errors = { ...errorsState };
-  
+
   // name
   if (!form.name) errors.name = "";
-  else if (form.name.length < 3)
-    errors.name = "Debe tener mas de 3 caracteres";
+  else if (form.name.length < 3) errors.name = "Debe tener mas de 3 caracteres";
   else {
     errors.name = "";
   }
-  //cellphone
-  if (!form.contact) errors.contact = ""
-  else if (form.contact.length < 6) errors.contact = "su numero de teléfono no es válido"
-  else errors.contact = ""
+  // lastname
+  if (!form.lastName) errors.lastName = "";
+  else if (form.lastName.length < 3) errors.lastName = "Debe tener mas de 3 caracteres";
+  else {
+    errors.lastName = "";
+  }
+
   // email
   if (!form.email) errors.email = "";
   else if (form.email.length > 35)
     errors.email = "No debe superar 35 caracteres";
-  else if (
-    !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/.test(form.email)
-  ) {
+  else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{3})+$/.test(form.email)) {
     errors.email = "su email no es válido";
   } else {
     errors.email = "";

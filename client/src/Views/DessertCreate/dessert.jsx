@@ -8,6 +8,9 @@ import Footer from "../../components/Footer/Footer"
 import Swal from "sweetalert2";
 import { BsFillFileEarmarkArrowUpFill } from "react-icons/bs";
 import validation from "./Validation";
+
+
+
 export default function CreateDessert() {
   const dispatch = useDispatch();
 
@@ -18,6 +21,7 @@ export default function CreateDessert() {
     description: "",
     imageFile: null,
     price: "",
+    summary:"",
     desserts: [],
   });
 
@@ -26,6 +30,7 @@ export default function CreateDessert() {
     description: "",
     image: "",
     price: "",
+    summary:"",
     desserts: [],
   });
 
@@ -62,6 +67,7 @@ export default function CreateDessert() {
 
   function handleSubmit(e) {
     e.preventDefault();
+<<<<<<< HEAD
     const formData = new FormData();
     formData.append("name", form.name);
     formData.append("summary", form.summary);
@@ -70,11 +76,23 @@ export default function CreateDessert() {
     formData.append("price", form.price);
     formData.append("desserts", JSON.stringify(form.desserts));
     if (!errors.name && !errors.description && !errors.image && !errors.price && !errors.desserts) {
+=======
+  const formData = new FormData();
+  formData.append("name", form.name);
+  formData.append("summary", form.summary);
+  formData.append("description", form.description);
+  formData.append("image", form.imageFile);
+  formData.append("price", form.price);
+  formData.append("desserts", JSON.stringify(form.desserts));
+    if (!errors.name && !errors.description
+      && !errors.image && !errors.price && !errors.desserts) {
+>>>>>>> ebab74f34d182125449ffe6cec53a886a24ca03c
       dispatch(postDessert(form));
       Swal.fire({
         title: "Creaste un Postre",
         icon: "success",
         confirmButtonText: "Ok",
+<<<<<<< HEAD
       });
       resetForm();
     }
@@ -84,6 +102,15 @@ export default function CreateDessert() {
       showConfirmButton: false,
       timer: 1500
     });
+=======
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(postDessert(form));
+          resetForm();
+        }
+      })
+    }   
+>>>>>>> ebab74f34d182125449ffe6cec53a886a24ca03c
   }
 
   const resetForm = () => {
@@ -127,6 +154,19 @@ export default function CreateDessert() {
             />
             {errors.description && (
               <p className={style.error}>{errors.description}</p>
+            )}
+          </div>
+          <div className={style.input}>
+            <label>Ingredientes:</label>
+            <input
+              type="text"
+              value={form.summary}
+              name="summary"
+              onChange={handleChange}
+              placeholder="Ingredientes"
+            />
+            {errors.summary && (
+              <p className={style.error}>{errors.summary}</p>
             )}
           </div>
 
