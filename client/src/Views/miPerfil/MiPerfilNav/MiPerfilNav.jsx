@@ -32,10 +32,10 @@ const MiPerfilNav = ({ perfil, setPage }) => {
         {perfil.name && <h2>{perfil.name}</h2>}
       </div>
       <div className={styles.navCont}>
+        <button className={styles.button} onClick={e=>handleChange(e,"direcciones")}>Domicilios</button>
         <button className={styles.button} onClick={e=>handleChange(e,"fav")}>Favoritos</button>
         <button className={styles.button} onClick={e=>handleChange(e,"data")}>Mis datos</button>
         <button className={styles.button} onClick={e=>handleChange(e,"compras")}>Mis compras</button>
-        <button className={styles.button} onClick={e=>handleChange(e,"direcciones")}>Domicilios</button>
         <button className={styles.button} onClick={logoutButton}>
           Salir
         </button>

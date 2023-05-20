@@ -5,16 +5,16 @@ const { Address, User, UserAddress } = require("../../db")
 addressRouter.put('/:idUser', async (req, res)=> {
     const { idUser } = req.params
     const { shippingAddress, postalCode, city, location  } = req.body
-
+    let shippingAddress2 = [shippingAddress]
     let user = await User.findOne({ where : {id: idUser} })
 
-    if(shippingAddress.length > 0) {
+    if(shippingAddress2.length > 0) {
         await Promise.all(
-          shippingAddress.map(async (shippingAddress) => {
+          shippingAddress2.map(async (shippingAddress) => {
             let [address] = await Address.findOrCreate({
               where: { shippingAddress, postalCode, city, location },
             });
-             await user.addAddress(address) 
+             await user.addAddress(address)
           })
         );
       }
@@ -77,5 +77,6 @@ addressRouter.delete('/remove/:idUser/:idAddress', async (req, res) => {
   //   "city": "buenos aires",
   //   "location": "sierra de la ventana"
   // }
+
 
 module.exports = addressRouter;

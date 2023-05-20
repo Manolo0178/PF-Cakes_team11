@@ -1,12 +1,17 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+
 const Domicilio = () => {
-    const userId = localStorage.getItem("userId");
+
+
+  const userId = localStorage.getItem("userId");
     
-    const Navigate = useNavigate()
+  const Navigate = useNavigate()
+  
   const [form, setForm] = useState({
-    shippingAddress: "",
+    shippingAddress: [],
     postalCode: "",
     city: "",
     location: "",
@@ -16,24 +21,14 @@ const Domicilio = () => {
     const property = event.target.name;
     const value = event.target.value;
 
-    setForm({ ...form, [property]: value });
+    setForm({ ...form, [property]: value })
   };
-
-  const handleSubmit = async () => {
-    if (form.shippingAddress && form.postalCode && form.city && form.location) {
-        await axios.put(`http://localhost:3001/Address/${userId}`, form);
-        ResetForm()
-        Navigate("/home")
-    }
-    };
-    const ResetForm = () => {
-        setForm({
-          shippingAddress: "",
-          postalCode: "",
-          city: "",
-          location: ""
-        });
-    }
+  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await axios.put(`http://localhost:3001/Address/${userId}`, form)
+    Navigate("/profile");
+  };
 
   return (
     <div>
@@ -45,7 +40,7 @@ const Domicilio = () => {
               <label htmlFor="">Dirección de envío: </label>
               <input
                 type="text"
-                name="shippingAdress"
+                name="shippingAddress"
                 placeholder="dirección"
                 onChange={handleChange}
               />
