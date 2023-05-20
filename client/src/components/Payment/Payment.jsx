@@ -41,6 +41,7 @@ const CheckOutForm = () => {
 
             setLoading(false);            
         }
+        
     }
 
     return <form onSubmit={handleSubmit} className="card card-body" >

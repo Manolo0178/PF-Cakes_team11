@@ -8,17 +8,15 @@ import CreateUser from './Views/CreateUser/CreateUser';
 import Login from './Views/Login/Login';
 import About from './Views/About/About'
 import CreateDessert from './Views/DessertCreate/dessert';
+import Payment from './components/Payment/Payment';
 
 import Detail from "./components/Detail/detail"
 
 import MiPerfil from './Views/miPerfil/MiPerfil';
-import MisCompras from "./Views/miPerfil/MisCompras/MisCompras"
-import MisDatos from "./Views/miPerfil/MisDatos/MisDatos";
-import Payment from './components/Payment/Payment';
-
 
 function App() {
-  
+
+  const storedToken = localStorage.getItem("token");
 
   return (
     <div className="App">
@@ -34,12 +32,8 @@ function App() {
         <Route path="/create" element={<CreateDessert />} />
 
         <Route path="/home/:id" element={<Detail />} />
-        {storedToken && <Route path="/profile" element={<MiPerfil />} />}
-        {storedToken && <Route path="/profile/misCompras" element={<MisCompras />} />}
-        {storedToken && <Route path="/profile/misDatos" element={<MisDatos />} />}
-
+        <Route path="/profile" element={<MiPerfil />} />
         <Route path="/payment" element={<Payment/>} />
-
       </Routes>
     </div>
   );
