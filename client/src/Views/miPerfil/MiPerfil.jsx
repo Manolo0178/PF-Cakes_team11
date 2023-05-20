@@ -20,7 +20,7 @@ const MiPerfil = () => {
   const [domicilios,setDomicilios]= useState([])
   const storedToken = localStorage.getItem("token");
   const id = localStorage.getItem("userId")
-
+  
     useEffect(() => {
       const fetchData = async () => {
         if (storedToken) {
@@ -37,6 +37,7 @@ const MiPerfil = () => {
         await axios
           .get(`http://localhost:3001/Address/${id}`)
           .then((response) => {
+            
             setDomicilios(response.data.addresses);
           });
       };

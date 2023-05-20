@@ -39,7 +39,7 @@ userRouter.post("/login", async (req, res) => {
 
     if (passwordsMatch) {
       const token = jwt.sign({ id: user.id, name: user.name }, SECRET, { expiresIn: "1m" });
-      res.json({token});
+      res.json({token, id:user.id});
     } else {
       res.status(401).json({error:"Credenciales inválidas"});
     }
@@ -49,16 +49,16 @@ userRouter.post("/login", async (req, res) => {
 });
 
 // RUTA CREAR USUARIO
-userRouter.post("/create", upload.single("image") ,async (req, res) => { // Esta ruta es para crear un usuario
-  const { name, email, contact, lastName, password } = req.body;
+userRouter.post("/create", async (req, res) => { // Esta ruta es para crear un usuario
+  const { name, email, contact, lastName, password, image } = req.body;
   try {
     const existingUser = await User.findOne({ where: { name } });
     if (existingUser) {
       res.status(401).json({message:"existing user"})
     }
-    const resultUser = await cloudinary.uploader.upload(req.file.path, { folder: 'imgUser' })
+    // const resultUser = await cloudinary.uploader.upload(req.file.path, { folder: 'imgUser' })
     
-    let user = await User.create({ name, email, contact, lastName, password, image: resultUser.secure_url });
+    let user = await User.create({ name, email, contact, lastName, password, image });
     
     const { password: userPassword, ...userWithoutPassword } = user.toJSON();
     res.status(201).json(userWithoutPassword);
@@ -187,11 +187,18 @@ userRouter.get('/:idUser',  async (req, res) => {
       where: {
         [Op.and]: [{ id: idUser }, { deleted: false }],
       },
-      attributes:{ exclude: ['password'] },
+      attributes: { exclude: ["password"] },
       include: [
         {
           model: Address,
-          attributes: ["shippingAddress"],
+          attributes: [
+            "street",
+            "postalCode",
+            "city",
+            "province",
+            "number",
+            "telephoneContact",
+          ],
           through: { attributes: [] },
         },
       ],

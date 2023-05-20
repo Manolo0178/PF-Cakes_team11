@@ -26,7 +26,7 @@ const Domicilio = () => {
   
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await axios.put(`http://localhost:3001/Address/${userId}`, form)
+    await axios.post(`http://localhost:3001/Address/${userId}`, form)
     Navigate("/profile");
   };
 
