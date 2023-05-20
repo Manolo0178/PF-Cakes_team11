@@ -25,7 +25,7 @@ const LoginForm = () => {
         .post("http://localhost:3001/user/login", { email, password })
         .then((response) => {
           const token = response.data.token;
-          const userId = response.data.id
+          const userId = response.data.id;
           localStorage.setItem("token", token);
           localStorage.setItem("userId", userId);
           Navigate("/home");

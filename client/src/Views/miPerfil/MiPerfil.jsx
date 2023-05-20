@@ -14,14 +14,14 @@ const MiPerfil = () => {
   const storedToken = localStorage.getItem("token");
   const id = localStorage.getItem("userId")
 
-  useEffect(async () => {
+  useEffect( async() => {
     storedToken && (
       await axios.get(`http://localhost:3001/user/${id}`)
       .then((response) => {
         setPerfil(response.data)
       })
       )
-  }, [])
+  }, []);
     
     return (
       <div className={styles.cont}>

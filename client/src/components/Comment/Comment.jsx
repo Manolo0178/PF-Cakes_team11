@@ -1,81 +1,72 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import style from "./Comment.module.css";
+import axios from 'axios';
 
 import Reviews from '../Reviews/Reviews';
 
 
-const Comment = () => {
-  const [comments, setComments] = useState([]);
-  const [reviews, setReviews] = useState([])
+const Comment = ({star}) => {
+  const [perfil, setPerfil] = useState({});
+  const [review, setReview] = useState({
+    comment : "",
+    qualification:0,
+    productId:0,
+    userId:0
+  })
   
+  
+  const storedToken = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId")
+  const { id } = useParams();
 
-  const datas = [
-  {
-    "comment":"Estuvo muy bueno",
-    "calificacion":5,
-    "productId":12,
-    "userId":2
-  },
-  {
-    "comment":"Estuvo bueno la verdad ssss ssss ssss sss ssss ssss ssss sss ssss ssss",
-    "calificacion":4,
-    "productId":11,
-    "userId":2
-  },
-  {
-    "comment":"No me gusto",
-    "calificacion":1,
-    "productId":10,
-    "userId":2
-  },
-  {
-    "comment":"Estuvo Rico",
-    "calificacion":4,
-    "productId":14,
-    "userId":2
-  },
-  {
-    "comment":"No me gusto mucho",
-    "calificacion":2,
-    "productId":11,
-    "userId":3
-  },
-]
+  useEffect( () => {
+    storedToken && (
+       axios.get(`http://localhost:3001/user/${userId}`)
+      .then((response) => {
+        setPerfil(response.data)
+      })
+      )
+      
+  }, []);
 
-  const handleForm = (e) => {
-    e.preventDefault();
-    const newComment = {"author":comments.author,"content":comments.content}
 
-    setReviews([...reviews, newComment]);
+  const handleForm = async(e) => {
+    e.preventDefault()
+    if (
+      review.comment
+    ) {
+      await axios.post("http://localhost:3001/review", review)
+      .then((response) => {
+        if(response){
+          console.log(response);
+        }
+      })
+    }
+    window.location.reload(true);
   };
+
+
 
   const handleInputChange = (event) => {
     const property = event.target.name;
     const value = event.target.value;
 
-    setComments({ ...comments, [property]: value });
-
+    setReview({ ...review,"qualification":star, "productId": parseInt(id), "userId": perfil.id,[property]: value })
   };
   
 
   return (
     <div className={style.content}>
       <h2>Reseñas</h2>
-      {/* <ul>
-        {reviews.length!==0 && reviews?.map((review, index) => (
-          <li key={index}>
-            <strong>{review.author}</strong>: {review.content}
-          </li>
-        ))}
-      </ul> */}
-      <form>
+      <form onSubmit={handleForm}>
         <div className={style.contentForm}>
-            <input onChange={handleInputChange} className={style.input} value={comments.author} name="author" placeholder="Autor" />
-            <input onChange={handleInputChange} className={style.input} value={comments.comment} name="content" placeholder="Escribe tu comentario" />
-            <button onClick={handleForm} className={style.button}>Enviar</button>
+            <textarea onChange={handleInputChange} className={style.textarea} value={review.comment} name="comment" placeholder="Escribe tu comentario..." />
+            <button  type="submit" className={style.button}>Enviar</button>
         </div>
       </form>
-      <Reviews datas={datas}/>
+      <Reviews/>
     </div>
   );
 };

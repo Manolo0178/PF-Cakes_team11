@@ -1,16 +1,15 @@
 .content{
     
-    width: 50%;
+    width: 40%;
     box-shadow: 2px 2px 30px rgba(0,0,0,0.2);
     padding: 20px;
-    margin: 1rem;
+    margin: 1rem auto;
 
 }
 
 .content p {
     width: 80%;
     margin: auto;
-    
 }
 
 
@@ -38,3 +37,7 @@
     margin-bottom: 1rem;
 }
 
+.comment p{
+    word-wrap:break-word;
+    
+}

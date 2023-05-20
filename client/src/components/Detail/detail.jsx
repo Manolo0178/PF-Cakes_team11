@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductsById } from "../../redux/actions";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
 
 import { SiMercadopago } from "react-icons/si";
@@ -15,6 +16,7 @@ import Button from "react-bootstrap/Button";
 import NavBar from "../Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import Comment from "../Comment/Comment";
+import Qualification from "../Qualification/Qualification";
 import styles from "./detail.module.css";
 
 import Swal from "sweetalert2";
@@ -27,6 +29,12 @@ export default function Detail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
+  const [star, setStar] = useState(0);
+
+  const handlerStar = (point) =>{
+    setStar(point)
+  }
+
 
 
   const handleAddToCart = (item) => {
@@ -160,7 +168,8 @@ export default function Detail() {
       ) : (
         <div></div>
       )}
-      <Comment/>
+      <Qualification handlerStar ={handlerStar}/>
+      <Comment star={star}/>
       <Footer/>
     </div>
   );
