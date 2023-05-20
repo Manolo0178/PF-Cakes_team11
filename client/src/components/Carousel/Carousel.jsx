@@ -18,24 +18,24 @@ function ControlledCarousel() {
   return (
     <Carousel activeIndex={index} onSelect={handleSelect}>
       <Carousel.Item>
-        <img className="d-block w-100" src={carousel1} alt="First slide" style={{height: "500px", objectFit:"cover"}}/>
+        <img className="d-block w-100" src={carousel1} alt="First slide" style={{ height: "500px", objectFit: "cover" }} />
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-block w-100" src={carousel2} alt="Second slide" style={{height: "500px", objectFit:"cover"}} /> 
+        <img className="d-block w-100" src={carousel2} alt="Second slide" style={{ height: "500px", objectFit: "cover" }} />
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-block w-100" src={carousel4} alt="Third slide" style={{height: "500px", objectFit:"cover"}} />
+        <img className="d-block w-100" src={carousel4} alt="Third slide" style={{ height: "500px", objectFit: "cover" }} />
       </Carousel.Item>
     </Carousel>
   );
 }
 
 function CarouselSlide() {
-    return (
-        <div className={styles.carouselCont}>
-            <ControlledCarousel/>
-        </div>
-    )
+  return (
+    <div className={styles.carouselCont}>
+      <ControlledCarousel />
+    </div>
+  )
 }
 
 export default CarouselSlide;
