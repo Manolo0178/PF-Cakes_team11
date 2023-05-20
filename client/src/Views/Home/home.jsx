@@ -17,6 +17,7 @@ import Cart from "../../components/Cart/Cart"
 
 
 function Home() {
+  
     const dispatch = useDispatch();
     const products = useSelector((state) => state.allProducts);
     
@@ -43,7 +44,7 @@ function Home() {
           <h3>Algunos de nuestros productos</h3>
           <Cards products={products} />
           <div className={styles.buttonCont}>
-            <Button onClick={navigation} variant="primary">
+            <Button onClick={navigation} className={styles.button}>
               Ver mas productos
             </Button>{" "}
           </div>

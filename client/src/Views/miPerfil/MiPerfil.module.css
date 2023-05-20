@@ -18,19 +18,92 @@
     min-height: 60vh;
     border-right: 1px solid rgb(100, 97, 97);
 }
-.imgCont{
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 1px solid black;
 
-}
-.imgCont img{
-    object-fit: contain;
-    object-position: center;
-}
 .section{
     width: 100%;
     min-height: 60vh;
+}
+
+/* domicilio */
+.domiciliosCont{
+    width: 80%;
+    min-height: 160px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 8px;
+    border: 1px solid rgb(187, 186, 186);
+}
+
+.addCont{
+    height: 46px;
+    text-decoration: none;
+}
+.addLinkCont{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto;
+
+}
+.addLinkCont p{
+    margin: 0;
+    color: black;
+
+
+}
+.domicilio{
+    border-bottom: 1px solid rgb(190, 190, 190);
+}
+.datos{
+    width: 60%;
+    height: 80%;
+    margin: auto auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+
+}
+.datos div{
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    
+}
+.datos div h6{
+    margin: 0;
+}
+.datos div button{
+    background-color: transparent;
+    border: none;
+    font-size: .8rem;
+}
+.dataCont{
+    display: flex;
+    justify-content: space-between;
+}
+.dataCont section{
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.dataCont section div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.dataCont section div p{
+    margin: 0;
+}
+.button{
+    background-color: transparent;
+    border: none;
+    padding: 10px;
 }
