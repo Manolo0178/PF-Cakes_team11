@@ -2,7 +2,6 @@ import style from "./Review.module.css";
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
 
 import Star from "../Star/Star";
 
@@ -11,8 +10,6 @@ import Star from "../Star/Star";
 const Review = ({datasXProduc}) =>{
     const [perfil, setPerfil] = useState({});
     const {comment,qualification,userId} = datasXProduc;
-    const dispatch = useDispatch();
-    const reviews = useSelector((state) => state.allReview);
 
     const storedToken = localStorage.getItem("token");
 
