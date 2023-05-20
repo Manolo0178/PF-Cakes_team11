@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import styles from "./landingPage.module.css";
 import LoginForm from "../../components/LoginForm/LoginForm";
 
-function Landing({ storedToken }) {
-
+function Landing() {
+  const storedToken = localStorage.getItem("token");
   return (
     <div className={styles.landingCont}>
         <div className={styles.cont}>

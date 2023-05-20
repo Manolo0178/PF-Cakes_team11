@@ -19,6 +19,9 @@ cartRouter.get('/:userId', async (req, res) => {
         {
           model: User,
           include: [Address],
+          attributes: {
+            exclude: ['password'],
+          },
         },
       ],
     });
@@ -38,7 +41,7 @@ cartRouter.post('/:userId/:productId', async (req, res) => {
    
     const {quantity} = req.body || 1;
     
-    let cart = await Cart.findOne({ where: { userId } });
+    let cart = await Cart.findOne({ where: { userId }});
     
     if (!cart) {
       cart = await Cart.create({ userId });
