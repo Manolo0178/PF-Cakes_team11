@@ -11,7 +11,7 @@ const CheckOutForm = () => {
 
     const stripe =useStripe();   
     const elements = useElements();
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,6 +24,7 @@ const CheckOutForm = () => {
         setLoading(true);
 
         if(!error) {
+
             const {id} = paymentMethod;
 
             try {
@@ -40,12 +41,15 @@ const CheckOutForm = () => {
             }
 
             setLoading(false);            
-        }
-        
-    }
+        }  
+    };
 
-    return <form onSubmit={handleSubmit} className="card card-body" >
-        <img src='https://w7.pngwing.com/pngs/280/68/png-transparent-torta-birthday-cake-cake-wish-food-photography.png' alt='Facturas' className='img-fluid'/>
+    return (
+        <form onSubmit={handleSubmit} className="card card-body" >
+        <img 
+        src='https://w7.pngwing.com/pngs/280/68/png-transparent-torta-birthday-cake-cake-wish-food-photography.png' alt='Facturas' 
+        className='img-fluid'
+        />
 
         <h3 className='text-center my-2'>Precio: 100$</h3>
 
@@ -55,12 +59,13 @@ const CheckOutForm = () => {
         
         <button className='btn btn-success' disabled={!stripe} >
             {loading ? (
-                <div class="spinner-border text-light" role="status">
-                <span class="sr-only"></span>
+                <div className="spinner-border text-light" role="status">
+                <span className="sr-only"></span>
               </div>
             ): 'Comprar'}
         </button>
     </form>
+    )
 }
 
 function Payment(){

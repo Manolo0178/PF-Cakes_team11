@@ -10,9 +10,9 @@ app.use(cors({origin: 'http://localhost:3000'}))
 app.use(express.json())
 
 app.post('/api/checkout', async(req, res) => { 
+    const {id, amount} = req.body
     try {
-        const {id, amount} = req.body
-
+        
         const payment = await stripe.paymentIntents.create({
             amount,
             currency: "USD",
@@ -23,10 +23,10 @@ app.post('/api/checkout', async(req, res) => {
 
         console.log(payment)
 
-        res.send({message: 'Pago realizado'})
+        return res.status(200).json({message: 'Pago realizado'});
     } catch (error) {
         console.log(error)
-        res.json({message: error.raw.message})
+        return res.json({message: error.raw.message})
     }
     
 })
