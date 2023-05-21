@@ -20,6 +20,7 @@ const MiPerfil = () => {
   const [domicilios,setDomicilios]= useState([])
   const storedToken = localStorage.getItem("token");
   const id = localStorage.getItem("userId")
+  console.log(id)
   
     useEffect(() => {
       const fetchData = async () => {

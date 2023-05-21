@@ -6,12 +6,7 @@ reviewRouter.get('/:productId', async (req, res)=>{
     try {
         const { productId } = req.params;
         const allReview = await Review.findAll({where:{productId}, include: { model: User, attributes: ['name'] } });
-
-        if(!allReview.length){
-            res.status(404).json({message:'there are no comments'})
-        }else{
-            res.status(200).json(allReview)
-        }
+        res.status(200).json(allReview)
     }catch (error) {
         res.status(500).json({message: error.message})
     }
