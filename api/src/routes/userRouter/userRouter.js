@@ -38,10 +38,8 @@ userRouter.post("/login", async (req, res) => {
     }
 
     if (passwordsMatch) {
-      const token = jwt.sign({ id: user.id, name: user.name }, SECRET, {
-        expiresIn: "1m",
-      });
-      res.json({ token, id: user.id });
+      const token = jwt.sign({ id: user.id, name: user.name }, SECRET, { expiresIn: "1m" });
+      res.json({token, id:user.id});
     } else {
       res.status(401).json({error:"Credenciales inválidas"});
     }
@@ -51,16 +49,11 @@ userRouter.post("/login", async (req, res) => {
 });
 
 // RUTA CREAR USUARIO
-userRouter.post("/create", upload.single("image") ,async (req, res) => { // Esta ruta es para crear un usuario
+userRouter.post("/create", async (req, res) => { // Esta ruta es para crear un usuario
   const { name, email, contact, lastName, password } = req.body;
   try {
-    const existingUser = await User.findOne({ where: { name } });
-    if (existingUser) {
-      res.status(401).json({message:"existing user"})
-    }
-    const resultUser = await cloudinary.uploader.upload(req.file.path, { folder: 'imgUser' })
     
-    let user = await User.create({ name, email, contact, lastName, password, image: resultUser.secure_url });
+    let user = await User.create({ name, email, contact, lastName, password });
     
     const { password: userPassword, ...userWithoutPassword } = user.toJSON();
     res.status(201).json(userWithoutPassword);
@@ -82,7 +75,7 @@ userRouter.get("/", async (req, res) => {
         include: [
           {
             model: Address,
-            attributes: ["shippingAddress", "postalCode", "city", "location"],
+            attributes: ['street', 'postalCode', 'city', 'province', 'number', 'telephoneContact' ],
             through: { attributes: [] },
           },
         ],
@@ -104,7 +97,7 @@ userRouter.get("/", async (req, res) => {
         include: [
           {
             model: Address,
-            attributes: ["shippingAddress", "postalCode", "city", "location"],
+            attributes: ['shippingAddress', 'postalCode', 'city', 'location'],
             through: { attributes: [] },
           },
         ],
@@ -116,7 +109,7 @@ userRouter.get("/", async (req, res) => {
       res.json(allUser);
     }
   } catch (error) {
-    console.log(error);
+
     res.status(400).json({ error: error.message });
   }
 });
@@ -189,11 +182,18 @@ userRouter.get('/:idUser',  async (req, res) => {
       where: {
         [Op.and]: [{ id: idUser }, { deleted: false }],
       },
-      attributes:{ exclude: ['password'] },
+      attributes: { exclude: ["password"] },
       include: [
         {
           model: Address,
-          attributes: ["shippingAddress"],
+          attributes: [
+            "street",
+            "postalCode",
+            "city",
+            "province",
+            "number",
+            "telephoneContact",
+          ],
           through: { attributes: [] },
         },
       ],

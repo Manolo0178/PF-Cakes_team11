@@ -26,6 +26,8 @@ export const DECREASE_QUANTITY  = "DECREASE_QUANTITY ";
 
 export const CREATE_USER = "CREATE_USER";
 
+export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
+
 
 
 //******** Get all products **********/
@@ -177,3 +179,18 @@ export const decreaseQuantity = (itemId) => {
 //     }
 //   }
 // }
+
+
+//******** Get all reviews **********/
+export function getAllReviews() {
+  return async (dispatch) => {
+    await axios.get("http://localhost:3001/review").then((response) => {
+      if (response) {
+        dispatch({
+          type: GET_ALL_REVIEWS,
+          payload: response.data,
+        });
+      }
+    });
+  };
+}

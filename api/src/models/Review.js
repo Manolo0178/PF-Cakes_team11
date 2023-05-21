@@ -16,11 +16,6 @@ module.exports = (sequelize) => {
     qualification: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    },
-    deleted: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
     }
   }, {
     timestamps: false,
