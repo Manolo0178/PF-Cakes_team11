@@ -1,0 +1,52 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
+
+.container{
+    border: 1px solid #000;
+    border-radius: 1rem;
+    margin: 1rem auto;
+    padding: 1rem;
+    width: 50%;
+}
+
+.rating{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding: 30px 40px;
+    width: min-content;
+    margin: auto;
+    border: 3px solid #111;
+    background: #f9d2dc;
+    border-radius: 2rem;
+    box-shadow: 30px 30px  30px -10px rgba(0, 0, 0, 0.5),
+    inset 15px 15px 3px rgba(255,255,255,.1),
+    -4px -4px 15px rgba(255,255,255,.1),
+    inset -2px -2px 12px rgba(0,0,0,.75);
+    flex-direction: row-reverse;
+}
+
+ .rating input{
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    appearance: none;
+}
+
+.rating input::before{
+    content: "\f005";
+    font-family: fontAwesome;
+    font-size: 2rem;
+    color: #c5c5c5;
+} 
+
+.rating input:hover ~ input::before,
+.rating input:hover::before,
+.rating input:checked ~ input::before,
+.rating input:checked::before{
+    color: rgb(244, 47, 201);
+}
+

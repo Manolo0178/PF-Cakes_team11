@@ -1,24 +1,28 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import styles from "./MiPerfilNav.module.css"
 import Swal from "sweetalert2";
-const MiPerfilNav = ({perfil}) => {
+
+const MiPerfilNav = ({ perfil, setPage }) => {
   const Navigate = useNavigate();
   const logoutButton = () => {
     Swal.fire({
       title: "Estas seguro de querer salir",
       icon: "question",
       confirmButtonText: "Ok",
-      showCancelButton:true
+      showCancelButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-          localStorage.removeItem("token");
-          Navigate("/home");
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        Navigate("/home");
       }
     });
   };
-
+  const handleChange = (e,val) => {
+    e.preventDefault()
+    setPage(val)
+  }
   return (
     <div className={styles.cont}>
       <div>
@@ -28,13 +32,16 @@ const MiPerfilNav = ({perfil}) => {
         {perfil.name && <h2>{perfil.name}</h2>}
       </div>
       <div className={styles.navCont}>
-        <Link className={styles.links} to="/profile">Mi perfil</Link>
-        <Link className={styles.links} to="/profile/misCompras">Historial de compras</Link>
-        <Link className={styles.links} to="/profile/misDatos">Mis datos</Link>
-        <button className={styles.logoutButton} onClick={logoutButton}>Salir</button>
+        <button className={styles.button} onClick={e=>handleChange(e,"direcciones")}>Domicilios</button>
+        <button className={styles.button} onClick={e=>handleChange(e,"fav")}>Favoritos</button>
+        <button className={styles.button} onClick={e=>handleChange(e,"data")}>Mis datos</button>
+        <button className={styles.button} onClick={e=>handleChange(e,"compras")}>Mis compras</button>
+        <button className={styles.button} onClick={logoutButton}>
+          Salir
+        </button>
       </div>
     </div>
   );
-}
+};
 
 export default MiPerfilNav
