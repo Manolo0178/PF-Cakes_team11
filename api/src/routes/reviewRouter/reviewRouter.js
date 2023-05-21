@@ -2,15 +2,17 @@ const express = require("express");
 const reviewRouter = express.Router();
 const { Review, User } = require('../../db.js')
 
-reviewRouter.get('/:productId', async (req, res)=>{
+reviewRouter.get('/', async (req, res)=>{
     try {
-        const { productId } = req.params;
-        const allReview = await Review.findAll({where:{productId}, include: { model: User, attributes: ['name'] } });
+        const allReview = await Review.findAll()
+
         res.status(200).json(allReview)
-    }catch (error) {
+        }
+    catch (error) {
         res.status(500).json({message: error.message})
     }
 })
+
 
 reviewRouter.put('/:idUser/:reviewId', async (req, res) => {
     try {
@@ -51,10 +53,9 @@ reviewRouter.delete('/:idUser/:idReview', async (req, res) => {
     }
 });
 
-reviewRouter.post('/:userId/:productId', async (req, res) => {
+reviewRouter.post('/', async (req, res) => {
     try {
-        const { userId, productId } = req.params;
-        const { comment, qualification } = req.body;
+        const { comment, qualification, productId, userId } = req.body
         const newReview = await Review.create({
             comment,
             qualification,
