@@ -14,8 +14,7 @@ const Reviews = () =>{
         dispatch(getAllReviews())
     }, [dispatch])
 
-     const datasXProducs = reviews.filter(review=> review.productId === parseInt(id))
-     
+    const datasXProducs = reviews.filter(review=> review.productId === parseInt(id))
     return(
         <div className={style.content}>
             {datasXProducs.length !==0 && datasXProducs?.map((datasXProduc, index) => {

@@ -50,15 +50,9 @@ userRouter.post("/login", async (req, res) => {
 
 // RUTA CREAR USUARIO
 userRouter.post("/create", async (req, res) => { // Esta ruta es para crear un usuario
-  const { name, email, contact, lastName, password, image } = req.body;
-  try {
-    const existingUser = await User.findOne({ where: { name } });
-    if (existingUser) {
-      res.status(401).json({message:"existing user"})
-    }
-    // const resultUser = await cloudinary.uploader.upload(req.file.path, { folder: 'imgUser' })
-    
-    let user = await User.create({ name, email, contact, lastName, password, image });
+  const { name, email, contact, lastName, password } = req.body;
+  try {    
+    let user = await User.create({ name, email, contact, lastName, password });
     
     const { password: userPassword, ...userWithoutPassword } = user.toJSON();
     res.status(201).json(userWithoutPassword);
@@ -114,7 +108,7 @@ userRouter.get("/", async (req, res) => {
       res.json(allUser);
     }
   } catch (error) {
-    console.log(error);
+
     res.status(400).json({ error: error.message });
   }
 });

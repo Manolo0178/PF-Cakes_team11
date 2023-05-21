@@ -6,7 +6,7 @@ const Star = ({score}) =>{
         <div>
             {
                 [...new Array(5)].map((star,index)=>{
-                    return index < score ? <AiFillStar/> : <AiOutlineStar/>
+                    return index < score ? <AiFillStar key={index}/> : <AiOutlineStar key={index}/>
                 })
             }
         </div>

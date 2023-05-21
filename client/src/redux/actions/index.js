@@ -182,12 +182,14 @@ export const decreaseQuantity = (itemId) => {
 
 //******** Get all reviews **********/
 export function getAllReviews() {
-  return (dispatch) => {
-    axios.get("http://localhost:3001/review").then((response) => {
-      dispatch({
-        type: GET_ALL_REVIEWS,
-        payload: response.data,
-      });
+  return async (dispatch) => {
+    await axios.get("http://localhost:3001/review").then((response) => {
+      if (response) {
+        dispatch({
+          type: GET_ALL_REVIEWS,
+          payload: response.data,
+        });
+      }
     });
   };
 }

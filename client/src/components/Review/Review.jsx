@@ -8,20 +8,29 @@ import Star from "../Star/Star";
 
 
 const Review = ({datasXProduc}) =>{
-    const [perfil, setPerfil] = useState({});
-    const {comment,qualification,userId} = datasXProduc;
-
     const storedToken = localStorage.getItem("token");
+    const id = localStorage.getItem("userId");
+
+    const [perfil, setPerfil] = useState({});
+
+    const {comment,qualification} = datasXProduc;
+
+    
 
 
-
-  useEffect( () => {
-    storedToken && (
-       axios.get(`http://localhost:3001/user/${userId}`)
-      .then((response) => {
-        setPerfil(response.data)
-      })
-      )
+  useEffect(() => {
+    const fetchData = async () => {
+      if (storedToken && id) {
+          await axios
+            .get(`http://localhost:3001/user/${id}`)
+              .then((response) => {
+                if (response) {
+                    setPerfil(response.data);
+                }
+            });
+      }
+      };
+      fetchData()
   }, []);
 
 
