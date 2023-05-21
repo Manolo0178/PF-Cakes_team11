@@ -1,0 +1,6 @@
+.content{
+    display: flex;
+    border-radius: 1rem;
+    margin: 0.5rem;
+    flex-wrap: wrap;
+}
