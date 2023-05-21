@@ -20,7 +20,7 @@ const MiPerfil = () => {
   const [domicilios,setDomicilios]= useState([])
   const storedToken = localStorage.getItem("token");
   const id = localStorage.getItem("userId")
-
+  
     useEffect(() => {
       const fetchData = async () => {
         if (storedToken) {
@@ -37,6 +37,7 @@ const MiPerfil = () => {
         await axios
           .get(`http://localhost:3001/Address/${id}`)
           .then((response) => {
+            
             setDomicilios(response.data.addresses);
           });
       };
@@ -83,6 +84,14 @@ const MiPerfil = () => {
       }
     })
   };
+  // const [form, setForm] = useState({
+  //   street: "",
+  //   postalCode: "",
+  //   province: "",
+  //   city: "",
+  //   telephoneContact: "",
+  //   number: "",
+  // });
 
     return (
       <div className={styles.cont}>
@@ -135,27 +144,40 @@ const MiPerfil = () => {
               <section className={styles.domiciliosCont}>
                 <div className={styles.domCont}>
                   {domicilios?.map((domicilio) => (
-                    <div key={domicilio.UserAddress.addressId} className={styles.domicilio}>
+                    <div
+                      key={domicilio.UserAddress.addressId}
+                      className={styles.domicilio}
+                    >
                       <div>
                         <div className={styles.dataCont}>
                           <div>
-                            <BiHome size="1.5rem" color="grey"/>
+                            <BiHome size="1.5rem" color="grey" />
                           </div>
                           <section>
-                            <h6>{domicilio.shippingAddress}</h6>
+                            <h6>
+                              {domicilio.street}
+                              {domicilio.number}
+                            </h6>
                             <div>
                               <p>Código postal: {domicilio.postalCode}</p>
+                              <p>Provincia: {domicilio.province}</p>
                               <p>Ciudad: {domicilio.city}</p>
-                              <p>Localidad: {domicilio.location}</p>
+                              <p>
+                                Telefono de contacto:{" "}
+                                {domicilio.telephoneContact}
+                              </p>
                             </div>
                           </section>
                           <div>
                             <button className={styles.button}>
                               <CiMenuKebab
                                 onClick={(e) =>
-                                  handleDelete(e, domicilio.UserAddress.addressId)
+                                  handleDelete(
+                                    e,
+                                    domicilio.UserAddress.addressId
+                                  )
                                 }
-                                />
+                              />
                             </button>
                           </div>
                         </div>

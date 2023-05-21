@@ -18,15 +18,27 @@ addressRouter.post('/:idUser', async (req, res) => {
 
     res.send('La dirección se agregó con éxito');
   } catch (error) {
-    console.error(error);
+
     res.status(500).send('Error al crear o relacionar la dirección');
   }
 });
+// addressRouter.get("/", async(req, res) => {
+//   try {
+//     let addressRoutes = await Address.findOne()
+//     if (addressRoutes) {
+//       res.status(200).json(addressRoutes);
+//     } else {
+//       res.status(400).json({ msg: "direccion no encontrada" });
+//     }
+//   } catch (error) {
+//     res.status(500).json({msg: error.message})
+//   }
+// })
 
-addressRouter.get("/", async (req, res)=>{
-  const direcciones = await Address.findAll()
-  res.json(direcciones)
-})
+// addressRouter.get("/", async (req, res)=>{
+//   const direcciones = await Address.findAll()
+//   res.json(direcciones)
+// })
 
 addressRouter.get("/:idUser", async (req, res) => {
   const { idUser } = req.params
@@ -44,10 +56,11 @@ addressRouter.get("/:idUser", async (req, res) => {
         attributes: {
           exclude: ['password','name','lastName','image','email', 'contact', 'role', 'created', 'deleted'],
         },
-    })
+      })
+
     res.json(user)
   } catch (error) {
-    console.log(error)
+
     res.status(400).json({error:error.message})
   }
 })

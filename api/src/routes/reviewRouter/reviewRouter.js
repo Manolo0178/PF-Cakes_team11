@@ -5,12 +5,10 @@ const { Review } = require('../../db.js')
 reviewRouter.get('/', async (req, res)=>{
     try {
         const allReview = await Review.findAll()
-        if(!allReview.length){
-            res.status(404).json({message:'there are no comments'})
-        }else{
-            res.status(200).json(allReview)
+
+        res.status(200).json(allReview)
         }
-    } catch (error) {
+    catch (error) {
         res.status(500).json({message: error.message})
     }
 })
