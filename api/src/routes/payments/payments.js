@@ -4,14 +4,16 @@ const cors = require("cors");
 
 const app = express()
 
-const stripe = new Stripe("sk_test_51N9XymIq7GOKCNm5vx0tCJemZcitthUTb22WD4gvJo6apMvU6Q30moeVbBcKpiBUKonYRpsNOnmSDiFsOZIlT6fK00tNznIDka")
+const stripe = new Stripe("sk_test_51N9Yt8Kl97uryD4r17QcmYWGPjXz9GtkZ2M5Uuf5672XsWkoEh28j12wABcdRIxqW4TQUhDBCSpn46T8u5Apoq8G00d1Pp3ko4")
 
 app.use(cors({origin: 'http://localhost:3000'}))
 app.use(express.json())
 
 app.post('/api/checkout', async(req, res) => { 
+    const {id, amount} = req.body
+    
     try {
-        const {id, amount} = req.body
+        
 
         const payment = await stripe.paymentIntents.create({
             amount,
@@ -23,7 +25,7 @@ app.post('/api/checkout', async(req, res) => {
 
         console.log(payment)
 
-        res.send({message: 'Pago realizado'})
+        return res.status(200).json({ message: "Successful Payment" });
     } catch (error) {
         console.log(error)
         res.json({message: error.raw.message})

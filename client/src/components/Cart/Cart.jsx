@@ -4,6 +4,7 @@ import style from './Cart.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, increaseQuantity, decreaseQuantity } from '../../redux/actions';
 import Alert from 'react-bootstrap/Alert';
+import { Link } from 'react-router-dom';
 
 const Cart = ({ isOpen, toggleCart }) => {
   const cartItems = useSelector((state) => state.cartItems);
@@ -87,7 +88,9 @@ const Cart = ({ isOpen, toggleCart }) => {
         </div>
         <div className={style.carrito__footer}>
           <h3>Total: ${total}</h3>
-          <button className={style.btnn}>Pagar</button>
+          <Link to={`/payment/${total}`}>
+         <button className={style.btnn}>Pagar</button>
+          </Link>
         </div>
       </div>
       <Alert
