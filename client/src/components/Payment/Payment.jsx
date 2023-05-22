@@ -28,7 +28,7 @@ const CheckOutForm = ({ total }) => {
       const { id } = paymentMethod;
 
       try {
-        const { data } = await axios.post('http://localhost:3002/api/checkout', {
+        const { data } = await axios.post('http://localhost:3001/api/checkout', {
           id,
           amount: parseInt(total) * 100, // Convertir el monto total a centavos
         });
