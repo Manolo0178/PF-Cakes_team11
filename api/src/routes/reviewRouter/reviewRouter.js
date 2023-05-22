@@ -1,11 +1,23 @@
 const express = require("express");
 const reviewRouter = express.Router();
-const { Review, User } = require('../../db.js')
+const { Review } = require('../../db.js')
 
 reviewRouter.get('/', async (req, res)=>{
     try {
         const allReview = await Review.findAll()
 
+        res.status(200).json(allReview)
+        }
+    catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+
+reviewRouter.get('/:idProduct', async (req, res)=>{
+    const { idProduct } = req.params
+    try {
+        const allReview = await Review.findAll({where:{ productId: idProduct }})
+        
         res.status(200).json(allReview)
         }
     catch (error) {
@@ -21,7 +33,7 @@ reviewRouter.put('/:idUser/:reviewId', async (req, res) => {
         
         const review = await Review.findByPk(reviewId);
         
-        if(review.userId === idUser){
+        if(review.userId == idUser){
             await Review.update(
                 {comment, qualification},
                 {where:{id: reviewId}}
@@ -40,8 +52,7 @@ reviewRouter.delete('/:idUser/:idReview', async (req, res) => {
         const { idUser, idReview } = req.params;
 
         const review = await Review.findByPk(idReview);
-    
-    console.log(review.userId, idUser);
+
         if(review.userId == idUser) {
             await review.destroy();
             res.json({ message: 'Comentario eliminado' });
@@ -53,9 +64,10 @@ reviewRouter.delete('/:idUser/:idReview', async (req, res) => {
     }
 });
 
-reviewRouter.post('/', async (req, res) => {
+reviewRouter.post('/:userId/:productId', async (req, res) => {
+    const { productId, userId } = req.params
     try {
-        const { comment, qualification, productId, userId } = req.body
+        const { comment, qualification} = req.body
         const newReview = await Review.create({
             comment,
             qualification,
