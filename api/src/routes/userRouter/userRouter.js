@@ -59,6 +59,7 @@ userRouter.post("/create", async (req, res) => { // Esta ruta es para crear un u
     res.status(201).json(userWithoutPassword);
     
   } catch (error) {
+    console.log(error.message);
     res.status(400).json({ error: error.message });
   }
 });
@@ -83,7 +84,7 @@ userRouter.get("/", async (req, res) => {
           exclude: ["password"],
         },
       });
-
+      
       if (!user) {
         res.status(404).send(`El usuario ${name} no se encontró`);
       } else {
@@ -117,11 +118,16 @@ userRouter.get("/", async (req, res) => {
 
 // RUTA PARA MODIFICAR USUARIO !!!OJO SIN PASSWORD!!!
 userRouter.put("/modifyUser/:idUser", async (req, res) => {
+  
   const { idUser } = req.params;
+
   const { name, email, contact, lastName, image } = req.body;
-
+  
+  const result = await cloudinary.uploader.upload(image, {
+    folder: "imgen",
+  });
   const user = await User.findOne({ where: { id: idUser } });
-
+  
   if (!user) {
     return res.status(404).json({ error: "Usuario no encontrado" });
   }
@@ -130,7 +136,7 @@ userRouter.put("/modifyUser/:idUser", async (req, res) => {
   user.lastName = lastName || user.lastName;
   user.email = email || user.email;
   user.contact = contact || user.contact;
-  user.image = image || user.image;
+  user.image = result.secure_url || user.image;
   await user.save();
 
   res.json({ message: "Usuario modificado exitosamente" });

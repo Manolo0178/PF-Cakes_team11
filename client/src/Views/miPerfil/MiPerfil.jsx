@@ -44,7 +44,7 @@ const MiPerfil = () => {
       };
       fetchAddress();
       fetchData();
-    }, []);
+    }, [id, storedToken]);
   
   const change = async (e, val) => {
     e.preventDefault()
@@ -68,7 +68,6 @@ const MiPerfil = () => {
     }
   
   const handleDelete = async (e, idAddress) => {
-    console.log(idAddress);
     e.preventDefault();
     Swal.fire({
       title: "¿Estás seguro de eliminarlo?",
