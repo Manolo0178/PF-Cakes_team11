@@ -7,7 +7,7 @@ let reviewRouter = require('./reviewRouter/reviewRouter.js')
 let cartRouter = require("./carritoProduct/cartRouter.js")
 let userRouter = require("./userRouter/userRouter.js")
 let addressRouter = require("./addressesRouter/addressRouter.js")
-
+let paymentRouter = require("./payments/paymentRouter.js")
 
 const router = Router();
 
@@ -19,6 +19,6 @@ router.use('/review', reviewRouter);
 router.use("/carts", cartRouter);
 router.use("/user", userRouter);
 router.use("/Address",addressRouter);
-
+router.use("/api", paymentRouter);
 
 module.exports = router;
