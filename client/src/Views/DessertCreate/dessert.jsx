@@ -89,22 +89,22 @@ export default function CreateDessert() {
             confirmButtonText: "Ok",
           }).then((result) => {
               if (result.isConfirmed) {
-              resetForm();
-
+                // resetForm();
+                window.location.reload(true);
         }
       })
      
   }
 
-  const resetForm = () => {
-    setForm({
-      name: "",
-      description: "",
-      image: "",
-      price: "",
-      desserts: [],
-    });
-  };
+  // const resetForm = () => {
+  //   setForm({
+  //     name: "",
+  //     description: "",
+  //     image: "",
+  //     price: "",
+  //     desserts: [],
+  //   });
+  // };
   return (
     <div className={style.cont}>
       <NavBar />

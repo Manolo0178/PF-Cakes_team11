@@ -14,14 +14,13 @@ import Swal from "sweetalert2";
 
 
 
+
 const MiPerfil = () => {
   const [page, setPage] = useState("direcciones");
   const [perfil, setPerfil] = useState({})
   const [domicilios,setDomicilios]= useState([])
   const storedToken = localStorage.getItem("token");
   const id = localStorage.getItem("userId")
-  console.log(id)
-  
     useEffect(() => {
       const fetchData = async () => {
         if (storedToken) {
@@ -98,8 +97,9 @@ const MiPerfil = () => {
         <NavBar />
         <section className={styles.mainCont}>
           <div className={styles.navCont}>
-            <MiPerfilNav perfil={perfil} setPage={setPage} />
+            <MiPerfilNav perfil={perfil} setPerfil={setPerfil} setPage={setPage} id={id} />
           </div>
+            
           {page === "fav" && (
             <div className={styles.section}>
               <h2>Favoritos</h2>
