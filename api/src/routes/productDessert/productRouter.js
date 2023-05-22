@@ -121,16 +121,16 @@ productRouter.get("/", async (req, res) => {
 // });
 
 //se agrego un controlador que hace un pedido a una api creada por url
-productRouter.post("/", upload.single("image"), async (req, res) => {
+productRouter.post("/", async (req, res) => {
   try {
-    let { name, summary, description, price, desserts } = req.body;
+    let { name, summary, description, price, desserts, image } = req.body;
     
     // Aquí se carga la imagen en Cloudinary
     
-    const result = await cloudinary.uploader.upload(req.file.path, {
+    const result = await cloudinary.uploader.upload(image , {
       folder: "img",
     });
-    // fs.unlink(req.file.path, (err) => {
+    // fs.unlink(req.file.path, (err) => { 
       //   if (err) {
         //     console.error(err);
         //   }
@@ -138,6 +138,7 @@ productRouter.post("/", upload.single("image"), async (req, res) => {
         console.log(result)
         const existingProduct = await Product.findOne({ where: { name } });
         if (existingProduct) {
+
           return res.status(400).json({ message: "Product name already exists" });
         }
     const newProduct = await Product.create({
@@ -163,6 +164,7 @@ productRouter.post("/", upload.single("image"), async (req, res) => {
       res.status(404).json({ message: "Product not created" });
     }
   } catch (error) {
+    console.log(error.message);
     res.status(500).json({ message: error.message });
   }
 });       
