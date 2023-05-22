@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
 import { postDessert, getDessert } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../components/Navbar/Navbar";
@@ -19,7 +18,7 @@ export default function CreateDessert() {
   const [form, setForm] = useState({
     name: "",
     description: "",
-    imageFile: null,
+    image: '',
     price: "",
     summary:"",
     desserts: [],
@@ -28,7 +27,6 @@ export default function CreateDessert() {
   const [errors, setErrors] = useState({
     name: "",
     description: "",
-    image: "",
     price: "",
     summary:"",
     desserts: [],
@@ -36,8 +34,11 @@ export default function CreateDessert() {
 
   function handleChange(event) {
     const property = event.target.name;
-    const value = event.target.type === "file" ? event.target.files[0] : event.target.value;
+    const value = event.target.value;
 
+    if(property === 'desserts'){
+      setForm({...form, desserts : [...form.desserts, value]})
+    }
     setForm({ ...form, [property]: value });
     setErrors(validation({...form,[property]:value},errors))
   }
@@ -64,30 +65,35 @@ export default function CreateDessert() {
 
     }
   }
+  /*******++ */
+  const handleChangeImage = (event) => {
+    const file = event.target.files[0];
 
+    const image = new FileReader();
+
+    image.onload = (event) => {
+      const url = event.target.result;
+     setForm({...form, image: url})
+    }
+
+    image.readAsDataURL(file)
+  } 
+  /********* */
   function handleSubmit(e) {
     e.preventDefault();
-  const formData = new FormData();
-  formData.append("name", form.name);
-  formData.append("summary", form.summary);
-  formData.append("description", form.description);
-  formData.append("image", form.imageFile);
-  formData.append("price", form.price);
-  formData.append("desserts", JSON.stringify(form.desserts));
-    if (!errors.name && !errors.description
-      && !errors.image && !errors.price && !errors.desserts) {
-      dispatch(postDessert(form));
+    
+    dispatch(postDessert(form));
       Swal.fire({
-        title: "Creaste un Postre",
-        icon: "success",
-        confirmButtonText: "Ok",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          dispatch(postDessert(form));
-          resetForm();
+            title: "Creaste un Postre",
+            icon: "success",
+            confirmButtonText: "Ok",
+          }).then((result) => {
+              if (result.isConfirmed) {
+              resetForm();
+
         }
       })
-    }   
+     
   }
 
   const resetForm = () => {
@@ -147,6 +153,7 @@ export default function CreateDessert() {
             )}
           </div>
 
+
           <div className={style.priceCont}>
             <label>Precio:</label>
             <input
@@ -162,9 +169,8 @@ export default function CreateDessert() {
             <div className={style.logoCont}>
               <input
                 type="file"
-                name="imageFile"
-                onChange={handleChange}
-                accept="image/png"
+                name="image"
+                onChange={handleChangeImage}
               />
               <BsFillFileEarmarkArrowUpFill className={style.logoFile} />
             </div>
