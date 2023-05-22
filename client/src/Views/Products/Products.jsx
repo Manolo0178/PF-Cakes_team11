@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 import NavBar from "../../components/Navbar/Navbar";
 import Cards from "../../components/Cards/cards";
@@ -21,6 +22,7 @@ function Products() {
   const products = useSelector((state) => state.allProducts);
   const [order, setOrder] = useState("");
   const desserts = useSelector((state) => state.dessert);
+  const location = useLocation();
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -52,6 +54,13 @@ function Products() {
   const nextChange = () => {
     if (products.length > lastCard) setPage(page + 1);
   };
+
+  // Get the selected product from the URL search parameter
+  const queryParams = new URLSearchParams(location.search);
+  const selectedProductId = queryParams.get("product");
+  const selectedProduct = products.find(
+    (product) => product.id === selectedProductId
+  );
 
   return (
     <div className={styles.products}>
@@ -106,7 +115,15 @@ function Products() {
         />
         <Footer />
       </div>
+      {selectedProduct && (
+        <div className={styles.selectedProduct}>
+          <h4>Producto seleccionado:</h4>
+          <p>{selectedProduct.name}</p>
+          {/* Mostrar más detalles del producto si es necesario */}
+        </div>
+      )}
     </div>
   );
 }
+
 export default Products;

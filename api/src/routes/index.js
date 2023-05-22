@@ -7,6 +7,8 @@ let reviewRouter = require('./reviewRouter/reviewRouter.js')
 let cartRouter = require("./carritoProduct/cartRouter.js")
 let userRouter = require("./userRouter/userRouter.js")
 let addressRouter = require("./addressesRouter/addressRouter.js")
+
+
 const router = Router();
 
 // Configurar los routers

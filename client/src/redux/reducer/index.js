@@ -25,6 +25,7 @@ const initialState = {
   errorForm: null,
   cartItems: [],
   allReview:[]
+
 };
 
 function rootReducer(state = initialState, action) {

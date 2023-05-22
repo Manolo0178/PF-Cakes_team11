@@ -8,7 +8,7 @@ import CreateUser from './Views/CreateUser/CreateUser';
 import Login from './Views/Login/Login';
 import About from './Views/About/About'
 import CreateDessert from './Views/DessertCreate/dessert';
-import Payment from './components/Payment/Payment';
+import Payment from "./components/Payment/Payment.jsx"
 
 import Detail from "./components/Detail/detail"
 
@@ -28,8 +28,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/create" element={<CreateDessert />} />
-        <Route path="/home/:id" element={<Detail />} />
 
+        <Route path="/payment/:total" element={<Payment/>} />
+        <Route path="/home/:id" element={<Detail />} />
         <Route path="/profile" element={<MiPerfil />} />
 
         <Route path="/payment" element={<Payment/>} />
