@@ -68,6 +68,9 @@ export default function CreateDessert() {
   /*******++ */
   const handleChangeImage = (event) => {
     const file = event.target.files[0];
+    if (!file) {
+      return;
+    }
 
     const image = new FileReader();
 

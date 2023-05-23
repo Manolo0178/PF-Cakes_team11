@@ -139,7 +139,7 @@ userRouter.put("/modifyUser/:idUser", async (req, res) => {
   user.image = result.secure_url || user.image;
   await user.save();
 
-  res.json({ message: "Usuario modificado exitosamente" });
+  res.json({ message: "Usuario modificado exitosamente" , user:user.image});
 });
 
 //  RUTA PARA MODIFICAR LA PASSWORD
