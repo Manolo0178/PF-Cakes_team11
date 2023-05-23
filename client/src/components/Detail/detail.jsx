@@ -75,7 +75,7 @@ export default function Detail() {
       }
     });
   };
-
+  console.log(myProduct);
 
 //*********** handle changes *************
   const changeImage = () => {
