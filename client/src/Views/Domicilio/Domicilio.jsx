@@ -1,39 +1,34 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+
 const Domicilio = () => {
-    const userId = localStorage.getItem("userId");
+  const userId = localStorage.getItem("userId");
     
-    const Navigate = useNavigate()
+  const Navigate = useNavigate()
+  
   const [form, setForm] = useState({
-    shippingAddress: "",
+    street: "",
     postalCode: "",
+    province: "",
     city: "",
-    location: "",
+    telephoneContact: "",
+    number: "",
   });
 
   const handleChange = (event) => {
     const property = event.target.name;
     const value = event.target.value;
 
-    setForm({ ...form, [property]: value });
+    setForm({ ...form, [property]: value })
   };
-
-  const handleSubmit = async () => {
-    if (form.shippingAddress && form.postalCode && form.city && form.location) {
-        await axios.put(`http://localhost:3001/Address/${userId}`, form);
-        ResetForm()
-        Navigate("/home")
-    }
-    };
-    const ResetForm = () => {
-        setForm({
-          shippingAddress: "",
-          postalCode: "",
-          city: "",
-          location: ""
-        });
-    }
+  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await axios.post(`http://localhost:3001/Address/${userId}`, form)
+    Navigate("/profile");
+  };
 
   return (
     <div>
@@ -42,11 +37,20 @@ const Domicilio = () => {
         <form onSubmit={handleSubmit}>
           <div>
             <div>
-              <label htmlFor="">Dirección de envío: </label>
+              <label htmlFor="">Calle: </label>
               <input
                 type="text"
-                name="shippingAdress"
-                placeholder="dirección"
+                name="street"
+                placeholder="Calle"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="">número: </label>
+              <input
+                type="text"
+                name="number"
+                placeholder="número"
                 onChange={handleChange}
               />
             </div>
@@ -60,11 +64,29 @@ const Domicilio = () => {
               />
             </div>
             <div>
+              <label htmlFor="">Provincia: </label>
+              <input
+                type="text"
+                name="province"
+                placeholder="Provincia"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
               <label htmlFor="">Ciudad: </label>
               <input
                 type="text"
                 name="city"
-                placeholder="ciudad"
+                placeholder="Ciudad"
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="">Telefono de contacto: </label>
+              <input
+                type="text"
+                name="telephoneContact"
+                placeholder="Telefono de contacto"
                 onChange={handleChange}
               />
             </div>

@@ -35,12 +35,10 @@
     border-radius: 8px;
     border: 1px solid rgb(187, 186, 186);
 }
-.domCont{
 
-}
 .addCont{
     height: 46px;
-    border-top: 1px solid rgb(221, 219, 219);
+    text-decoration: none;
 }
 .addLinkCont{
     height: 100%;
@@ -49,9 +47,63 @@
     justify-content: space-between;
     width: 90%;
     margin: 0 auto;
+
 }
 .addLinkCont p{
     margin: 0;
     color: black;
-    text-decoration: none;
+
+
+}
+.domicilio{
+    border-bottom: 1px solid rgb(190, 190, 190);
+}
+.datos{
+    width: 60%;
+    height: 80%;
+    margin: auto auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+
+}
+.datos div{
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    
+}
+.datos div h6{
+    margin: 0;
+}
+.datos div button{
+    background-color: transparent;
+    border: none;
+    font-size: .8rem;
+}
+.dataCont{
+    display: flex;
+    justify-content: space-between;
+}
+.dataCont section{
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.dataCont section div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.dataCont section div p{
+    margin: 0;
+}
+.button{
+    background-color: transparent;
+    border: none;
+    padding: 10px;
 }

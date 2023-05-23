@@ -17,6 +17,7 @@ import Cart from "../../components/Cart/Cart"
 
 
 function Home() {
+  
     const dispatch = useDispatch();
     const products = useSelector((state) => state.allProducts);
     

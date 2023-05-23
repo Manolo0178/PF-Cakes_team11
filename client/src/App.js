@@ -8,13 +8,16 @@ import CreateUser from './Views/CreateUser/CreateUser';
 import Login from './Views/Login/Login';
 import About from './Views/About/About'
 import CreateDessert from './Views/DessertCreate/dessert';
+import Payment from "./components/Payment/Payment.jsx"
 
 import Detail from "./components/Detail/detail"
 
 import MiPerfil from './Views/miPerfil/MiPerfil';
 import Domicilio from './Views/Domicilio/Domicilio';
+
 function App() {
-  
+
+  const storedToken = localStorage.getItem("token");
 
   return (
     <div className="App">
@@ -26,10 +29,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/create" element={<CreateDessert />} />
-        <Route path="/home/:id" element={<Detail />} />
 
+        <Route path="/payment/:total" element={<Payment/>} />
+        <Route path="/home/:id" element={<Detail />} />
         <Route path="/profile" element={<MiPerfil />} />
         <Route path="/address" element={<Domicilio />} />
+
       </Routes>
     </div>
   );

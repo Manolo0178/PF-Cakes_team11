@@ -11,7 +11,8 @@ import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   INCREASE_QUANTITY,
-  DECREASE_QUANTITY
+  DECREASE_QUANTITY,
+  GET_ALL_REVIEWS
 } from "../actions";
 
 const initialState = {
@@ -22,7 +23,9 @@ const initialState = {
   dessert: [],
   dessertCreate: [],
   errorForm: null,
-  cartItems: []
+  cartItems: [],
+  allReview:[]
+
 };
 
 function rootReducer(state = initialState, action) {
@@ -161,6 +164,11 @@ case DECREASE_QUANTITY:
     ...state,
     cartItems: decreasedCartItems,
 };
+      case GET_ALL_REVIEWS:
+      return {
+        ...state,
+        allReview: action.payload,
+      };
 
     default:
       return state;

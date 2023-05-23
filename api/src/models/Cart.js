@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
     deleted: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: true
+      defaultValue: false
     }
   }, {
     timestamps: false,

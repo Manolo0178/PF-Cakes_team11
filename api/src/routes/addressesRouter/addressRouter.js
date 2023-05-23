@@ -2,25 +2,43 @@ const express = require("express")
 const addressRouter = express.Router()
 const { Address, User, UserAddress } = require("../../db")
 
-addressRouter.put('/:idUser', async (req, res)=> {
-    const { idUser } = req.params
-    const { shippingAddress, postalCode, city, location  } = req.body
+addressRouter.post('/:idUser', async (req, res) => {
+  const { idUser } = req.params;
+  const { street, postalCode, city, province, number, telephoneContact } = req.body;
 
-    let user = await User.findOne({ where : {id: idUser} })
+  try {
+    let user = await User.findOne({ where: { id: idUser } });
 
-    if(shippingAddress.length > 0) {
-        await Promise.all(
-          shippingAddress.map(async (shippingAddress) => {
-            let [address] = await Address.findOrCreate({
-              where: { shippingAddress, postalCode, city, location },
-            });
-             await user.addAddress(address) 
-          })
-        );
-      }
-      res.send("la direccion se agrego con exito")
-})
+    let [address] = await Address.findOrCreate({
+      where: { street, postalCode, city, province, number },
+      defaults: { street, postalCode, city, province, number, telephoneContact }
+    });
 
+      await user.addAddress(address);
+
+    res.send('La dirección se agregó con éxito');
+  } catch (error) {
+
+    res.status(500).send('Error al crear o relacionar la dirección');
+  }
+});
+// addressRouter.get("/", async(req, res) => {
+//   try {
+//     let addressRoutes = await Address.findOne()
+//     if (addressRoutes) {
+//       res.status(200).json(addressRoutes);
+//     } else {
+//       res.status(400).json({ msg: "direccion no encontrada" });
+//     }
+//   } catch (error) {
+//     res.status(500).json({msg: error.message})
+//   }
+// })
+
+// addressRouter.get("/", async (req, res)=>{
+//   const direcciones = await Address.findAll()
+//   res.json(direcciones)
+// })
 
 addressRouter.get("/:idUser", async (req, res) => {
   const { idUser } = req.params
@@ -31,17 +49,18 @@ addressRouter.get("/:idUser", async (req, res) => {
         include: [
           {
             model: Address,
-            attributes: ['shippingAddress', 'postalCode', 'city', 'location'],
+            attributes: ['street', 'postalCode', 'city', 'province', 'number', 'telephoneContact' ],
             through: { attributes: ["userId", "addressId"] },
           },
         ],
         attributes: {
           exclude: ['password','name','lastName','image','email', 'contact', 'role', 'created', 'deleted'],
         },
-    })
+      })
+
     res.json(user)
   } catch (error) {
-    console.log(error)
+
     res.status(400).json({error:error.message})
   }
 })
@@ -72,10 +91,22 @@ addressRouter.delete('/remove/:idUser/:idAddress', async (req, res) => {
   
 
   // {
-  //   "shippingAddress": ["carrer de luna 333"],
-  //   "postalCode": 8009,
-  //   "city": "buenos aires",
-  //   "location": "sierra de la ventana"
+  //   "street": "carrer de luna",
+  //   "postalCode": "8009",
+  //   "province": "buenos aires",
+  //   "city": "sierra de la ventana",
+  //   "telephoneContact": "291775634",
+  //   "number": "320"
   // }
+
+
+  // {
+  //   "name": "horacio",
+  //   "lastName": "cano",
+  //   "password": "123"
+  //   "email": "h@gmail.com",
+  //   "contact": "111111",
+  // }
+
 
 module.exports = addressRouter;
