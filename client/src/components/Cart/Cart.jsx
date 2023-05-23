@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-// import 'boxicons';
+import 'boxicons';
 import style from './Cart.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, increaseQuantity, decreaseQuantity } from '../../redux/actions';
 import Alert from 'react-bootstrap/Alert';
 import { Link } from 'react-router-dom';
 
-const Cart = ({ isOpen, toggleCart, cartItemCount }) => {
+const Cart = ({ isOpen, toggleCart }) => {
   const cartItems = useSelector((state) => state.cartItems);
   const dispatch = useDispatch();
   const [showAlert, setShowAlert] = useState(false);
@@ -58,6 +58,8 @@ const Cart = ({ isOpen, toggleCart, cartItemCount }) => {
     return null;
   }
 
+
+
   return (
     <div className={`${style.carritos} ${style.show}`}>
       <div className={`${style.carrito} ${style.show}`}>
@@ -74,7 +76,7 @@ const Cart = ({ isOpen, toggleCart, cartItemCount }) => {
                 <p className={`${style.price}`}>${item.price}</p>
               </div>
               <div>
-                <box-icon type='solid' name='upvote'  onClick={() => handleIncreaseQuantity(item.id)}></box-icon>
+              <box-icon type='solid' name='upvote'  onClick={() => handleIncreaseQuantity(item.id)}></box-icon>
                 <p className={`${style.cantidad}`}>{item.quantity}</p>
                 <box-icon type='solid' name='downvote' onClick={() => handleDecreaseQuantity(item.id)}></box-icon>
               </div>
@@ -87,7 +89,7 @@ const Cart = ({ isOpen, toggleCart, cartItemCount }) => {
         <div className={style.carrito__footer}>
           <h3>Total: ${total}</h3>
           <Link to={`/payment/${total}`}>
-            <button className={style.btnn}>Pagar</button>
+         <button className={style.btnn}>Pagar</button>
           </Link>
         </div>
       </div>
@@ -99,7 +101,6 @@ const Cart = ({ isOpen, toggleCart, cartItemCount }) => {
       >
         Elemento eliminado del carrito
       </Alert>
-      <div className={style.cartItemCount}>{cartItemCount}</div> {/* Nuevo elemento para mostrar la cantidad de productos */}
     </div>
   );
 };
