@@ -124,7 +124,7 @@ productRouter.get("/", async (req, res) => {
 productRouter.post("/", upload.single("image"), async (req, res) => {
   try {
     let { name, summary, description, price, desserts } = req.body;
-    
+    //
     // Aquí se carga la imagen en Cloudinary
     
     const result = await cloudinary.uploader.upload(req.file.path, {
