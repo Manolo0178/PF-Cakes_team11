@@ -21,3 +21,17 @@
 .link:hover{
   font-weight: 600 !important;
 }
+.cartItemCount {
+  position: absolute;
+  top: 68px;
+  right: 95px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background-color: rgb(184, 103, 173);
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+}
