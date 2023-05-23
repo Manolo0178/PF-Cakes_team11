@@ -2,13 +2,9 @@ const { Op } = require('sequelize')
 const express = require("express");
 const productRouter = express.Router();
 const { Product, Dessert } = require("../../db.js")
-<<<<<<< HEAD
 const { dataBs } = require("../../controler/index.js")
-=======
-const {dataBs} = require("../../controler/index.js")
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
->>>>>>> ebab74f34d182125449ffe6cec53a886a24ca03c
 dataBs()
 
 const cloudinary = require("cloudinary").v2;
@@ -17,7 +13,7 @@ cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_KEY_SECRET,
-}) 
+})
 
 productRouter.get("/:idProduct", async (req, res) => {
   const { idProduct } = req.params
@@ -125,39 +121,25 @@ productRouter.get("/", async (req, res) => {
 // });
 
 //se agrego un controlador que hace un pedido a una api creada por url
-<<<<<<< HEAD
-
-productRouter.post("/", async (req, res) => {
-  let { name, summary, description, image, price, desserts } = req.body;
-
-  try {
-    const existingProduct = await Product.findOne({ where: { name } });
-    // verifica si existe un producto con el mismo  nombre en la db salta a la sgte iteracion
-    // evitando la creacion con el mismo nombre
-    if (existingProduct) {
-      return res.status(400).json({ message: "Product name already exists" });
-    }
-=======
 productRouter.post("/", upload.single("image"), async (req, res) => {
   try {
     let { name, summary, description, price, desserts } = req.body;
-    
+
     // Aquí se carga la imagen en Cloudinary
-    
+
     const result = await cloudinary.uploader.upload(req.file.path, {
       folder: "img",
     });
     // fs.unlink(req.file.path, (err) => {
-      //   if (err) {
-        //     console.error(err);
-        //   }
-        // });
-        console.log(result)
-        const existingProduct = await Product.findOne({ where: { name } });
-        if (existingProduct) {
-          return res.status(400).json({ message: "Product name already exists" });
-        }
->>>>>>> ebab74f34d182125449ffe6cec53a886a24ca03c
+    //   if (err) {
+    //     console.error(err);
+    //   }
+    // });
+    console.log(result)
+    const existingProduct = await Product.findOne({ where: { name } });
+    if (existingProduct) {
+      return res.status(400).json({ message: "Product name already exists" });
+    }
     const newProduct = await Product.create({
       name,
       description,
@@ -183,7 +165,7 @@ productRouter.post("/", upload.single("image"), async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});       
+});
 
 
 productRouter.put("/:id", async (req, res) => {
