@@ -23,7 +23,7 @@ paymentRouter.post('/checkout', async(req, res) => {
             confirm: true
         });
 
-        console.log(payment)
+
 
         return res.status(200).json({ message: "Successful Payment" });
     } catch (error) {

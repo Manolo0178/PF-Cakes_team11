@@ -8,6 +8,7 @@ const { User, Address } = require("../../db");
 const { SECRET } = process.env
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
+const enviarMail = require("./nodeMailer")
 
 
 const cloudinary = require("cloudinary").v2;
@@ -56,6 +57,9 @@ userRouter.post("/create", async (req, res) => { // Esta ruta es para crear un u
     let user = await User.create({ name, email, contact, lastName, password });
     
     const { password: userPassword, ...userWithoutPassword } = user.toJSON();
+
+    enviarMail(email,name)
+
     res.status(201).json(userWithoutPassword);
     
   } catch (error) {
