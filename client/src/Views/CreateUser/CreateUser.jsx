@@ -5,7 +5,7 @@ import styles from "./CreateUser.module.css";
 import Button from "react-bootstrap/Button";
 import Footer from "../../components/Footer/Footer";
 import NavBar from "../../components/Navbar/Navbar";
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 import validation from "./Validation";
 import axios from "axios";
 
@@ -27,7 +27,7 @@ const CreateUser = () => {
     email: "",
     password: "",
     confirmpassword: "",
-  });
+  }); 
 
   const handleChange = (event) => {
     const property = event.target.name;
@@ -55,6 +55,14 @@ const CreateUser = () => {
         if (response) {
           Navigate("/login");    
         }
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: error.response.data.error,
+          icon: "error",
+          confirmButtonText: "Ok",
+      })
+      // console.log(error);
       })
     }
   };

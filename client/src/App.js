@@ -10,10 +10,14 @@ import About from './Views/About/About'
 import CreateDessert from './Views/DessertCreate/dessert';
 import Payment from "./components/Payment/Payment.jsx"
 
+import NewPassword from './Views/miPerfil/NewPassword/NewPassword';
+
 import Detail from "./components/Detail/detail"
 
 import MiPerfil from './Views/miPerfil/MiPerfil';
 import Domicilio from './Views/Domicilio/Domicilio';
+import EnviarEmail from './components/LoginForm/EnviarEmail/EnviarEmail';
+import CamPassword from './components/LoginForm/CamPassword/CamPassword';
 
 function App() {
 
@@ -34,7 +38,10 @@ function App() {
         <Route path="/home/:id" element={<Detail />} />
         <Route path="/profile" element={<MiPerfil />} />
         <Route path="/address" element={<Domicilio />} />
-
+        
+        <Route path='/profile/newPassword' element = {<NewPassword/>} />
+        <Route path='/login/enviarMail' element= { <EnviarEmail/> } />
+        <Route path='/login/enviarMail/newPassword' element= { <CamPassword/> } />
       </Routes>
     </div>
   );
