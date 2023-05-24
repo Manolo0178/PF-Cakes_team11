@@ -127,6 +127,12 @@ const MiPerfil = () => {
                   <h6>Numero de contacto: {perfil.contact}</h6>
                   <button onClick={(e) => change(e, "contact")}>cambiar</button>
                 </div>
+                <div>
+                  <h6>Contraseña: {<input type="text" disabled placeholder="********" />}</h6>
+                  <Link to={'/profile/newPassword'} >
+                  <button>cambiar</button>
+                  </Link>
+                </div>
               </div>
             </div>
           )}
