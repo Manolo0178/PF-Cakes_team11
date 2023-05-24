@@ -124,19 +124,14 @@ productRouter.get("/", async (req, res) => {
 productRouter.post("/", upload.single("image"), async (req, res) => {
   try {
     let { name, summary, description, price, desserts } = req.body;
-    
+    //
     // Aquí se carga la imagen en Cloudinary
     
     const result = await cloudinary.uploader.upload(req.file.path, {
       folder: "img",
     });
-    // fs.unlink(req.file.path, (err) => {
-      //   if (err) {
-        //     console.error(err);
-        //   }
-        // });
-        console.log(result)
-        const existingProduct = await Product.findOne({ where: { name } });
+    console.log(result)
+    const existingProduct = await Product.findOne({ where: { name } });
         if (existingProduct) {
           return res.status(400).json({ message: "Product name already exists" });
         }
@@ -165,7 +160,7 @@ productRouter.post("/", upload.single("image"), async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});       
+});             
 
 
 productRouter.put("/:id", async (req, res) => {

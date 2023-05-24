@@ -66,7 +66,7 @@ function Products() {
     <div className={styles.products}>
       <NavBar />
       <div>
-        <h1 className={styles.h1}>Products</h1>
+        <h1 className={styles.h1}>Productos</h1>
         <Pagination
           cardsPage={cardsPage}
           paginate={paginate}
@@ -90,8 +90,8 @@ function Products() {
             </div>
             <div className={styles.orderBy}>
               <h5>Ordenamiento</h5>
-              <select onChange={handlerOrderProducts} value="order">
-                <option value="order" disabled>
+              <select onChange={handlerOrderProducts} value={order}>
+                <option value="" disabled>
                   Orden
                 </option>
                 <option value="min-max">Precio: Menor a Mayor</option>
