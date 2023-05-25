@@ -107,7 +107,9 @@ const LoginForm = () => {
           />
         </div>
         <div className={styles.forgotPassword}>
-          <p>¿olvidaste tu contraseña?</p>
+          <Link to={'/login/enviarMail'} >
+           <p>¿olvidaste tu contraseña?</p>
+          </Link>
         </div>
       </div>
       <div className={styles.loginElse}>
