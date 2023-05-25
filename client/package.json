@@ -13,6 +13,8 @@
     "bootswatch": "^5.2.3",
     "boxicons": "^2.1.4",
     "mercadopago": "^1.5.16",
+    "primeicons": "^6.0.1",
+    "primereact": "^9.5.0",
     "query-string": "^8.1.0",
     "react": "^17.0.2",
     "react-bootstrap": "^2.7.4",
