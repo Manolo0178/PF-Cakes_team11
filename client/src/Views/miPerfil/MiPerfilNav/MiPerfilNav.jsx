@@ -4,10 +4,13 @@ import styles from "./MiPerfilNav.module.css";
 import Swal from "sweetalert2";
 import { HiPencilAlt } from "react-icons/hi";
 import axios from "axios";
+import { useState } from "react";
+
+
 
 const MiPerfilNav = ({ perfil, setPerfil, setPage, id }) => {
   const Navigate = useNavigate();
-
+  const [image, setImage] = useState(perfil.image)
 
   const logoutButton = () => {
     Swal.fire({
@@ -32,20 +35,25 @@ const MiPerfilNav = ({ perfil, setPerfil, setPage, id }) => {
   const handleChangeImage = (event) => {
     const file = event.target.files[0];
     const url = `http://localhost:3001/user/modifyUser/${id}`;
-    const image = new FileReader();
+    const reader = new FileReader();
     if (!file) {
       return;
     }
-
-    image.onload = async (event) => {
+    reader.onload = async (event) => {
       const imgChange = event.target.result;
       setPerfil({ ...perfil, image: imgChange });
-      if (perfil.image !== null) {
-        await axios.put(url, perfil);
+
+      try {
+        const response = await axios.put(url, { image: imgChange });
+        const updatedImage = response.data.user;
+        setPerfil({ ...perfil, image: updatedImage });
+        setImage(updatedImage);
+      } catch (error) {
+        console.error("Error al cargar la imagen:", error);
       }
     };
 
-    image.readAsDataURL(file);
+    reader.readAsDataURL(file);
   };
 
 
@@ -53,7 +61,7 @@ const MiPerfilNav = ({ perfil, setPerfil, setPage, id }) => {
     <div className={styles.cont}>
       <div>
         <div className={styles.imgCont}>
-          <img src={perfil.image} alt="imagen de perfil" />
+          <img src={image} alt="imagen de perfil" />
           <input type="file" name="image" onChange={handleChangeImage} />
           <HiPencilAlt className={styles.imageChange} />
         </div>

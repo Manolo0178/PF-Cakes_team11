@@ -30,6 +30,7 @@ export default function Detail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [star, setStar] = useState(0);
+  const [image, setImage] = useState(myProduct.image)
 
   const handlerStar = (point) =>{
     setStar(point)
@@ -78,13 +79,6 @@ export default function Detail() {
   console.log(myProduct);
 
 //*********** handle changes *************
-  const changeImage = () => {
-    let img = prompt("¿Que imágen desea colocarle?", `${myProduct.image}`);
-    dispatch(changeDetails({ image: img }, myProduct.id));
-    if (img) {
-      window.location.reload(true);
-    }
-  }
   const changeName = async() => {
     let named = prompt("¿Que nombre desea colocarle?", `${myProduct.name}`);
     dispatch(changeDetails({ name: named }, myProduct.id));
@@ -108,6 +102,28 @@ export default function Detail() {
   }
 
 
+  const changeImage = (event) => {
+    const file = event.target.files[0];
+    const url = `http://localhost:3001/`;
+    const reader = new FileReader();
+    if (!file) {
+      return;
+    }
+    reader.onload = async (event) => {
+      const imgChange = event.target.result;
+
+      try {
+        const response = await axios.put(url, { image: imgChange });
+        const updatedImage = response.data.user;
+        setImage(updatedImage)
+      } catch (error) {
+        console.error("Error al cargar la imagen:", error);
+      }
+    };
+
+    reader.readAsDataURL(file);
+  };
+
 
   return (
     <div className={styles.detailCont}>
@@ -116,7 +132,7 @@ export default function Detail() {
         <section className={styles.productCont}>
           <div className={styles.imageCont}>
             <img className={styles.image} src={myProduct.image} alt="dessert" />
-            <button onClick={changeImage} className={styles.imageButton}>
+            <button onChange={changeImage} className={styles.imageButton}>
               <HiPencilAlt />
             </button>
           </div>
