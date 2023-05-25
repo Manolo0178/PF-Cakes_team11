@@ -53,8 +53,13 @@ const CreateUser = () => {
       await axios.post("http://localhost:3001/user/create", form)
       .then((response) => {
         if (response) {
-          Navigate("/login");    
+          Navigate("/login");
+          
         }
+        
+      })
+        .catch(()=> {
+        alert("el usuario ya existe")
       })
       .catch((error) => {
         Swal.fire({
