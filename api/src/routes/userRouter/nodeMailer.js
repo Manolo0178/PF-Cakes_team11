@@ -30,8 +30,8 @@ const enviarMail = async (email, name) => {
   };
 
   const info = await transport.sendMail(mensaje);
-  console.log(info);
   return info;
 };
-
+ // const IDcliente = 781787972829-6oaasrp4vfoe34t3fkbd02bqv1vpktjm.apps.googleusercontent.com
+ // const secretoDelCliente = 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
 module.exports = enviarMail;
