@@ -27,6 +27,7 @@ cartRouter.get('/:userId', async (req, res) => {
    
     res.json(cart);
   } catch (error) {
+    console.log(error.message);
     res.status(500).json({ message: error.message });
   }
 });
