@@ -52,22 +52,26 @@ userRouter.post("/login", async (req, res) => {
 
 // RUTA CREAR USUARIO
 userRouter.post("/create", async (req, res) => { // Esta ruta es para crear un usuario
-  const { name, email, contact, lastName, password } = req.body;
+  const { name, email, contact, lastName, password, googleId } = req.body;
   try {
-    const userEmail = await User.findOne({ where: { email } })
-    if (!userEmail) {
-      let user = await User.create({ name, email, contact, lastName, password });
-      
-      const { password: userPassword, ...userWithoutPassword } = user.toJSON();
-  
-      enviarMail(email,name)
-  
-      res.status(201).json(userWithoutPassword); 
-    }
-    else {
-      res.status(403).send("el email ya existe")
-    }
+
+      const userVerification = await User.findOne({ where: { email }})
+
+      if(userVerification){
+        if(userVerification.googleId === googleId){
+          return res.json({ id:userVerification.id })
+        } 
+        return res.status(400).send("Ya hay un usuario registrado con ese email")
+      } else{
+        let user = await User.create({ name, email, contact, lastName, password, googleId });
     
+        const { password: userPassword, ...userWithoutPassword } = user.toJSON();
+
+        enviarMail(email,name)
+
+        res.status(201).json(userWithoutPassword);
+      }
+
   } catch (error) {
     console.log(error.message);
     res.status(400).json({ error: error.message });
@@ -110,7 +114,7 @@ userRouter.get("/", async (req, res) => {
         include: [
           {
             model: Address,
-            attributes: ['shippingAddress', 'postalCode', 'city', 'location'],
+            attributes: ['street', 'postalCode', 'city', 'province', 'number','telephoneContact', ],
             through: { attributes: [] },
           },
         ],
