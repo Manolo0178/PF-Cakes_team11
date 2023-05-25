@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { getAllReviews } from "../../redux/actions";
 import style from "./Comment.module.css";
 import axios from 'axios';
 
@@ -9,17 +11,25 @@ import Reviews from '../Reviews/Reviews';
 
 const Comment = ({star}) => {
   const [perfil, setPerfil] = useState({});
+  const [access, setAccess] = useState(0);
   const [review, setReview] = useState({
     comment : "",
-    qualification:0,
-    productId:0,
-    userId:0
+    qualification:0
   })
   
   
   const storedToken = localStorage.getItem("token");
   const userId = localStorage.getItem("userId")
   const { id } = useParams();
+  
+  const allReviews = useSelector((state) => state.allReview);
+  const dispatch = useDispatch();
+
+
+  const reviewXProducts = allReviews.filter(review=> review.productId === parseInt(id));
+  const reviewXUser = reviewXProducts?.filter(review => review.userId === parseInt(userId));
+
+
 
   useEffect( () => {
     storedToken && (
@@ -28,23 +38,43 @@ const Comment = ({star}) => {
         setPerfil(response.data)
       })
       )
-      
+
+      axios.get(`http://localhost:3001/carts/${userId}`)
+      .then((response) => {
+        if(response.data){
+          let filter = response.data.products?.filter((element)=>element.id===parseInt(id));
+          setAccess(filter.length)
+        }
+      })  
+
+      dispatch(getAllReviews());
   }, []);
 
+  
 
   const handleForm = async(e) => {
-    e.preventDefault()
-    if (
-      review.comment
-    ) {
-      await axios.post("http://localhost:3001/review", review)
-      .then((response) => {
-        if(response){
-          console.log(response);
+    e.preventDefault();
+
+
+    if(!access){
+      alert("no podés comentar ya que nunca compraste :(")
+    } else{
+      if(reviewXUser.length === parseInt(1)){
+      alert("No podés dar una segunda reseña")  
+      } else{
+        if (
+          review.comment && review.qualification
+        ) {
+          await axios.post(`http://localhost:3001/review/${userId}/${id}`, review)
+          .then((response) => {
+            if(response){
+              console.log(response);
+            }
+          })
+          window.location.reload(true);
         }
-      })
+      }
     }
-    window.location.reload(true);
   };
 
 
@@ -53,7 +83,7 @@ const Comment = ({star}) => {
     const property = event.target.name;
     const value = event.target.value;
 
-    setReview({ ...review,"qualification":star, "productId": parseInt(id), "userId": perfil.id,[property]: value })
+    setReview({ ...review,"qualification":star, [property]: value })
   };
   
 
@@ -66,7 +96,7 @@ const Comment = ({star}) => {
             <button  type="submit" className={style.button}>Enviar</button>
         </div>
       </form>
-      <Reviews/>
+      <Reviews reviewXProducts={reviewXProducts} star={star}/>
     </div>
   );
 };
