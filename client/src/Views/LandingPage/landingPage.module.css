@@ -4,7 +4,6 @@
   align-items: center;
   height: 100vh;
   background-color: #fca2cf;
-  /* background-image: linear-gradient(#fff5f5, #ffe4e4); */
   height: 100vh;
 }
 .cont{
@@ -22,7 +21,7 @@
   gap: 30px;
 }
 .rightSide {
-  background-color: #fca2cf; /* marrón clarito */
+  background-color: #fca2cf; 
   padding: 16px;
   height: 100%;
   display: flex;
@@ -35,8 +34,8 @@
 }
 
 .btn {
-  background-color: #d35f7c; /* rosa */
-  color: #fff; /* blanco */
+  background-color: #d35f7c; 
+  color: #fff;
   border: none;
   border-radius: 10px;
   padding: 10px 20px;
@@ -55,7 +54,7 @@
   left: 0;
   width: 0;
   height: 100%;
-  background-color: rgba(240, 228, 228, 0.5); /* blanco translúcido */
+  background-color: rgba(240, 228, 228, 0.5); 
   z-index: -1;
   transition: all 0.3s ease-in-out;
 }
@@ -65,7 +64,7 @@
 }
 
 .btn:hover {
-  background-color: #fea8bd; /* rosa oscuro */
+  background-color: #fea8bd;
 }
 
 h1 {
