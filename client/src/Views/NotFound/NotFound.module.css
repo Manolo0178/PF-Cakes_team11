@@ -1,0 +1,51 @@
+.container {
+    position: relative;
+    background-image: url('https://i.gifer.com/GS9j.gif');
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .boton{
+    font-size: 2em;
+    position: absolute;
+    bottom: 10%;
+    right: 43%;
+    background-color: #fca2cf;
+    border-radius: 15px;
+    animation: pulsate 2s ease-in-out infinite;
+  }
+  
+  .title {
+    font-size: 4rem;
+    color: #fff;
+    margin-bottom: 1rem;
+    animation: pulsate 2s ease-in-out infinite;
+    position: relative;
+    bottom: 10%;
+  }
+  
+  @keyframes pulsate {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+ 
+  .message {
+    font-size: 1.2rem;
+    color: #fff;
+    position: relative;
+    top: 20%;
+  }
+  

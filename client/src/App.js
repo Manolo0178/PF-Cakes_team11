@@ -18,6 +18,7 @@ import MiPerfil from './Views/miPerfil/MiPerfil';
 import Domicilio from './Views/Domicilio/Domicilio';
 import EnviarEmail from './components/LoginForm/EnviarEmail/EnviarEmail';
 import CamPassword from './components/LoginForm/CamPassword/CamPassword';
+import NotFound from './Views/NotFound/NotFound';
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
         <Route path='/profile/newPassword' element = {<NewPassword/>} />
         <Route path='/login/enviarMail' element= { <EnviarEmail/> } />
         <Route path='/login/enviarMail/newPassword' element= { <CamPassword/> } />
+        <Route path='*' element = { <NotFound/> } />
       </Routes>
     </div>
   );
