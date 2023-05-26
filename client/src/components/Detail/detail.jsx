@@ -110,6 +110,7 @@ export default function Detail() {
       const imgChange = event.target.result;
       console.log(imgChange);
       dispatch(changeDetails({ image: imgChange }, myProduct.id));
+      window.location.reload(true)
     };
 
     reader.readAsDataURL(file);
