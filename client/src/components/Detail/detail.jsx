@@ -36,7 +36,6 @@ export default function Detail() {
   }
 
 
-
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
     alert("El producto fue agregado al carrito");
@@ -75,16 +74,9 @@ export default function Detail() {
       }
     });
   };
-  console.log(myProduct);
+
 
 //*********** handle changes *************
-  const changeImage = () => {
-    let img = prompt("¿Que imágen desea colocarle?", `${myProduct.image}`);
-    dispatch(changeDetails({ image: img }, myProduct.id));
-    if (img) {
-      window.location.reload(true);
-    }
-  }
   const changeName = async() => {
     let named = prompt("¿Que nombre desea colocarle?", `${myProduct.name}`);
     dispatch(changeDetails({ name: named }, myProduct.id));
@@ -108,6 +100,21 @@ export default function Detail() {
   }
 
 
+  const changeImage = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    if (!file) {
+      return;
+    }
+    reader.onload = async (event) => {
+      const imgChange = event.target.result;
+      console.log(imgChange);
+      dispatch(changeDetails({ image: imgChange }, myProduct.id));
+    };
+
+    reader.readAsDataURL(file);
+  };
+
 
   return (
     <div className={styles.detailCont}>
@@ -116,9 +123,8 @@ export default function Detail() {
         <section className={styles.productCont}>
           <div className={styles.imageCont}>
             <img className={styles.image} src={myProduct.image} alt="dessert" />
-            <button onClick={changeImage} className={styles.imageButton}>
-              <HiPencilAlt />
-            </button>
+            <input type="file" name="image" onChange={changeImage}/>
+            <HiPencilAlt className={styles.imageButton} />
           </div>
           <div className={styles.textCont}>
             <button className={styles.delete} onClick={handleDelete}>
@@ -145,10 +151,15 @@ export default function Detail() {
             </div>
             <div className={styles.cantCont}>
               <label htmlFor="">Cantidad</label>
-              <input type="number" min="0" defaultValue="1"/>
+              <input type="number" min="0" defaultValue="1" />
             </div>
             <div className={styles.buttonCont}>
-              <Button variant="primary" onClick={() => handleAddToCart(myProduct)}>Agregar al carrito</Button>{" "}
+              <Button
+                variant="primary"
+                onClick={() => handleAddToCart(myProduct)}
+              >
+                Agregar al carrito
+              </Button>{" "}
             </div>
           </div>
         </section>
@@ -168,9 +179,9 @@ export default function Detail() {
       ) : (
         <div></div>
       )}
-      <Qualification handlerStar ={handlerStar}/>
-      <Comment star={star}/>
-      <Footer/>
+      <Qualification handlerStar={handlerStar} />
+      <Comment star={star} />
+      <Footer />
     </div>
   );
 }

@@ -10,6 +10,9 @@ const enviarMail = async (email, name) => {
       user: NM_EMAIL,
       pass: NM_PASSWORD,
     },
+    tls: {
+      rejectUnauthorized: false,
+    },
   };
   const transport = nodemailer.createTransport(config);
 

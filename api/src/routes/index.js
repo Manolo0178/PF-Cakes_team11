@@ -8,6 +8,8 @@ let cartRouter = require("./carritoProduct/cartRouter.js")
 let userRouter = require("./userRouter/userRouter.js")
 let addressRouter = require("./addressesRouter/addressRouter.js")
 let paymentRouter = require("./payments/paymentRouter.js")
+let favoritosRouter = require('./productDessert/favoritos.js')
+
 
 const router = Router();
 
@@ -20,5 +22,6 @@ router.use("/carts", cartRouter);
 router.use("/user", userRouter);
 router.use("/Address",addressRouter);
 router.use("/api", paymentRouter);
+router.use('/favoritos', favoritosRouter);
 
 module.exports = router;
