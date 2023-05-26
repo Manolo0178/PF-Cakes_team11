@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 import Cart from "../../components/Cart/Cart"
 
-
+import ChatBotOhana from "../../ChatBot/ChatBot";
 
 function Home() {
   
@@ -36,10 +36,10 @@ function Home() {
     return (
       
       <div className={styles.homeCont}>
-       
         <Cart/>
         <NavBar />
         <CarouselSlide />
+        <ChatBotOhana/>
         <section className={styles.cardsCont}>
           <h3>Algunos de nuestros productos</h3>
           <Cards products={products} />

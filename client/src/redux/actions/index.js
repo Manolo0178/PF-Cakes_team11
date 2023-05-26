@@ -2,7 +2,7 @@ import axios from "axios"
 
 
 
-
+ 
 //********** Actions Types **********/
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 
