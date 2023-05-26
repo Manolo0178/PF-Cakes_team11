@@ -38,8 +38,10 @@ Dessert.belongsToMany(Product, { through: 'productAll' });//************ */
 ///*****realcion de muchos a muchos y uno a uno */
 Product.belongsToMany(Cart, { through: OrderItem });
 Cart.belongsToMany(Product, { through: OrderItem });
+
 OrderItem.belongsTo(Product);
 OrderItem.belongsTo(Cart)
+
 Cart.belongsTo(User, { foreignKey: 'userId' });
 User.hasOne(Cart, { foreignKey: 'userId' });
 
@@ -52,6 +54,9 @@ Review.belongsTo(User) // Aquí se establece que una reseña pertenece a un solo
 
 User.belongsToMany(Address, { through: 'UserAddress' }); 
 Address.belongsToMany(User, { through: 'UserAddress' });
+
+Product.belongsToMany(User, { through: 'Favoritos' }); 
+User.belongsToMany(Product, { through: 'Favoritos' });
 
 
 // comentario de prueba

@@ -75,7 +75,9 @@ userRouter.post("/create", async (req, res) => { // Esta ruta es para crear un u
   } catch (error) {
     console.log(error.message);
     res.status(400).json({ error: error.message });
+
   }
+
 });
 
 // RUTA TODOS LOS USUARIO O POR NAME
@@ -156,7 +158,7 @@ userRouter.put("/modifyUser/:idUser", async (req, res) => {
   user.contact = contact || user.contact;
   await user.save();
 
-  res.json({ message: "Usuario modificado exitosamente" });
+  res.json({ message: "Usuario modificado exitosamente" , user:user.image});
 });
 
 //  RUTA PARA MODIFICAR LA PASSWORD

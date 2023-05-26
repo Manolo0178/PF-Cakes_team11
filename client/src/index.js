@@ -8,6 +8,15 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+//theme
+import "primereact/resources/themes/lara-light-indigo/theme.css";     
+//core
+import "primereact/resources/primereact.min.css";                                       
+//icons
+
+import "primeicons/primeicons.css";
+        
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

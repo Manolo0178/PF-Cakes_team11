@@ -68,6 +68,9 @@ export default function CreateDessert() {
   /*******++ */
   const handleChangeImage = (event) => {
     const file = event.target.files[0];
+    if (!file) {
+      return;
+    }
 
     const image = new FileReader();
 
@@ -89,22 +92,14 @@ export default function CreateDessert() {
             confirmButtonText: "Ok",
           }).then((result) => {
               if (result.isConfirmed) {
-                // resetForm();
+                e.preventDefault()
                 window.location.reload(true);
         }
       })
      
   }
 
-  // const resetForm = () => {
-  //   setForm({
-  //     name: "",
-  //     description: "",
-  //     image: "",
-  //     price: "",
-  //     desserts: [],
-  //   });
-  // };
+
   return (
     <div className={style.cont}>
       <NavBar />
@@ -193,13 +188,9 @@ export default function CreateDessert() {
             <div className={style.desCont}>
               {form.desserts?.map((dessert, index) => (
                 <div key={index} className={style.des}>
-                  <p>{dessert}</p>
-                  <button
-                    className={style.botonX}
-                    onClick={() => handleDelete(dessert)}
-                  >
-                    X
-                  </button>
+                  <button type="button" onDoubleClick={() => handleDelete(dessert)}>
+                    {dessert}
+                    </button>
                 </div>
               ))}
             </div>

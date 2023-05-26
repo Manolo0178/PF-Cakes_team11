@@ -1,14 +1,18 @@
-import React from 'react'
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./MiPerfilNav.module.css"
+import styles from "./MiPerfilNav.module.css";
 import Swal from "sweetalert2";
 import { HiPencilAlt } from "react-icons/hi";
-import axios from 'axios';
+import axios from "axios";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 
-const MiPerfilNav = ({ perfil, setPerfil,setPage,id }) => {
+const MiPerfilNav = ({ perfil, setPerfil, setPage, id }) => {
   const Navigate = useNavigate();
+  const [image, setImage] = useState(perfil.image)
+
   const logoutButton = () => {
     Swal.fire({
       title: "Estas seguro de querer salir",
@@ -23,33 +27,42 @@ const MiPerfilNav = ({ perfil, setPerfil,setPage,id }) => {
       }
     });
   };
-  const handleChange = (e,val) => {
-    e.preventDefault()
-    setPage(val)
-  }
+  const handleChange = (e, val) => {
+    e.preventDefault();
+    setPage(val);
+  };
+  
 
   const handleChangeImage = (event) => {
     const file = event.target.files[0];
     const url = `http://localhost:3001/user/modifyUser/${id}`;
-    const image = new FileReader();
-
-    image.onload = async(event) => {
+    const reader = new FileReader();
+    if (!file) {
+      return;
+    }
+    reader.onload = async (event) => {
       const imgChange = event.target.result;
-      setPerfil({ ...perfil, image: imgChange })
-        if (perfil.image !== null) {
-          await axios.put(url, perfil)
-        }
-      ;
+      setPerfil({ ...perfil, image: imgChange });
+
+      try {
+        const response = await axios.put(url, { image: imgChange });
+        const updatedImage = response.data.user;
+        setPerfil({ ...perfil, image: updatedImage });
+        setImage(updatedImage);
+      } catch (error) {
+        console.error("Error al cargar la imagen:", error);
+      }
     };
 
-    image.readAsDataURL(file);
-  }; 
-  
+    reader.readAsDataURL(file);
+  };
+
+
   return (
     <div className={styles.cont}>
       <div>
         <div className={styles.imgCont}>
-          <img src={perfil.image} alt="image" />
+          <img src={image} alt="imagen de perfil" />
           <input type="file" name="image" onChange={handleChangeImage} />
           <HiPencilAlt className={styles.imageChange} />
         </div>
@@ -62,12 +75,7 @@ const MiPerfilNav = ({ perfil, setPerfil,setPage,id }) => {
         >
           Domicilios
         </button>
-        <button
-          className={styles.button}
-          onClick={(e) => handleChange(e, "fav")}
-        >
-          Favoritos
-        </button>
+        <Link to="/favoritos">Favoritos</Link>
         <button
           className={styles.button}
           onClick={(e) => handleChange(e, "data")}
@@ -88,4 +96,4 @@ const MiPerfilNav = ({ perfil, setPerfil,setPage,id }) => {
   );
 };
 
-export default MiPerfilNav
+export default MiPerfilNav;
