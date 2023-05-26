@@ -22,7 +22,7 @@ cloudinary.config({
 // RUTA LOGIN
 
 userRouter.post("/login", async (req, res) => {
-  const { email, contact, password } = req.body;
+  const { email, password } = req.body;
 
   try {
     let user;
@@ -30,10 +30,7 @@ userRouter.post("/login", async (req, res) => {
     
     if (email) {
       user = await User.findOne({ where: { email, deleted: false } });
-    } else {
-      user = await User.findOne({ where: { contact, deleted: false } });
-      console.log(`nombre ${user.name}`);
-    }
+    } 
 
     if (user) {
       passwordsMatch = await bcrypt.compare(password, user.password);
@@ -57,13 +54,16 @@ userRouter.post("/create", async (req, res) => { // Esta ruta es para crear un u
 
       const userVerification = await User.findOne({ where: { email }})
 
-      if(userVerification){
+      if(userVerification  && userVerification.googleId  && !userVerification.password){
         if(userVerification.googleId === googleId){
           return res.json({ id:userVerification.id })
         } 
         return res.status(400).send("Ya hay un usuario registrado con ese email")
-      } else{
-        let user = await User.create({ name, email, contact, lastName, password, googleId });
+      } else {
+
+        let user = await User.create({ name, email, contact, lastName, password });
+
+        
     
         const { password: userPassword, ...userWithoutPassword } = user.toJSON();
 

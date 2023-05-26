@@ -53,7 +53,7 @@ const LoginForm = () => {
   };
 
   const onSuccess = async (response) =>{
-
+    console.log(response);
     const token = response.accessToken
     localStorage.setItem("token", token)
     
@@ -66,7 +66,6 @@ const LoginForm = () => {
     }
     await axios.post("http://localhost:3001/user/create", user)
       .then((res) => {
-        console.log("respuesta",res)
         if (res) {
           const id = res.data.id
           localStorage.setItem("userId", id)
