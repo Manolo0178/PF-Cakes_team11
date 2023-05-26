@@ -9,6 +9,7 @@ const { SECRET } = process.env
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 const enviarMail = require("./nodeMailer")
+const forgotPassword = require('./forgotPassword')
 
 
 const cloudinary = require("cloudinary").v2;
@@ -21,7 +22,7 @@ cloudinary.config({
 // RUTA LOGIN
 
 userRouter.post("/login", async (req, res) => {
-  const { email, contact, password } = req.body;
+  const { email, password } = req.body;
 
   try {
     let user;
@@ -29,10 +30,7 @@ userRouter.post("/login", async (req, res) => {
     
     if (email) {
       user = await User.findOne({ where: { email, deleted: false } });
-    } else {
-      user = await User.findOne({ where: { contact, deleted: false } });
-      console.log(`nombre ${user.name}`);
-    }
+    } 
 
     if (user) {
       passwordsMatch = await bcrypt.compare(password, user.password);
@@ -51,21 +49,35 @@ userRouter.post("/login", async (req, res) => {
 
 // RUTA CREAR USUARIO
 userRouter.post("/create", async (req, res) => { // Esta ruta es para crear un usuario
-  const { name, email, contact, lastName, password } = req.body;
+  const { name, email, contact, lastName, password, googleId } = req.body;
   try {
-    
-    let user = await User.create({ name, email, contact, lastName, password });
-    
-    const { password: userPassword, ...userWithoutPassword } = user.toJSON();
 
-    enviarMail(email,name)
+      const userVerification = await User.findOne({ where: { email }})
 
-    res.status(201).json(userWithoutPassword);
+      if(userVerification  && userVerification.googleId  && !userVerification.password){
+        if(userVerification.googleId === googleId){
+          return res.json({ id:userVerification.id })
+        } 
+        return res.status(400).send("Ya hay un usuario registrado con ese email")
+      } else {
+
+        let user = await User.create({ name, email, contact, lastName, password });
+
+        
     
+        const { password: userPassword, ...userWithoutPassword } = user.toJSON();
+
+        enviarMail(email,name)
+
+        res.status(201).json(userWithoutPassword);
+      }
+
   } catch (error) {
     console.log(error.message);
     res.status(400).json({ error: error.message });
+
   }
+
 });
 
 // RUTA TODOS LOS USUARIO O POR NAME
@@ -102,7 +114,7 @@ userRouter.get("/", async (req, res) => {
         include: [
           {
             model: Address,
-            attributes: ['shippingAddress', 'postalCode', 'city', 'location'],
+            attributes: ['street', 'postalCode', 'city', 'province', 'number','telephoneContact', ],
             through: { attributes: [] },
           },
         ],
@@ -126,12 +138,15 @@ userRouter.put("/modifyUser/:idUser", async (req, res) => {
   const { idUser } = req.params;
 
   const { name, email, contact, lastName, image } = req.body;
+
   
-  const result = await cloudinary.uploader.upload(image, {
-    folder: "imgen",
-  });
   const user = await User.findOne({ where: { id: idUser } });
   
+  
+    const result = await cloudinary.uploader.upload(image, {
+      folder: "imgen",
+    });
+   
   if (!user) {
     return res.status(404).json({ error: "Usuario no encontrado" });
   }
@@ -139,11 +154,11 @@ userRouter.put("/modifyUser/:idUser", async (req, res) => {
   user.name = name || user.name;
   user.lastName = lastName || user.lastName;
   user.email = email || user.email;
-  user.contact = contact || user.contact;
   user.image = result.secure_url || user.image;
+  user.contact = contact || user.contact;
   await user.save();
 
-  res.json({ message: "Usuario modificado exitosamente" });
+  res.json({ message: "Usuario modificado exitosamente" , user:user.image});
 });
 
 //  RUTA PARA MODIFICAR LA PASSWORD
@@ -152,15 +167,21 @@ userRouter.put("/modifyPassword/:idUser", async (req, res) => {
   let { password, newPassword } = req.body;
   try {
     let user = await User.findOne({ where: { id: idUser } });
+
     if (user) {
       let passwordsMatch = await bcrypt.compare(password, user.password);
+
       if (passwordsMatch) {
+
         newPassword = bcrypt.hashSync(newPassword, 10);
         user.password = newPassword;
         await user.save();
+        
+ 
         res.send("La contraseña se modificó exitosamente");
+        
       } else {
-        res.send("Contraseña incorrecta");
+        res.status(404).send("Contraseña incorrecta");
       }
     } else {
       res.status(404).send("No se encontró un usuario con ese ID");
@@ -170,6 +191,52 @@ userRouter.put("/modifyPassword/:idUser", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+// MODIFICAR LA PASSWORD POR PERDIDA
+userRouter.put("/forgotPass", async (req, res) => {
+  try {
+    let { email, newPassword, token  } = req.body;
+
+    const user = await User.findOne({where:{ email:email}})
+
+    if(!user){ 
+      res.status(404).json({message: 'Correo electronico no encontrado'})
+    }
+    
+    jwt.verify(token, SECRET)
+
+      newPassword = bcrypt.hashSync(newPassword, 10);
+        user.password = newPassword;
+        await user.save();
+
+     res.status(200).json({message:'Contraseña actualizada correctamente'})
+
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({message: 'Token expirado intentalo nuevamente'})
+  }
+})
+
+//ENVIAR MAIL POR PERDIDA DE CONTRASEÑA
+userRouter.post('/enviarMail', async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({where:{email: email}})
+
+    
+    if(!user){
+      res.status(404).json({message: 'Correo electrónico no encontrado' })
+    }else{
+      const token = jwt.sign({ id: user.id, name: user.name }, SECRET, { expiresIn: "5m" });
+  
+      forgotPassword(user, token)
+  
+      res.status(200).json({message:'Se envio un mensaje a tu correo para recuperar tu contraseña expira en 5 min'})
+    }
+
+  } catch (error) {
+   res.status(500).json({message: error.message}) 
+  }
+})
 
 // RUTA PARA ELIMINAR USUARIO
 userRouter.delete("/delete/:idUser", async (req, res)=> {

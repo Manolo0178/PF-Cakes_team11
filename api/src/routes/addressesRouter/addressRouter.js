@@ -3,6 +3,7 @@ const addressRouter = express.Router()
 const { Address, User, UserAddress } = require("../../db")
 
 addressRouter.post('/:idUser', async (req, res) => {
+
   const { idUser } = req.params;
   const { street, postalCode, city, province, number, telephoneContact } = req.body;
 
@@ -22,6 +23,27 @@ addressRouter.post('/:idUser', async (req, res) => {
     res.status(500).send('Error al crear o relacionar la dirección');
   }
 });
+ 
+  addressRouter.put('/:idAddress', async (req, res) => {
+
+    try {
+      const { idAddress } = req.params
+      const { street, postalCode, city, province, number, telephoneContact } = req.body
+  
+      await Address.update(
+        {street, postalCode, city, province, number, telephoneContact },
+        { where: { id: idAddress } }
+      )
+      
+      res.status(200).json({message: ' direccion actualizada correctamente '})
+
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({message: error.message})
+    }
+
+  })
+
 // addressRouter.get("/", async(req, res) => {
 //   try {
 //     let addressRoutes = await Address.findOne()
@@ -91,10 +113,10 @@ addressRouter.delete('/remove/:idUser/:idAddress', async (req, res) => {
   
 
   // {
-  //   "street": "carrer de luna",
-  //   "postalCode": "8009",
+  //  "street": "carrer de luna",
+  //  "postalCode": "8009",
   //   "province": "buenos aires",
-  //   "city": "sierra de la ventana",
+  //    "city": "sierra de la ventana",
   //   "telephoneContact": "291775634",
   //   "number": "320"
   // }

@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     image: {
       type: DataTypes.TEXT,
@@ -34,7 +34,11 @@ module.exports = (sequelize) => {
     },
     contact: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
+    },
+    googleId: {
+      type: DataTypes.STRING,
+      allowNull: true
     },
     role: {
       type: DataTypes.STRING,
@@ -58,7 +62,7 @@ module.exports = (sequelize) => {
   });
 
   User.beforeCreate((user) => {
-    user.password = bcrypt.hashSync(user.password, 10);
+    user.password = user.password ? bcrypt.hashSync(user.password, 10) : null
   });
 
   return User

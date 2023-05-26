@@ -89,7 +89,7 @@
 }
 .dataCont section{
     width: 80%;
-    margin: 0 auto;
+    margin: 5px auto;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -106,4 +106,15 @@
     background-color: transparent;
     border: none;
     padding: 10px;
+}
+
+.data{
+    position: relative;
+}
+.menuOption{
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    justify-content: flex-end;
 }

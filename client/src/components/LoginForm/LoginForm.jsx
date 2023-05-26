@@ -1,6 +1,8 @@
 import React from 'react'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
+import GoogleLogin from "react-google-login";
+import { gapi } from "gapi-script";
 //import icons
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
@@ -10,13 +12,24 @@ import styles from "./LoginForm.module.css"
 import axios from "axios";
 
 const LoginForm = () => {
+
   const Navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError]=useState("")
   const [rememberSession, setRememberSession] = useState(false);
 
+  const clientID = "781787972829-6oaasrp4vfoe34t3fkbd02bqv1vpktjm.apps.googleusercontent.com"
 
+
+  useEffect(()=> {
+    const start = () =>{
+      gapi.auth2.init({
+        clientId: clientID,
+      })
+    }
+    gapi.load("client:auth2", start)
+  },[])
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -30,7 +43,6 @@ const LoginForm = () => {
         Navigate("/home");
       })
       .catch((error) => {
-
         setError(error.response.data.error)
       });
   };
@@ -38,6 +50,32 @@ const LoginForm = () => {
   const handleRememberSessionChange = () => {
     setRememberSession(!rememberSession);
   };
+
+  const onSuccess = async (response) =>{
+    console.log(response);
+    const token = response.accessToken
+    localStorage.setItem("token", token)
+    
+    let user = {
+      name: response.profileObj.givenName,
+      email:response.profileObj.email,
+      lastName: response.profileObj.familyName,
+      googleId: response.googleId
+      // image: response.profileObj.imageUrl
+    }
+    await axios.post("http://localhost:3001/user/create", user)
+      .then((res) => {
+        if (res) {
+          const id = res.data.id
+          localStorage.setItem("userId", id)
+          Navigate("/home");    
+        }
+      })
+  }
+
+  const onFailure = () => {
+    console.log("Lo sentimos hubo un fallo")
+  }
 
   return (
     <form className={styles.loginCont} onSubmit={(e) => handleLogin(e)}>
@@ -67,7 +105,9 @@ const LoginForm = () => {
           />
         </div>
         <div className={styles.forgotPassword}>
-          <p>¿olvidaste tu contraseña?</p>
+          <Link to={'/login/enviarMail'} >
+           <p>¿olvidaste tu contraseña?</p>
+          </Link>
         </div>
       </div>
       <div className={styles.loginElse}>
@@ -75,7 +115,15 @@ const LoginForm = () => {
           <FaFacebookF size="1.2rem" />
         </div>
         <div>
-          <FaGoogle size="1.2rem" />
+          {/* <FaGoogle size="1.2rem" /> */}
+          <GoogleLogin
+            clientId={clientID}
+            onSuccess={onSuccess}
+            onFailure={onFailure}
+            cookiePolicy={"single_host_policy"}
+          />
+
+          
         </div>
       </div>
       <div className={styles.checkbox}>
@@ -99,3 +147,11 @@ const LoginForm = () => {
 };
 
 export default LoginForm
+
+
+
+// email = profileObj.email
+// surName = profileObj.familyName
+// name = profileObj.givenName
+// image = profileObj.imageUrl
+// googleId

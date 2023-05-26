@@ -21,3 +21,51 @@
 .link:hover{
   font-weight: 600 !important;
 }
+.cartItemCount {
+  position: absolute;
+  top: 68px;
+  right: 103px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background-color: rgb(184, 103, 173);
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+}
+
+/* Establece el fondo rosa y el color de fuente blanco para el panel del carrito */
+.cartPanel {
+  background-color: rgb(235, 128, 235);
+  color: white;
+  border-color: white;
+  width: 475px; 
+  position: absolute;
+  top: 100%;
+  right: 0;
+  transform: translateX(100%);
+  
+}
+
+.cartItemImage {
+  display: flex;
+  align-items: flex-start;
+}
+
+.h6 {
+  margin-left: 120px; 
+  top: -80px;
+  position: relative;
+}
+
+.h7 {
+  margin-bottom: 5px; 
+  margin-left: 120px;
+  top: -90px;
+  position: relative;
+}
+.h5{
+text-align: center;
+}

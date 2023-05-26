@@ -1,0 +1,71 @@
+.container1{
+    background-color: #fea8bd; 
+    height: 280px;
+    width: 550px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    border: 1px solid black;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.3)
+}
+.container1 h3{
+    position: relative;
+    top: 4px;
+    left: -15%;
+    padding: 5px;
+
+}
+.container1 p{
+    font-size: 20px;
+}
+.container1 input{
+    height: 40px;
+    width: 80%;
+    margin-bottom: 15px;
+}
+.hr{
+    border-top: 1px solid #000;
+    top: 15px;
+    
+}
+.button{
+    width: 18%;
+    padding: 2px;
+    position: relative;
+    left: 30%;
+    border-radius: 10px;
+    background-color: rgb(36, 150, 243);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+.button1{
+    width: 18%;
+    padding: 2px;
+    position: relative;
+    left: 27%;
+    border-radius: 10px;
+    background-color: rgb(197, 196, 196);
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+@keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .rotateAnimation {
+    animation: rotate 7s infinite linear;
+    position: relative;
+    top: 2.5%;
+    height: 9em;
+    width: 9em;
+  }

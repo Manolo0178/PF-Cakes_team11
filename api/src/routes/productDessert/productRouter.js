@@ -121,16 +121,17 @@ productRouter.get("/", async (req, res) => {
 // });
 
 //se agrego un controlador que hace un pedido a una api creada por url
-productRouter.post("/", upload.single("image"), async (req, res) => {
+productRouter.post("/", async (req, res) => {
   try {
-    let { name, summary, description, price, desserts } = req.body;
+    let { name, summary, description, price, desserts, image } = req.body;
     //
     // Aquí se carga la imagen en Cloudinary
     
-    const result = await cloudinary.uploader.upload(req.file.path, {
+    const result = await cloudinary.uploader.upload(image, {
       folder: "img",
     });
-    console.log(result)
+
+    
     const existingProduct = await Product.findOne({ where: { name } });
         if (existingProduct) {
           return res.status(400).json({ message: "Product name already exists" });
@@ -158,12 +159,13 @@ productRouter.post("/", upload.single("image"), async (req, res) => {
       res.status(404).json({ message: "Product not created" });
     }
   } catch (error) {
+    console.log(error.body);
     res.status(500).json({ message: error.message });
   }
 });             
 
 
-productRouter.put("/:id", async (req, res) => {
+productRouter.put("/:id",async (req, res) => {
   const { id } = req.params;
   const { name, price, description, summary, image } = req.body;
 
@@ -172,14 +174,23 @@ productRouter.put("/:id", async (req, res) => {
 
     if (!product) {
       return res.status(404).json({ message: `Product with id ${id} not found` });
-    }
+    } 
+      if (image) {
+
+        const result = await cloudinary.uploader.upload(image, {
+          folder: "img",
+        });
+        product.image = result.secure_url || product.image
+        await product.save()
+        
+      }
+    
 
     product.name = name || product.name;
     product.price = price || product.price;
     product.description = description || product.description;
     product.summary = summary || product.summary
-    product.image = image || product.image
-
+    product.image = product.image
     await product.save();
 
     res.json({ status: `the ${product.name} product was successfully modified`, product });
