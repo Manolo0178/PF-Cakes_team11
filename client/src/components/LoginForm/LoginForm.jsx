@@ -2,10 +2,12 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import GoogleLogin from "react-google-login";
+import {LoginSocialFacebook} from 'reactjs-social-login';
+import {FacebookLoginButton} from 'react-social-login-buttons';
 import { gapi } from "gapi-script";
-//import icons
-import { FaGoogle } from "react-icons/fa";
-import { FaFacebookF } from "react-icons/fa";
+// import icons
+// import { FaGoogle } from "react-icons/fa";
+// import { FaFacebookF } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import styles from "./LoginForm.module.css"
@@ -21,6 +23,7 @@ const LoginForm = () => {
 
   const clientID = "781787972829-6oaasrp4vfoe34t3fkbd02bqv1vpktjm.apps.googleusercontent.com"
 
+  
 
   useEffect(()=> {
     const start = () =>{
@@ -78,6 +81,7 @@ const LoginForm = () => {
   const onFailure = () => {
     console.log("Lo sentimos hubo un fallo")
   }
+  
 
   return (
     <form className={styles.loginCont} onSubmit={(e) => handleLogin(e)}>
@@ -114,7 +118,18 @@ const LoginForm = () => {
       </div>
       <div className={styles.loginElse}>
         <div>
-          <FaFacebookF size="1.2rem" />
+          {/* <FaFacebookF size="1.2rem" /> */}
+          <LoginSocialFacebook
+          appId="590666256492122"
+            onResolve={(response)=>{
+              console.log(response)
+            }}
+            onReject={(error)=>{
+              console.log(error)
+            }}
+            >
+            <FacebookLoginButton />
+          </LoginSocialFacebook>
         </div>
         <div>
           {/* <FaGoogle size="1.2rem" /> */}
