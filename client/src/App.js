@@ -19,6 +19,8 @@ import Domicilio from './Views/Domicilio/Domicilio';
 import EnviarEmail from './components/LoginForm/EnviarEmail/EnviarEmail';
 import CamPassword from './components/LoginForm/CamPassword/CamPassword';
 import NotFound from './Views/NotFound/NotFound';
+import Favoritos from "./Views/Favorites/Favorites"
+import Favorites from './Views/Favorites/Favorites';
 
 function App() {
 
@@ -35,15 +37,16 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/create" element={<CreateDessert />} />
 
-        <Route path="/payment/:total" element={<Payment/>} />
+        <Route path="/payment/:total" element={<Payment />} />
         <Route path="/home/:id" element={<Detail />} />
         <Route path="/profile" element={<MiPerfil />} />
         <Route path="/address" element={<Domicilio />} />
-        
-        <Route path='/profile/newPassword' element = {<NewPassword/>} />
-        <Route path='/login/enviarMail' element= { <EnviarEmail/> } />
-        <Route path='/login/enviarMail/newPassword' element= { <CamPassword/> } />
-        <Route path='*' element = { <NotFound/> } />
+
+        <Route path="/profile/newPassword" element={<NewPassword />} />
+        <Route path="/login/enviarMail" element={<EnviarEmail />} />
+        <Route path="/login/enviarMail/newPassword" element={<CamPassword />} />
+        <Route path="/favoritos" element={<Favorites />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

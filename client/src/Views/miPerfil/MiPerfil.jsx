@@ -1,21 +1,17 @@
 import React, { useEffect } from "react";
 import MiPerfilNav from "./MiPerfilNav/MiPerfilNav";
 
-import NavBar from "../../components/Navbar/Navbar"
-import Footer from "../../components/Footer/Footer"
+import NavBar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
 import styles from "./MiPerfil.module.css";
 import { useState } from "react";
 import axios from "axios";
 import { BiHome } from "react-icons/bi";
 import { BiPencil } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
-
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-
-
-
 
 const MiPerfil = () => {
   const [page, setPage] = useState("direcciones");
@@ -25,7 +21,7 @@ const MiPerfil = () => {
   const id = localStorage.getItem("userId");
   // const [dom, setdom] = useState({})
 
-  let dom = {}
+  let dom = {};
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,7 +46,7 @@ const MiPerfil = () => {
     fetchData();
   }, [id, storedToken]);
 
-//************* change user data ****************/
+  //************* change user data ****************/
   const change = async (e, val) => {
     e.preventDefault();
     const url = `http://localhost:3001/user/modifyUser/${id}`;
@@ -70,9 +66,9 @@ const MiPerfil = () => {
       </div>
     );
   }
-//******************************* */
-  
-//**************** Adress delete ****************/
+  //******************************* */
+
+  //**************** Adress delete ****************/
   const handleDelete = async (e, idAddress) => {
     e.preventDefault();
     Swal.fire({
@@ -90,43 +86,42 @@ const MiPerfil = () => {
       }
     });
   };
-//******************************** */
+  //******************************** */
 
-//*************** adress change ***************/
+  //*************** adress change ***************/
   const handleChangeDom = async (idAddress) => {
     if (dom.street) {
-
       const prompts = [
-      prompt("¿Qué calle desea colocarle?", `${dom.street}`),
-      prompt("¿Qué código postal desea colocarle?", `${dom.postalCode}`),
-      prompt("¿Qué ciudad desea colocarle?", `${dom.city}`),
-      prompt("¿Qué provincia desea colocarle?", `${dom.province}`),
-      prompt("¿Qué número desea colocarle?", `${dom.number}`),
-      prompt("¿Qué teléfono desea colocarle?", `${dom.telephoneContact}`),
-    ];
+        prompt("¿Qué calle desea colocarle?", `${dom.street}`),
+        prompt("¿Qué código postal desea colocarle?", `${dom.postalCode}`),
+        prompt("¿Qué ciudad desea colocarle?", `${dom.city}`),
+        prompt("¿Qué provincia desea colocarle?", `${dom.province}`),
+        prompt("¿Qué número desea colocarle?", `${dom.number}`),
+        prompt("¿Qué teléfono desea colocarle?", `${dom.telephoneContact}`),
+      ];
 
-    const values = await Promise.all(prompts);
+      const values = await Promise.all(prompts);
 
-    const updatedForm = {
-      street: values[0] || dom.street,
-      postalCode: values[1] || dom.postalCode,
-      city: values[2] || dom.city,
-      province: values[3] || dom.province,
-      number: values[4] || dom.number,
-      telephoneContact: values[5] || dom.telephoneContact,
-    };
+      const updatedForm = {
+        street: values[0] || dom.street,
+        postalCode: values[1] || dom.postalCode,
+        city: values[2] || dom.city,
+        province: values[3] || dom.province,
+        number: values[4] || dom.number,
+        telephoneContact: values[5] || dom.telephoneContact,
+      };
 
-    dom = {...updatedForm}
-    await axios
-    .put(`http://localhost:3001/Address/${idAddress}`, dom)
-    .then((response) => {
-      if (response) {
-        window.location.reload(true);
-      }
-    });
-  }
-};
-//******************************** */
+      dom = { ...updatedForm };
+      await axios
+        .put(`http://localhost:3001/Address/${idAddress}`, dom)
+        .then((response) => {
+          if (response) {
+            window.location.reload(true);
+          }
+        });
+    }
+  };
+  //******************************** */
 
   return (
     <div className={styles.cont}>
@@ -140,12 +135,6 @@ const MiPerfil = () => {
             id={id}
           />
         </div>
-
-        {page === "fav" && (
-          <div className={styles.section}>
-            <h2>Favoritos</h2>
-          </div>
-        )}
         {page === "data" && (
           <div className={styles.section}>
             <h2>Mis datos</h2>
@@ -220,13 +209,12 @@ const MiPerfil = () => {
                             <BiPencil
                               onClick={(e) => {
                                 if (!dom.length) {
-                                  dom = {...domicilio}
+                                  dom = { ...domicilio };
                                 }
-                                handleChangeDom(                            
+                                handleChangeDom(
                                   domicilio.UserAddress.addressId
-                                  )
-                                }
-                              }
+                                );
+                              }}
                             />
                           </button>
                           <button className={styles.button}>

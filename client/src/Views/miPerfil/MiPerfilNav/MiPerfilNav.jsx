@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { HiPencilAlt } from "react-icons/hi";
 import axios from "axios";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 
@@ -74,12 +75,7 @@ const MiPerfilNav = ({ perfil, setPerfil, setPage, id }) => {
         >
           Domicilios
         </button>
-        <button
-          className={styles.button}
-          onClick={(e) => handleChange(e, "fav")}
-        >
-          Favoritos
-        </button>
+        <Link to="/favoritos">Favoritos</Link>
         <button
           className={styles.button}
           onClick={(e) => handleChange(e, "data")}
