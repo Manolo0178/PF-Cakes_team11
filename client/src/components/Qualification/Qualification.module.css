@@ -47,6 +47,6 @@
 .rating input:hover::before,
 .rating input:checked ~ input::before,
 .rating input:checked::before{
-    color: rgb(244, 47, 201);
+    color: #f28d94;
 }
 
