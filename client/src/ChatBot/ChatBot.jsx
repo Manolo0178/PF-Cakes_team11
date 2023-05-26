@@ -41,15 +41,15 @@ const ChatBotOhana = () => {
   },
   {
     id: '3',
-    message: '¡Hola, {previousValue}! ¿En qué puedo ayudarte hoy?',
+    message: '¡Hola, {previousValue}! ¿En qué puedo ayudarte hoy?, {previousValue} si no deseas comprar nada mejor vete ',
     trigger: '4'
   },
   {
     id: '4',
     options: [
-      { value: 1, label: 'Comprar Producto', trigger: '5' },
-      { value: 2, label: 'Me gustaría comunicarme con la dueña', trigger: '6' },
-      { value: 3, label: 'Quiero saber un poco más de la app', trigger: '9' }
+      { value: 1, label: 'Alv si quiero comprar', trigger: '5' },
+      { value: 2, label: 'Pues me voy si quiere', trigger: '6' },
+      // { value: 3, label: 'Quiero saber un poco más de la app', trigger: '9' }
     ]
   },
   {
@@ -59,8 +59,8 @@ const ChatBotOhana = () => {
   },
   {
     id: '6',
-    message: 'Claro que sí, regálame tu correo',
-    trigger: '7'
+    message: 'Anda pa alla B***',
+    end: true
   },
   {
     id: '7',
