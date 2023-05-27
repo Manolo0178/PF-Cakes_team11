@@ -51,15 +51,15 @@ function Card({ product, setPage }) {
   };
 
   return (
-    <div>
+    <div className={styles.cont}>
       {token && isFav ? (
         <button className={styles.fav} onClick={handleFavorite}>
-          <AiFillHeart />
+          <AiFillHeart className={styles.favIcon} />
         </button>
       ) : (
         token && (
           <button className={styles.fav} onClick={handleFavorite}>
-            <AiOutlineHeart />
+            <AiOutlineHeart className={styles.favIconWhite} />
           </button>
         )
       )}
