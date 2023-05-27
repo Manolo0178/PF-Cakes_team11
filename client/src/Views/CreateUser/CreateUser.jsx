@@ -58,9 +58,6 @@ const CreateUser = () => {
         }
         
       })
-        .catch(()=> {
-        alert("el usuario ya existe")
-      })
       .catch((error) => {
         Swal.fire({
           title: error.response.data.error,
