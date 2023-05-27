@@ -4,6 +4,9 @@ import Card from "../../components/Card/Card";
 import NavBar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import { useState } from "react";
+import styles from "./Favorites.module.css"
+import MiPerfilNav from "../miPerfil/MiPerfilNav/MiPerfilNav";
+
 
 const Favorites = ({ setPage }) => {
   const userId = localStorage.getItem("userId");
@@ -21,15 +24,20 @@ const Favorites = ({ setPage }) => {
   }, []);
 
   return (
-    <section>
-      <NavBar/>
-      <h1>Favoritos</h1>
-      <div>
-        {fav?.map((favorite) => (
-          <Card product={favorite} key={favorite.id} setPage={setPage} />
-          ))}
-      </div>
-      <Footer/>
+    <section className={styles.favCont}>
+      <NavBar />
+      <section className={styles.cont}>
+        <MiPerfilNav />
+        <div className={styles.sectionFav}>
+          <h1>Favoritos</h1>
+          <div className={styles.favorites}>
+            {fav?.map((favorite) => (
+              <Card product={favorite} key={favorite.id} setPage={setPage} />
+            ))}
+          </div>
+        </div>
+      </section>
+      <Footer />
     </section>
   );
 };
