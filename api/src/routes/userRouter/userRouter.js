@@ -48,36 +48,36 @@ userRouter.post("/login", async (req, res) => {
 });
 
 // RUTA CREAR USUARIO
-userRouter.post("/create", async (req, res) => { // Esta ruta es para crear un usuario
+userRouter.post("/create", async (req, res) => {
+  // Esta ruta es para crear un usuario
   const { name, email, contact, lastName, password, googleId } = req.body;
   try {
+    const userVerification = await User.findOne({ where: { email } });
+    if (userVerification) {
+      
+      if (userVerification.googleId && !userVerification.password) {
 
-      const userVerification = await User.findOne({ where: { email }})
-
-      if(userVerification  && userVerification.googleId  && !userVerification.password){
-        if(userVerification.googleId === googleId){
-          return res.json({ id:userVerification.id })
-        } 
-        return res.status(400).send("Ya hay un usuario registrado con ese email")
+        if (userVerification.googleId === googleId) {
+          return res.json({ id: userVerification.id });
+        }
+        return res.status(401).send("Ya hay un usuario registrado con ese email");
       } else {
-
-        let user = await User.create({ name, email, contact, lastName, password });
-
-        
-    
-        const { password: userPassword, ...userWithoutPassword } = user.toJSON();
-
-        enviarMail(email,name)
-
-        res.status(201).json(userWithoutPassword);
+        return res.status(402).send("Ya hay un usuario registrado con ese email");
       }
+    } else {
 
+      let user = await User.create({ name, email, contact, lastName, password, googleId });
+
+      const { password: userPassword, ...userWithoutPassword } = user.toJSON();
+
+      enviarMail(email, name);
+
+      res.status(201).json(userWithoutPassword);
+    }
   } catch (error) {
-    console.log(error.message);
-    res.status(400).json({ error: error.message });
-
+    // console.log(error.message);
+    res.status(403).json({ error: error.message });
   }
-
 });
 
 // RUTA TODOS LOS USUARIO O POR NAME
@@ -158,7 +158,7 @@ userRouter.put("/modifyUser/:idUser", async (req, res) => {
   user.contact = contact || user.contact;
   await user.save();
 
-  res.json({ message: "Usuario modificado exitosamente" , user:user.image});
+  res.json({ message: "Usuario modificado exitosamente" });
 });
 
 //  RUTA PARA MODIFICAR LA PASSWORD
