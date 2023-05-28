@@ -1,0 +1,48 @@
+.container{
+    padding: 1rem;
+    border: 1px solid #000;
+    margin: 1rem auto;
+    width: 50%;
+    border-radius: 1rem;
+}
+
+.imageCont{
+    width: 50%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+    margin: auto;
+}
+.image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.description{
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: #fff;
+    padding: 0 20px;
+    width: 100%;
+    transform: translate(-50%, -50%);
+}
+.cardCont:hover .description{
+    opacity: 100%;
+    transition: 200ms ease-in-out;
+
+}
+.cardCont:hover .image{
+    filter: brightness(40%);
+}
+
+.content{
+    display: flex;
+    justify-content: center;
+    margin: 0.5rem;
+}
+
+.name{
+    margin:0 .5rem;
+}

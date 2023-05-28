@@ -58,9 +58,6 @@ const CreateUser = () => {
         }
         
       })
-        .catch(()=> {
-        alert("el usuario ya existe")
-      })
       .catch((error) => {
         Swal.fire({
           title: error.response.data.error,
@@ -72,6 +69,7 @@ const CreateUser = () => {
     }
   };
 
+  console.log(form);
   
 return (
   <div className={styles.cont}>
