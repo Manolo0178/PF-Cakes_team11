@@ -1,12 +1,13 @@
 .cont{
     width: 100%;
+    max-width: 300px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: 100%;
     align-items: center;
     justify-content: center;
     padding: 60px 10px;
+    border-right: 1px solid grey;
 }
 
 .imgCont {

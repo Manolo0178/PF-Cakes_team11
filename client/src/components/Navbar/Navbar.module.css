@@ -21,6 +21,18 @@
 .link:hover{
   font-weight: 600 !important;
 }
+.imgCont{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  overflow: hidden;
+}
+.imgCont img{
+  object-fit: cover;
+  width: 100%;
+}
+
 .cartItemCount {
   position: absolute;
   top: 68px;
