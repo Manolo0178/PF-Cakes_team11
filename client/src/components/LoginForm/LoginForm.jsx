@@ -20,6 +20,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [error, setError]=useState("")
   const [rememberSession, setRememberSession] = useState(false);
+  const [profile, setProfile] = useState(null);
 
   const clientID = "781787972829-6oaasrp4vfoe34t3fkbd02bqv1vpktjm.apps.googleusercontent.com"
 
@@ -118,19 +119,28 @@ const LoginForm = () => {
       <div className={styles.loginElse}>
         <div>
           {/* <FaFacebookF size="1.2rem" /> */}
+          { !profile ? 
           <LoginSocialFacebook
-          appId="590666256492122"
+          appId="127236573705457"
             onResolve={(response)=>{
-              console.log(response)
+              console.log(response);
+              setProfile(response.data);
             }}
             onReject={(error)=>{
-              console.log(error)
+              console.log(error);
             }}
             >
             <FacebookLoginButton />
-          </LoginSocialFacebook>
+          </LoginSocialFacebook> : ''}
+
+          {profile ? <div>
+              <h5>{profile.name}</h5>
+              <img src={profile.picture.data.url} />
+              </div> : '' }
         </div>
-        <div>
+        
+        <div> 
+          
           {/* <FaGoogle size="1.2rem" /> */}
           <GoogleLogin
             clientId={clientID}
