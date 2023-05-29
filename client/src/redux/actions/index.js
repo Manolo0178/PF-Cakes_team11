@@ -135,7 +135,7 @@ export const filterProducts = (filter) => {
 export const addToCart = (product) => {
   return (dispatch) => {
     dispatch({
-      type: 'ADD_TO_CART',
+      type: ADD_TO_CART,
       payload: product,
     });
   

@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, increaseQuantity, decreaseQuantity } from '../../redux/actions';
 import Alert from 'react-bootstrap/Alert';
 import { Link } from 'react-router-dom';
+import axios from "axios";
 
 const Cart = ({ isOpen, toggleCart }) => {
   const cartItems = useSelector((state) => state.cartItems);
