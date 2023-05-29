@@ -23,7 +23,8 @@ const MisDomicilios = () => {
 
     useEffect(() => {
       if (storedToken) {
-        dispatch(getUserAdress());
+        dispatch(getUserAdress())
+        
       }
     }, [dispatch, storedToken]);
 

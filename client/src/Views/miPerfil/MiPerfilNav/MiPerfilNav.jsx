@@ -11,6 +11,7 @@ import { getUserData } from "../../../redux/actions/index";
 
 
 const MiPerfilNav = () => {
+  const storedToken = localStorage.getItem("token");
   const id = localStorage.getItem("userId");
   const Navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,10 +20,15 @@ const MiPerfilNav = () => {
 
   const [image, setImage] = useState(userData.image)
 
-
   useEffect(() => {
-    dispatch(getUserData())
-  },[dispatch])
+    if (storedToken && !userData) { 
+      dispatch(getUserData())
+      if (userData && userData !== perfil) {
+        setPerfil(userData)
+        setImage(userData.image)
+      }
+    }
+  },[dispatch, storedToken, userData])
 
 
 
@@ -64,8 +70,6 @@ const MiPerfilNav = () => {
 
     reader.readAsDataURL(file);
   };
-
-
   return (
     <div className={styles.cont}>
       <div>
@@ -74,7 +78,7 @@ const MiPerfilNav = () => {
           <input type="file" name="image" onChange={handleChangeImage} />
           <HiPencilAlt className={styles.imageChange} />
         </div>
-        {perfil.name && <h2>{perfil.name}</h2>}
+        {perfil.name && <h2>{userData.name}</h2>}
       </div>
       <div className={styles.navCont}>
         <Link to="/misDomicilios">Domicilios</Link>
