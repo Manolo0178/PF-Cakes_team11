@@ -19,6 +19,7 @@ import Domicilio from './Views/Domicilio/Domicilio';
 import EnviarEmail from './components/LoginForm/EnviarEmail/EnviarEmail';
 import CamPassword from './components/LoginForm/CamPassword/CamPassword';
 import NotFound from './Views/NotFound/NotFound';
+import Collaborators from './Views/Collaborators/Collaborators';
 
 function App() {
 
@@ -47,6 +48,7 @@ function App() {
         <Route path='/login/enviarMail' element= { <EnviarEmail/> } />
         <Route path='/login/enviarMail/newPassword' element= { <CamPassword/> } />
         <Route path='*' element = { <NotFound/> } />
+        <Route path='/collaborators' element= { <Collaborators/> } />
       </Routes>
     </div>
   );
