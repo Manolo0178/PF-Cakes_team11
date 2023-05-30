@@ -73,11 +73,14 @@ productRouter.get("/", async (req, res) => {
 
 // productRouter.get("/", async (req, res) => {
 //   try {
-//     const { name, size = 0, page = 10, sort, sortBy } = req.query;
+//     const { name, size = 5, page = 0, sort, sortBy } = req.query;
+
+//     // Restar 1 al valor de la página
+//     const adjustedPage = Math.max(Number(page) - 1, 0);
 
 //     let option = {
 //       limit: Number(size),
-//       offset: Number(page) * Number(size),
+//       offset: adjustedPage * Number(size),
 //       include: Dessert,
 //       order: []
 //     };
@@ -91,7 +94,7 @@ productRouter.get("/", async (req, res) => {
 //     if (name) {
 //       let optionName = {
 //         limit: Number(size),
-//         offset: Number(page) * Number(size),
+//         offset: adjustedPage * Number(size),
 //         where: {
 //           name: {
 //             [Op.iLike]: `%${name}%`,
@@ -119,6 +122,7 @@ productRouter.get("/", async (req, res) => {
 //     res.status(500).json({ message: error.message });
 //   }
 // });
+
 
 //se agrego un controlador que hace un pedido a una api creada por url
 productRouter.post("/", async (req, res) => {
