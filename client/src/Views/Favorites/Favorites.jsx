@@ -10,7 +10,7 @@ import Favorite from "../../components/Favorite/Favorite";
 import {DndContext, closestCenter} from "@dnd-kit/core"
 import {SortableContext, verticalListSortingStrategy, arrayMove} from "@dnd-kit/sortable"
 
-
+import MiPerfilNav from "../miPerfil/MiPerfilNav/"
 
 
 
