@@ -70,55 +70,65 @@ productRouter.get("/", async (req, res) => {
       res.status(500).json({ message: error.message })
   }
 })
-
-productRouter.get("/", async (req, res) => {
+productRouter.get('/imagen/todas', async (req, res) => {
   try {
-    const { name, size = 0, page = 10, sort, sortBy } = req.query;
-
-    let option = {
-      limit: Number(size),
-      offset: Number(page) * Number(size),
-      include: Dessert,
-      order: []
-    };
-
-    if (sortBy && sortBy === 'price') {
-      option.order.push(['price', sort === 'desc' ? 'DESC' : 'ASC']);
-    } else {
-      option.order.push(['name', sort === 'desc' ? 'DESC' : 'ASC']);
-    }
-
-    if (name) {
-      let optionName = {
-        limit: Number(size),
-        offset: Number(page) * Number(size),
-        where: {
-          name: {
-            [Op.iLike]: `%${name}%`,
-          }
-        },
-        include: Dessert,
-        order: []
-      };
-
-      if (sortBy && sortBy === 'price') {
-        optionName.order.push(['price', sort === 'desc' ? 'DESC' : 'ASC']);
-      } else {
-        optionName.order.push(['name', sort === 'desc' ? 'DESC' : 'ASC']);
-      }
-
-      const { count, rows } = await Product.findAndCountAll(optionName);
-      const product = rows.length;
-
-      product ? res.json({ status: "success", total: count, product: rows, length: rows.length }) : res.status(404).json({ message: `Product name not found ${name}` });
-    } else {
-      const { count, rows } = await Product.findAndCountAll(option);
-      res.json({ status: "success", total: count, product: rows, length: rows.length });
-    }
+    const productImages = await Product.findAll({
+      attributes: [ 'id','name' ,'image'],
+      limit: 4
+    });
+    res.json(productImages)
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.log(error.message);
   }
-});
+})
+// productRouter.get("/", async (req, res) => {
+//   try {
+//     const { name, size = 0, page = 10, sort, sortBy } = req.query;
+
+//     let option = {
+//       limit: Number(size),
+//       offset: Number(page) * Number(size),
+//       include: Dessert,
+//       order: []
+//     };
+
+//     if (sortBy && sortBy === 'price') {
+//       option.order.push(['price', sort === 'desc' ? 'DESC' : 'ASC']);
+//     } else {
+//       option.order.push(['name', sort === 'desc' ? 'DESC' : 'ASC']);
+//     }
+
+//     if (name) {
+//       let optionName = {
+//         limit: Number(size),
+//         offset: Number(page) * Number(size),
+//         where: {
+//           name: {
+//             [Op.iLike]: `%${name}%`,
+//           }
+//         },
+//         include: Dessert,
+//         order: []
+//       };
+
+//       if (sortBy && sortBy === 'price') {
+//         optionName.order.push(['price', sort === 'desc' ? 'DESC' : 'ASC']);
+//       } else {
+//         optionName.order.push(['name', sort === 'desc' ? 'DESC' : 'ASC']);
+//       }
+
+//       const { count, rows } = await Product.findAndCountAll(optionName);
+//       const product = rows.length;
+
+//       product ? res.json({ status: "success", total: count, product: rows, length: rows.length }) : res.status(404).json({ message: `Product name not found ${name}` });
+//     } else {
+//       const { count, rows } = await Product.findAndCountAll(option);
+//       res.json({ status: "success", total: count, product: rows, length: rows.length });
+//     }
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
 
 //se agrego un controlador que hace un pedido a una api creada por url
 productRouter.post("/", async (req, res) => {

@@ -67,6 +67,7 @@ const CreateUser = () => {
     }
   };
 
+  console.log(form);
   
 return (
   <div className={styles.cont}>
