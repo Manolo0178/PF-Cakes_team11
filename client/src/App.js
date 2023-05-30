@@ -42,7 +42,7 @@ function App() {
 
         <Route path="/payment/:total" element={<Payment />} />
         <Route path="/home/:id" element={<Detail />} />
-        <Route path="/profile" element={<MiPerfil />} />
+      
 
         <Route path="/payment" element={<Payment/>} />
 
