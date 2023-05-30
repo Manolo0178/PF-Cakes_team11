@@ -48,29 +48,21 @@ userRouter.post("/login", async (req, res) => {
 });
 
 // RUTA CREAR USUARIO
-userRouter.post("/create", async (req, res) => { // Esta ruta es para crear un usuario
-  const { name, email, contact, lastName, password, googleId, facebookId } = req.body;
+userRouter.post("/create", async (req, res) => {
+  // Esta ruta es para crear un usuario
+  const { name, email, contact, lastName, password, googleId } = req.body;
   try {
     const userVerification = await User.findOne({ where: { email } });
     if (userVerification) {
       
       if (userVerification.googleId && !userVerification.password) {
 
-      const userVerification = await User.findOne({ where: { email }})
-
-      if(userVerification){
-        if(userVerification.googleId === googleId){
-          return res.json({ id:userVerification.id })
-        } 
-        return res.status(400).send("Ya hay un usuario registrado con ese email")
-      } else{
-        let user = await User.create({ name, email, contact, lastName, password, googleId, facebookId });
-    
-        const { password: userPassword, ...userWithoutPassword } = user.toJSON();
-
-        enviarMail(email,name)
-
-        res.status(201).json(userWithoutPassword);
+        if (userVerification.googleId === googleId) {
+          return res.json({ id: userVerification.id });
+        }
+        return res.status(401).send("Ya hay un usuario registrado con ese email");
+      } else {
+        return res.status(402).send("Ya hay un usuario registrado con ese email");
       }
     } else {
 

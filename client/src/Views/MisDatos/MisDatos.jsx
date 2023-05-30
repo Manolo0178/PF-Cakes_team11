@@ -13,6 +13,7 @@ const MisDatos = () => {
   const id = localStorage.getItem("userId");
   const dispatch = useDispatch();
   const perfil = useSelector((state) => state.userData);
+  console.log(perfil)
 
 
   useEffect(() => {

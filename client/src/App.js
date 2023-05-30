@@ -26,9 +26,22 @@ import MisCompras from './Views/MisCompras/MisCompras';
 import Favorites from './Views/Favorites/Favorites';
 import MisDatos from './Views/MisDatos/MisDatos';
 import MisDomicilios from './Views/MisDomicilios/MisDomicilios';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import {getUserData} from "./redux/actions/index.js"
 
 
 function App() {
+
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+  const dispatch = useDispatch()
+
+  useEffect(()=> {
+    if(token){
+      dispatch(getUserData())
+    }
+  }, [dispatch, token])
 
   // const storedToken = localStorage.getItem("token");
 
