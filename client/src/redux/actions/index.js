@@ -26,6 +26,7 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const INCREASE_QUANTITY = "INCREASE_QUANTITY";
 export const DECREASE_QUANTITY  = "DECREASE_QUANTITY ";
+export const EMPTY_CART = "EMPTY_CART";
 /************************************************ */
 
 export const CREATE_USER = "CREATE_USER";
@@ -146,7 +147,7 @@ export const filterProducts = (filter) => {
 export const addToCart = (product) => {
   return (dispatch) => {
     dispatch({
-      type: 'ADD_TO_CART',
+      type: ADD_TO_CART,
       payload: product,
     });
   
@@ -205,6 +206,12 @@ export function getAllReviews() {
     });
   };
 }
+
+export const emptyCart = () => {
+  return {
+    type: EMPTY_CART
+  };
+};
 
 //*********** Get User Data **************/
 export function getUserData(token, id) {

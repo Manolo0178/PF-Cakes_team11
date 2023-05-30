@@ -19,10 +19,17 @@ import Domicilio from './Views/Domicilio/Domicilio';
 import EnviarEmail from './components/LoginForm/EnviarEmail/EnviarEmail';
 import CamPassword from './components/LoginForm/CamPassword/CamPassword';
 import NotFound from './Views/NotFound/NotFound';
+
+import Collaborators from './Views/Collaborators/Collaborators';
+
 import MisCompras from './Views/MisCompras/MisCompras';
 import Favorites from './Views/Favorites/Favorites';
 import MisDatos from './Views/MisDatos/MisDatos';
 import MisDomicilios from './Views/MisDomicilios/MisDomicilios';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import {getUserData} from "./redux/actions/index.js"
+
 
 function App() {
 
@@ -39,16 +46,21 @@ function App() {
 
         <Route path="/payment/:total" element={<Payment />} />
         <Route path="/home/:id" element={<Detail />} />
+        
+        <Route path="/payment" element={<Payment/>} />
+        <Route path='/collaborators' element= { <Collaborators/> } />
         <Route path="/address" element={<Domicilio />} />
-
         <Route path="/profile/newPassword" element={<NewPassword />} />
         <Route path="/login/enviarMail" element={<EnviarEmail />} />
         <Route path="/login/enviarMail/newPassword" element={<CamPassword />} />
         <Route path="/favoritos" element={<Favorites />} />
         <Route path="/misCompras" element={<MisCompras />} />
         <Route path="/misDatos" element={<MisDatos />} />
+
         <Route path="/misDomicilios" element={<MisDomicilios />} />
+
         <Route path="*" element={<NotFound />} />
+
       </Routes>
     </div>
   );

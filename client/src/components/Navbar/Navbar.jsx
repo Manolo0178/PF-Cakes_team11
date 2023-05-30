@@ -63,7 +63,7 @@ function NavBar() {
   return (
     <Navbar expand="lg" className={styles.navBarCont}>
       <Container className={styles.cont}>
-        <Navbar.Brand as={Link} to="/home" className={styles.logoCont}>
+        <Navbar.Brand as={Link} to="/" className={styles.logoCont}>
           <img
             className="navbar-brand"
             src="https://github.com/Manolo0178/PF-Cakes_team11/raw/main/cake.png"

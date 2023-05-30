@@ -13,6 +13,7 @@ import {
   INCREASE_QUANTITY,
   DECREASE_QUANTITY,
   GET_ALL_REVIEWS,
+  EMPTY_CART,
   GET_USER_DATA,
   GET_USER_ADDRESS,
 } from "../actions";
@@ -51,6 +52,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         idProduct: [],
+      };
+    
+    case EMPTY_CART:
+      return {
+        ...state,
+        cartItems: []
       };
 
     case GET_DESSERT:
