@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import "bootswatch/dist/minty/bootstrap.min.css";
 
-const stripePromise = loadStripe('pk_test_51N9Yt8Kl97uryD4rivHKHuQYK3Rdv7QDKi2jcarESrloA0yk0dk3kh30FI5Nfeg0Tw0vZ190rAVJoNEiJUd0Nwhl009vnw96pF');
+const stripePromise = loadStripe('pk_test_51NAMXNJW5R242vXYwgPwoEcVTUaSoulVuqOJ4ECoOpdvXB3CU7yIF5TQ5LAK7NpbByw5ItQUKVwJjmQsQiGxpQuz00KeK0Deyt');
 
 const CheckOutForm = ({ total }) => {
   const stripe = useStripe();
@@ -16,6 +16,7 @@ const CheckOutForm = ({ total }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',

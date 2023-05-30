@@ -1,0 +1,89 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #f097ba;
+    height: 120vh;
+    padding: 2rem;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    font-weight:lighter;
+    text-align: center;
+    width: 100%;
+    color: white;
+    text-shadow: 2px 2px 4px #9e446e;
+  }
+  
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 2rem;
+    justify-items: center;
+    grid-auto-flow: row dense;
+  }
+  
+  .card {
+    width: 300px;
+    padding: 1rem;
+    background-color: #d78cee;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+  }
+  
+  .name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .age {
+    font-size: 0.9rem;
+    color: #272222;
+  }
+  
+  .link {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #9e446e;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .link:hover {
+    background-color: #d47fa9;
+  }
+
+  .backButton {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #9e446e;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .backButton:hover {
+    background-color: #d47fa9;
+  }
