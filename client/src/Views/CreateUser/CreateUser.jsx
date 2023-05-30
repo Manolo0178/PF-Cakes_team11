@@ -54,16 +54,11 @@ const CreateUser = () => {
       .then((response) => {
         if (response) {
           Navigate("/login");
-          
         }
-        
-      })
-        .catch(()=> {
-        alert("el usuario ya existe")
       })
       .catch((error) => {
         Swal.fire({
-          title: error.response.data.error,
+          title: error.response.data.error.message,
           icon: "error",
           confirmButtonText: "Ok",
       })
@@ -72,6 +67,7 @@ const CreateUser = () => {
     }
   };
 
+  console.log(form);
   
 return (
   <div className={styles.cont}>

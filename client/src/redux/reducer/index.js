@@ -12,7 +12,9 @@ import {
   REMOVE_FROM_CART,
   INCREASE_QUANTITY,
   DECREASE_QUANTITY,
-  GET_ALL_REVIEWS
+  GET_ALL_REVIEWS,
+  GET_USER_DATA,
+  GET_USER_ADDRESS,
 } from "../actions";
 
 const initialState = {
@@ -24,8 +26,9 @@ const initialState = {
   dessertCreate: [],
   errorForm: null,
   cartItems: [],
-  allReview:[]
-
+  allReview: [],
+  userData: {},
+  userAddress:[]
 };
 
 function rootReducer(state = initialState, action) {
@@ -170,6 +173,17 @@ case DECREASE_QUANTITY:
         allReview: action.payload,
       };
 
+    case GET_USER_DATA:
+      return {
+        ...state,
+        userData: action.payload,
+      };
+    case GET_USER_ADDRESS:
+      return {
+        ...state,
+        userAddress: action.payload,
+      };
+    
     default:
       return state;
   }

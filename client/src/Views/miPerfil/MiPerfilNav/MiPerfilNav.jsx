@@ -1,16 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./MiPerfilNav.module.css";
 import Swal from "sweetalert2";
 import { HiPencilAlt } from "react-icons/hi";
 import axios from "axios";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserData } from "../../../redux/actions/index";
 
 
-
-const MiPerfilNav = ({ perfil, setPerfil, setPage, id }) => {
+const MiPerfilNav = () => {
+  const id = localStorage.getItem("userId");
   const Navigate = useNavigate();
-  const [image, setImage] = useState(perfil.image)
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.userData);
+  const [perfil, setPerfil] = useState(userData)
+
+  const [image, setImage] = useState(userData.image)
+
+
+  useEffect(() => {
+    dispatch(getUserData())
+  },[dispatch])
+
+
 
   const logoutButton = () => {
     Swal.fire({
@@ -26,11 +40,6 @@ const MiPerfilNav = ({ perfil, setPerfil, setPage, id }) => {
       }
     });
   };
-  const handleChange = (e, val) => {
-    e.preventDefault();
-    setPage(val);
-  };
-  
 
   const handleChangeImage = (event) => {
     const file = event.target.files[0];
@@ -68,30 +77,10 @@ const MiPerfilNav = ({ perfil, setPerfil, setPage, id }) => {
         {perfil.name && <h2>{perfil.name}</h2>}
       </div>
       <div className={styles.navCont}>
-        <button
-          className={styles.button}
-          onClick={(e) => handleChange(e, "direcciones")}
-        >
-          Domicilios
-        </button>
-        <button
-          className={styles.button}
-          onClick={(e) => handleChange(e, "fav")}
-        >
-          Favoritos
-        </button>
-        <button
-          className={styles.button}
-          onClick={(e) => handleChange(e, "data")}
-        >
-          Mis datos
-        </button>
-        <button
-          className={styles.button}
-          onClick={(e) => handleChange(e, "compras")}
-        >
-          Mis compras
-        </button>
+        <Link to="/misDomicilios">Domicilios</Link>
+        <Link to="/favoritos">Favoritos</Link>
+        <Link to="/misDatos">Mis Datos</Link>
+        <Link to="/misCompras">Mis Compras</Link>
         <button className={styles.button} onClick={logoutButton}>
           Salir
         </button>

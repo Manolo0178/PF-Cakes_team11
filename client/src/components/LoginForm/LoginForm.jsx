@@ -45,11 +45,12 @@ const LoginForm = () => {
     setRememberSession(!rememberSession);
   };
 
-  const onSuccess = async (response) => {
-    const token = response.accessToken;
-    localStorage.setItem('token', token);
-
-    const user = {
+  const onSuccess = async (response) =>{
+    console.log(response);
+    const token = response.accessToken
+    localStorage.setItem("token", token)
+    
+    let user = {
       name: response.profileObj.givenName,
       email: response.profileObj.email,
       lastName: response.profileObj.familyName,
@@ -67,6 +68,14 @@ const LoginForm = () => {
       console.log('Error al crear el usuario:', error);
     }
   };
+    await axios.post("http://localhost:3001/user/create", user)
+      .then((res) => {
+        if (res) {
+          const id = res.data.id
+          localStorage.setItem("userId", id)
+          Navigate("/home");    
+        }
+      })
 
   const onFailure = () => {
     console.log('Lo sentimos, ocurrió un fallo');

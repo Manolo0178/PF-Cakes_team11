@@ -1,45 +1,54 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import { MdOutlineLocalGroceryStore } from 'react-icons/md';
-import Swal from 'sweetalert2';
+// import { useNavigate } from 'react-router-dom';
+// import Swal from 'sweetalert2';
 import { useSelector } from 'react-redux';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-
-
+import { useDispatch } from 'react-redux';
+import { getUserData } from '../../redux/actions';
 import styles from './Navbar.module.css';
 
 import Cart from '../Cart/Cart';
 
 function NavBar() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const storedToken = localStorage.getItem('token');
   const [cartVisible, setCartVisible] = useState(false);
   const cartItems = useSelector((state) => state.cartItems);
   const cartItemCount = cartItems.length;
   const cartTotal = calculateTotal();
+  const dispatch = useDispatch()
+  const userData = useSelector((state) => state.userData);
+  
+  useEffect(() => {
+    if (storedToken) {
+      dispatch(getUserData());
+    }
+  },[dispatch, storedToken])
+
 
   const toggleCart = () => {
     setCartVisible((prevVisible) => !prevVisible);
   };
 
-  const logoutButton = () => {
-    Swal.fire({
-      title: '¿Estás seguro de querer salir?',
-      icon: 'question',
-      confirmButtonText: 'Ok',
-      showCancelButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        localStorage.removeItem('token');
-        navigate('/home');
-      }
-    });
-  };
+  // const logoutButton = () => {
+  //   Swal.fire({
+  //     title: '¿Estás seguro de querer salir?',
+  //     icon: 'question',
+  //     confirmButtonText: 'Ok',
+  //     showCancelButton: true,
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       localStorage.removeItem('token');
+  //       navigate('/home');
+  //     }
+  //   });
+  // };
 
   function calculateTotal() {
     return cartItems.reduce((accumulator, item) => {
@@ -80,17 +89,26 @@ function NavBar() {
               Crear Postre
             </Nav.Link>
             {storedToken ? (
-              <NavDropdown title="Perfil" id="basic-nav-dropdown">
-                <NavDropdown.Item>
-                  <Link to="/profile">Perfil</Link>
-                </NavDropdown.Item>
-                <NavDropdown.Item>
-                  <button className={styles.logoutButton} onClick={logoutButton}>
-                    Salir
-                  </button>
-                </NavDropdown.Item>
-              </NavDropdown>
+              <Nav.Link as={Link} to="/favoritos" className={styles.link} style={{display:'flex'}}>
+                <div className={styles.imgCont}>
+                  <img src={userData.image} alt="" />
+                </div>
+                  {userData.name}
+              </Nav.Link>
             ) : (
+              // <NavDropdown title="Perfil" id="basic-nav-dropdown">
+              //   <NavDropdown>
+              //     <img src={userData.image} alt="imagen del usuario" />
+              //   </NavDropdown>
+              //   <NavDropdown.Item>
+              //     <Link to="/profile">{ userData.name }</Link>
+              //   </NavDropdown.Item>
+              //   <NavDropdown.Item>
+              //     <button className={styles.logoutButton} onClick={logoutButton}>
+              //       Salir
+              //     </button>
+              //   </NavDropdown.Item>
+              // </NavDropdown>
               <Nav.Link as={Link} to="/login" className={styles.link}>
                 Ingresá
               </Nav.Link>
@@ -98,30 +116,34 @@ function NavBar() {
             <OverlayTrigger
               placement="bottom"
               overlay={
-                  <div className={`${styles.cartPanel} cartPanel`} >
-                    <p></p>
-                    <h5 className={styles.h5}>Resumen del Carrito</h5>
-                    <ul>
-                      {cartItems.map((item) => (
-                        <li key={item.id}>
-                          <div className={`${styles.cartItem} cartItemImage`}>
-                            <img src={item.image} alt={item.name} width="100px" />
-                            <div className={styles.itemDetails}>
-                              <h7 className={styles.h7}>{item.name}</h7>
-                              <p></p>
-                              <h6 className={styles.h6}>Cantidad: {item.quantity}</h6>
-                            </div>
+                <div className={`${styles.cartPanel} cartPanel`}>
+                  <p></p>
+                  <h5 className={styles.h5}>Resumen del Carrito</h5>
+                  <ul>
+                    {cartItems.map((item) => (
+                      <li key={item.id}>
+                        <div className={`${styles.cartItem} cartItemImage`}>
+                          <img src={item.image} alt={item.name} width="100px" />
+                          <div className={styles.itemDetails}>
+                            <h7 className={styles.h7}>{item.name}</h7>
+                            <p></p>
+                            <h6 className={styles.h6}>
+                              Cantidad: {item.quantity}
+                            </h6>
                           </div>
-                        </li>
-                      ))}
-                    </ul>
-                    <h5 className={styles.h5}>Total: ${cartTotal}</h5>
-                  </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                  <h5 className={styles.h5}>Total: ${cartTotal}</h5>
+                </div>
               }
             >
               <Nav.Link className={styles.link} onClick={toggleCart}>
                 <MdOutlineLocalGroceryStore color="white" size="1.8rem" />
-                {cartItemCount > 0 && <span className={styles.cartItemCount}>{cartItemCount}</span>}
+                {cartItemCount > 0 && (
+                  <span className={styles.cartItemCount}>{cartItemCount}</span>
+                )}
               </Nav.Link>
             </OverlayTrigger>
           </Nav>
