@@ -96,7 +96,7 @@ const LoginForm = () => {
   };
 
   const onFailureFacebook = (error) => {
-    console.log('Error al iniciar sesión con Facebook:', error);
+    console.log('Error al iniciar sesión con Facebook:', error); 
   };
 
   return (
