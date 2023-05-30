@@ -16,11 +16,12 @@ cartRouter.get('/:userId', async (req, res) => {
           through: {
             attributes: ['quantity'],
           },
+          attributes: { exclude: ['summary', "image", "description"] }
         },
         {
           model: User,
           include: [Address],
-          
+          attributes: { exclude: ["password", "image", "googleId"] }
         },
       ],
     });
@@ -31,6 +32,36 @@ cartRouter.get('/:userId', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+cartRouter.get("/", async(req, res) => {
+  try {
+    let cartItem = await Cart.findAll({
+      
+      include: [
+        {
+          model: User,
+          include: [Address],
+          attributes: { exclude: ["password", "image", "googleId"] }
+        },
+        {
+          model: Product,
+          through: {
+            attributes: ['quantity'],
+          },
+          attributes: { exclude: ['summary', "image", "description"] }
+        },
+      ],
+      })
+      if(cartItem) {
+        res.status(200).json(cartItem)
+      } else {
+        res.status(404).json({message: "Aun no hay producto en el carrito"})
+      }
+    } catch (error) {
+      res.status(500).json({message: error.message})
+    }
+  })
+        
 
 
 cartRouter.post('/:userId/:productId', async (req, res) => {
@@ -62,34 +93,34 @@ cartRouter.post('/:userId/:productId', async (req, res) => {
   }
 
 });
+
 cartRouter.delete('/:userId/:productId', async (req, res) => {
   try {
+   
     const userId = req.params.userId;
     const productId = req.params.productId;
-
+    
     const cart = await Cart.findOne({ where: { userId } });
-
+   
     if (!cart) {
       return res.status(404).json({ message: 'Cart not found' });
     }
 
-    const orderItem = await OrderItem.findOne({
-      where: { cartId: cart.id, productId },
-    });
-
-    if (!orderItem) {
-      return res.status(404).json({ message: 'Product not found in the cart' });
-    }
-
-    // Actualizar el campo 'deleted' del OrderItem a true en lugar de eliminarlo físicamente
-    await orderItem.update({ deleted: true });
-
+    const product = await Product.findByPk(productId);
+    
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+}
+    
+    product.deleted = true;
+    await product.save();
+   
     res.json({ message: 'Product removed from cart' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+   
+     res.status(500).json({ message: error.message });
   }
 });
-
     
 
 module.exports = cartRouter;

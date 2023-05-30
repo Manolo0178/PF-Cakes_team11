@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import 'boxicons';
+// import 'boxicons';
 import style from './Cart.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, increaseQuantity, decreaseQuantity,emptyCart } from '../../redux/actions';

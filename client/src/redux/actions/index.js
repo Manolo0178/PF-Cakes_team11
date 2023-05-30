@@ -2,6 +2,10 @@ import axios from "axios"
 
 
 
+const storedToken = localStorage.getItem("token");
+const id = localStorage.getItem("userId");
+
+
  
 //********** Actions Types **********/
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
@@ -28,6 +32,12 @@ export const EMPTY_CART = "EMPTY_CART";
 export const CREATE_USER = "CREATE_USER";
 
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
+
+
+//******** Profile ***********/
+export const GET_USER_DATA = "GET_USER_DATA";
+export const GET_USER_ADDRESS = "GET_USER_ADDRESS";
+export const GET_USER_SHOP = "GET_USER_SHOP";
 
 
 
@@ -201,3 +211,34 @@ export const emptyCart = () => {
     type: EMPTY_CART
   };
 };
+
+//*********** Get User Data **************/
+export function getUserData() {
+  return async (dispatch) => {
+    if (storedToken && id) {
+      await axios.get(`http://localhost:3001/user/${id}`)
+        .then((response) => {
+          dispatch({
+            type: GET_USER_DATA,
+            payload: response.data,
+          });
+      })
+      
+    }
+  }
+}
+export function getUserAdress() {
+  return async (dispatch) => {
+    if (storedToken) {
+      await axios
+        .get(`http://localhost:3001/Address/${id}`)
+        .then((response) => {
+          dispatch({
+            type: GET_USER_ADDRESS,
+            payload: response.data.addresses,
+          });
+        });
+    }
+  };
+}
+

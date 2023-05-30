@@ -22,6 +22,8 @@
   .chatToggle.open {
     bottom: 80px;
   }
+
+  
   
   .chatbotWindow {
     position: fixed;

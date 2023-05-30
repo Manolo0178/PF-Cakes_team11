@@ -65,7 +65,15 @@ const LoginForm = () => {
     } catch (error) {
       console.log('Error al crear el usuario:', error);
     }
-  };
+    await axios.post("http://localhost:3001/user/create", user)
+      .then((res) => {
+        if (res) {
+          const id = res.data.id
+          localStorage.setItem("userId", id)
+          navigate("/home");    
+        }
+      })
+  }
 
   const onFailure = () => {
     console.log('Lo sentimos, ocurrió un fallo');

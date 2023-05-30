@@ -12,7 +12,7 @@ sequelize.define("dessert", {
     //   defaultValue: true
     // }
   }, {
-    timestamps: false,
+    timestamps: true,
     freezeTableName: true,
     tableName: "dessert" 
   })

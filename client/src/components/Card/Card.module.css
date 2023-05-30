@@ -1,3 +1,15 @@
+.cont{
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    cursor: pointer;
+    position: relative;
+    text-decoration: none;
+    color: black;
+    font-family: 'Raleway', sans-serif;
+    background-color: pink;
+    border-radius: 3px;
+}
 .cardCont{
     width: 100%;
     max-width: 320px;
@@ -36,4 +48,22 @@
 }
 .cardCont:hover .image{
     filter: brightness(40%);
+}
+
+/********* favorites *********/
+.fav{
+    background: none;
+    border: none;
+    position: absolute;
+    bottom: 25px;
+    left: 5px;
+    z-index: 1;
+}
+.favIcon{
+    font-size: 30px;
+    color: #FF3040;
+}
+.favIconWhite{
+    font-size: 30px;
+    color: rgb(49, 49, 49);
 }
