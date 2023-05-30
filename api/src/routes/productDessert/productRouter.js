@@ -70,7 +70,17 @@ productRouter.get("/", async (req, res) => {
       res.status(500).json({ message: error.message })
   }
 })
-
+productRouter.get('/imagen/todas', async (req, res) => {
+  try {
+    const productImages = await Product.findAll({
+      attributes: [ 'id','name' ,'image'],
+      limit: 4
+    });
+    res.json(productImages)
+  } catch (error) {
+    console.log(error.message);
+  }
+})
 // productRouter.get("/", async (req, res) => {
 //   try {
 //     const { name, size = 5, page = 0, sort, sortBy } = req.query;

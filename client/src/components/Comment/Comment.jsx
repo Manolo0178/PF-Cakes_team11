@@ -9,7 +9,7 @@ import axios from 'axios';
 import Reviews from '../Reviews/Reviews';
 
 
-const Comment = ({star}) => {
+const Comment = ({star,handlerValoration}) => {
   const [perfil, setPerfil] = useState({});
   const [access, setAccess] = useState(0);
   const [review, setReview] = useState({
@@ -28,8 +28,8 @@ const Comment = ({star}) => {
 
   const reviewXProducts = allReviews.filter(review=> review.productId === parseInt(id));
   const reviewXUser = reviewXProducts?.filter(review => review.userId === parseInt(userId));
-
-
+  
+  
 
   useEffect( () => {
     storedToken && (
@@ -48,6 +48,9 @@ const Comment = ({star}) => {
       })  
 
       dispatch(getAllReviews());
+
+      
+      
   }, []);
 
   

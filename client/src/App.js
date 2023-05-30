@@ -14,19 +14,20 @@ import NewPassword from './Views/miPerfil/NewPassword/NewPassword';
 
 import Detail from "./components/Detail/detail"
 
-import MiPerfil from './Views/miPerfil/MiPerfil';
+
 import Domicilio from './Views/Domicilio/Domicilio';
 import EnviarEmail from './components/LoginForm/EnviarEmail/EnviarEmail';
 import CamPassword from './components/LoginForm/CamPassword/CamPassword';
 import NotFound from './Views/NotFound/NotFound';
-import Collaborators from './Views/Collaborators/Collaborators';
 import Favoritos from "./Views/Favorites/Favorites"
 import Favorites from './Views/Favorites/Favorites';
+import MisDatos from './Views/MisDatos/MisDatos';
+import MisDomicilios from './Views/MisDomicilios/MisDomicilios';
 
 
 function App() {
 
-  const storedToken = localStorage.getItem("token");
+  // const storedToken = localStorage.getItem("token");
 
   return (
     <div className="App">
@@ -41,13 +42,16 @@ function App() {
 
         <Route path="/payment/:total" element={<Payment/>} />
         <Route path="/home/:id" element={<Detail />} />
-        <Route path="/profile" element={<MiPerfil />} />
         <Route path="/address" element={<Domicilio />} />
-        
-        <Route path='/profile/newPassword' element = {<NewPassword/>} />
-        <Route path='/login/enviarMail' element= { <EnviarEmail/> } />
-        <Route path='/login/enviarMail/newPassword' element= { <CamPassword/> } />
-        <Route path='*' element = { <NotFound/> } />
+
+        <Route path="/profile/newPassword" element={<NewPassword />} />
+        <Route path="/login/enviarMail" element={<EnviarEmail />} />
+        <Route path="/login/enviarMail/newPassword" element={<CamPassword />} />
+        <Route path="/favoritos" element={<Favorites />} />
+        <Route path="/misCompras" element={<MisCompras />} />
+        <Route path="/misDatos" element={<MisDatos />} />
+        <Route path="/misDomicilios" element={<MisDomicilios />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

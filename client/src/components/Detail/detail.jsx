@@ -18,9 +18,9 @@ import Footer from "../../components/Footer/Footer";
 import Comment from "../Comment/Comment";
 import Qualification from "../Qualification/Qualification";
 import styles from "./detail.module.css";
-
+import {AiFillStar} from "react-icons/ai";
 import Swal from "sweetalert2";
-import { changeDetails, addToCart } from "../../redux/actions";
+import { changeDetails, addToCart,getAllReviews } from "../../redux/actions";
 
 
 
@@ -30,10 +30,21 @@ export default function Detail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [star, setStar] = useState(0);
+  
+  const allReviews = useSelector((state) => state.allReview);
+  
+  const reviewXProducts = allReviews.filter(review=> review.productId === parseInt(id));
+  
+  let count = 0;
+  
+
+  reviewXProducts.forEach(element => count += element.qualification);
+
 
   const handlerStar = (point) =>{
     setStar(point)
   }
+
 
 
   const handleAddToCart = (item) => {
@@ -43,6 +54,8 @@ export default function Detail() {
 
   useEffect(() => {
     dispatch(getProductsById(id));
+    dispatch(getAllReviews());
+
     return () => dispatch({ type: "LIMPIAR_DETAILS" });
   }, [dispatch, id]);
 
@@ -180,9 +193,23 @@ export default function Detail() {
       ) : (
         <div></div>
       )}
-      <Qualification handlerStar={handlerStar} />
-      <Comment star={star} />
-      <Footer />
+
+      <div>
+        <h2>Valoración del producto</h2>
+        {reviewXProducts.length ? 
+        (<div className={styles.valoration}>
+          <p>{(count/reviewXProducts.length).toFixed(1)}</p>
+          <AiFillStar className={styles.star}/>
+        </div>) : 
+        (<div>
+          <h4>Todavia no hay valoración</h4>
+        </div>)
+        }
+      </div>
+      <Qualification handlerStar ={handlerStar}/>
+      <Comment star={star}/>
+      <Footer/>
+
     </div>
   );
 }
