@@ -26,8 +26,6 @@ import MisDomicilios from './Views/MisDomicilios/MisDomicilios';
 
 function App() {
 
-  // const storedToken = localStorage.getItem("token");
-
   return (
     <div className="App">
       <Routes>

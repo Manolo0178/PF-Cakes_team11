@@ -10,9 +10,11 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import styles from "./LoginForm.module.css"
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { getUserData } from '../../redux/actions';
 
 const LoginForm = () => {
-
+  const dispatch = useDispatch();
   const Navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,6 +42,7 @@ const LoginForm = () => {
         const userId = response.data.id;
         localStorage.setItem("token", token);
         localStorage.setItem("userId", userId);
+        dispatch(getUserData(token, userId));
         Navigate("/home");
       })
       .catch((error) => {
@@ -52,7 +55,6 @@ const LoginForm = () => {
   };
 
   const onSuccess = async (response) =>{
-    console.log(response);
     const token = response.accessToken
     localStorage.setItem("token", token)
     
@@ -68,6 +70,7 @@ const LoginForm = () => {
         if (res) {
           const id = res.data.id
           localStorage.setItem("userId", id)
+          dispatch(getUserData(token, id));
           Navigate("/home");    
         }
       })

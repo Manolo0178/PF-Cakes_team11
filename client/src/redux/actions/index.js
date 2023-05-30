@@ -2,8 +2,8 @@ import axios from "axios"
 
 
 
-const storedToken = localStorage.getItem("token");
-const id = localStorage.getItem("userId");
+// const storedToken = localStorage.getItem("token");
+// const id = localStorage.getItem("userId");
 
 
  
@@ -95,7 +95,8 @@ export function orderProducts(value){
 export function getDessert(){
     return (dispatch) => {
       axios.get("http://localhost:3001/desserts")
-      .then((response) => {dispatch({type: GET_DESSERT, payload: response.data})})
+        .then((response) => { dispatch({ type: GET_DESSERT, payload: response.data }) })
+        
     }
 
 }
@@ -206,9 +207,9 @@ export function getAllReviews() {
 }
 
 //*********** Get User Data **************/
-export function getUserData() {
+export function getUserData(token, id) {
   return async (dispatch) => {
-    if (storedToken && id) {
+    if (token && id) {
       await axios.get(`http://localhost:3001/user/${id}`)
         .then((response) => {
           dispatch({
@@ -220,17 +221,17 @@ export function getUserData() {
     }
   }
 }
-export function getUserAdress() {
-  return async (dispatch) => {
-    if (storedToken) {
-      await axios
-        .get(`http://localhost:3001/Address/${id}`)
-        .then((response) => {
-          dispatch({
-            type: GET_USER_ADDRESS,
-            payload: response.data.addresses,
-          });
-        });
-    }
-  };
-}
+export function getUserAdress(storedToken, id) {
+         return async (dispatch) => {
+           if (storedToken) {
+             await axios
+               .get(`http://localhost:3001/Address/${id}`)
+               .then((response) => {
+                 dispatch({
+                   type: GET_USER_ADDRESS,
+                   payload: response.data.addresses,
+                 });
+               });
+           }
+         };
+       }

@@ -17,18 +17,18 @@ const MiPerfilNav = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userData);
   const [perfil, setPerfil] = useState(userData)
-
   const [image, setImage] = useState(userData.image)
-
+  
+  const data = Object.keys(userData).length;
   useEffect(() => {
-    if (storedToken && !userData) { 
-      dispatch(getUserData())
-      if (userData && userData !== perfil) {
-        setPerfil(userData)
-        setImage(userData.image)
-      }
+    if (!data) { 
+      dispatch(getUserData(storedToken, id));
     }
-  },[dispatch, storedToken, userData])
+    if (data && userData !== perfil) {
+      setPerfil(userData);
+      setImage(userData.image);
+    }
+  },[dispatch, userData])
 
 
 
@@ -63,6 +63,7 @@ const MiPerfilNav = () => {
         const updatedImage = response.data.user;
         setPerfil({ ...perfil, image: updatedImage });
         setImage(updatedImage);
+        dispatch(getUserData());
       } catch (error) {
         console.error("Error al cargar la imagen:", error);
       }

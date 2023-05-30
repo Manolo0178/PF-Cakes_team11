@@ -27,7 +27,7 @@ const Domicilio = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await axios.post(`http://localhost:3001/Address/${userId}`, form)
-    Navigate("/profile");
+    Navigate("/misDomicilios");
   };
 
   return (
@@ -89,16 +89,7 @@ const Domicilio = () => {
                 placeholder="Telefono de contacto"
                 onChange={handleChange}
               />
-            </div>
-            <div>
-              <label htmlFor="">Localidad: </label>
-              <input
-                type="text"
-                name="location"
-                placeholder="localidad"
-                onChange={handleChange}
-              />
-            </div>
+            </div>            
           </div>
           <div>
             <button type="submit">Agregar domicilio</button>
