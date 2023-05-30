@@ -136,7 +136,7 @@ const LoginForm = () => {
         <div>
           {/* <FaFacebookF size="1.2rem" /> */}
           <LoginSocialFacebook
-            appId="2731500723659290"
+            appId="954634875734262"
             onResolve={onSuccessFacebook}
             onReject={onFailureFacebook}
           >
