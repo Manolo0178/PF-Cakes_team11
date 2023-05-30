@@ -12,7 +12,8 @@ import {
   REMOVE_FROM_CART,
   INCREASE_QUANTITY,
   DECREASE_QUANTITY,
-  GET_ALL_REVIEWS
+  GET_ALL_REVIEWS,
+  EMPTY_CART
 } from "../actions";
 
 const initialState = {
@@ -48,6 +49,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         idProduct: [],
+      };
+    
+    case EMPTY_CART:
+      return {
+        ...state,
+        cartItems: []
       };
 
     case GET_DESSERT:

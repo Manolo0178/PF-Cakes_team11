@@ -52,7 +52,7 @@ userRouter.post("/login", async (req, res) => {
 
 // RUTA CREAR USUARIO
 userRouter.post("/create", async (req, res) => { // Esta ruta es para crear un usuario
-  const { name, email, contact, lastName, password, googleId } = req.body;
+  const { name, email, contact, lastName, password, googleId, facebookId } = req.body;
   try {
 
       const userVerification = await User.findOne({ where: { email }})
@@ -63,7 +63,7 @@ userRouter.post("/create", async (req, res) => { // Esta ruta es para crear un u
         } 
         return res.status(400).send("Ya hay un usuario registrado con ese email")
       } else{
-        let user = await User.create({ name, email, contact, lastName, password, googleId });
+        let user = await User.create({ name, email, contact, lastName, password, googleId, facebookId });
     
         const { password: userPassword, ...userWithoutPassword } = user.toJSON();
 

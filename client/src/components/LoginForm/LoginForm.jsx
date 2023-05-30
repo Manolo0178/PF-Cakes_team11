@@ -82,7 +82,7 @@ const LoginForm = () => {
     };
 
     try {
-      const res = await axios.post('http://localhost:3001/create', user);
+      const res = await axios.post('http://localhost:3001/user/create', user);
       if (res.data.success) {
         const id = res.data.id;
         localStorage.setItem('userId', id);
