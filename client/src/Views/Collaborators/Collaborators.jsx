@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './collaborators.module.css';
-import AylenRoxanaRondan from "../../assets/images/Aylen.jpeg";
+import AylenRoxanaRondan from "../../assets/images/Aylen2.jpg";
 import Josema from "../../assets/images/josema.jpeg";
 import Tomas from "../../assets/images/tomas.jpg";
 import Horacio from "../../assets/images/horacio.jpg";

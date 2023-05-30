@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import 'boxicons';
 import style from './Cart.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart, increaseQuantity, decreaseQuantity } from '../../redux/actions';
+import { removeFromCart, increaseQuantity, decreaseQuantity,emptyCart } from '../../redux/actions';
 import Alert from 'react-bootstrap/Alert';
 import { Link } from 'react-router-dom';
 import axios from "axios";
@@ -27,6 +27,10 @@ const Cart = ({ isOpen, toggleCart }) => {
     dispatch(removeFromCart(itemId));
     setRemovedItemId(itemId);
     setShowAlert(true);
+    
+    if (cartItems.length === 1) {
+      dispatch(emptyCart());
+    }
   };
 
   const handleIncreaseQuantity = (itemId) => {
