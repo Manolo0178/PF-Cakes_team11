@@ -33,18 +33,6 @@ import {getUserData} from "./redux/actions/index.js"
 
 function App() {
 
-  const userId = localStorage.getItem("userId");
-  const token = localStorage.getItem("token");
-  const dispatch = useDispatch()
-
-  useEffect(()=> {
-    if(token){
-      dispatch(getUserData())
-    }
-  }, [dispatch, token])
-
-  // const storedToken = localStorage.getItem("token");
-
   return (
     <div className="App">
       <Routes>
