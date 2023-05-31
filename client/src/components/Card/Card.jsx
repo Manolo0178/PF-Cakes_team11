@@ -8,7 +8,7 @@ import axios from "axios"
 
 
 
-function Card({ product, favorite }) {
+function Card({ product, favorite, pritotal, cantidad }) {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const { name, image, description, price, id } = product;
@@ -72,7 +72,8 @@ function Card({ product, favorite }) {
           <p className={styles.description}>{description}</p>
         </div>
         <h4 className={styles.name}>{name}</h4>
-        <p className={styles.price}>${price}</p>
+        {pritotal ? <p className={styles.price}>${pritotal}</p> : <p className={styles.price}>${price}</p> }
+        {cantidad && <p className={styles.cantidad}>{cantidad}</p>}
       </Link>
     </div>
   );

@@ -12,6 +12,14 @@
     justify-content: space-between;
     align-items: flex-start;
 }
+.contShop{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 100px;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: center;
+}
 .comprasCont{
     width: 80%;
     margin: 40px auto;

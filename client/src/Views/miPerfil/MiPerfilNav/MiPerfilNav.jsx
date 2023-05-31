@@ -64,6 +64,7 @@ const MiPerfilNav = () => {
         setPerfil({ ...perfil, image: updatedImage });
         setImage(updatedImage);
         dispatch(getUserData());
+        window.location.reload(true)
       } catch (error) {
         console.error("Error al cargar la imagen:", error);
       }

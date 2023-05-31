@@ -13,12 +13,10 @@ const MisCompras = () => {
   const { shops } = useSelector(state => state)
   const dispatch = useDispatch()
   const favorite = true
+ 
   useEffect(() => {
     dispatch(getShops(idUser));
   }, [dispatch])
-  
-
-
   return (
     <div className={styles.cont}>
       <NavBar />
@@ -26,16 +24,19 @@ const MisCompras = () => {
         <MiPerfilNav />
         <div className={styles.comprasCont}>
           <h1>Historial de Compras</h1>
-          <div>
+          <div className={styles.contShop}>
             {shops &&
               shops?.map((product) => (
                 <div>
+                  <div><h4>Fecha de compra:</h4>{new Date(product.shop.createdAt).toLocaleString()}</div>
                   <Card
-                    key={product.id}
-                    product={product}
+                    key={product.userProduct.id}
+                    product={product.userProduct}
+                    pritotal={product.shop.price}
+                    cantidad={product.shop.cantidad}
                     favorite={favorite}
                   />
-                  <div>{product.Shop.createdAt}</div>
+
                 </div>
               ))}
           </div>

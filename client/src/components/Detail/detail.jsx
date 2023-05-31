@@ -49,8 +49,15 @@ console.log(userData)
 
   const handleAddToCart = () => {
     dispatch(addToCart( id, userId));
-    alert("El producto fue agregado al carrito");
-    window.location.reload(true)
+    Swal.fire({
+      title: "El producto se fue al carrito",
+      icon: "success",
+      confirmButtonText: "Ok",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.reload(true)
+      }
+    });
   };
 
   useEffect(() => {
