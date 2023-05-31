@@ -8,6 +8,7 @@ import styles from './payment.module.css';
 import { getCart, emptyCart } from "../../redux/actions";
 import { useDispatch, useSelector } from 'react-redux';
 import { postShop } from '../../redux/actions';
+import Swal from "sweetalert2";
 const stripePromise = loadStripe('pk_test_51NAMXNJW5R242vXYwgPwoEcVTUaSoulVuqOJ4ECoOpdvXB3CU7yIF5TQ5LAK7NpbByw5ItQUKVwJjmQsQiGxpQuz00KeK0Deyt');
 
 const CheckOutForm = ({ total }) => {
@@ -40,7 +41,7 @@ const CheckOutForm = ({ total }) => {
         if(data.message === 'Successful Payment')
         {
           cartItems && cartItems?.map(prod => {
-            dispatch(postShop(prod.id, userId));
+            dispatch(postShop(prod.id, userId, prod.orderItem.quantity, prod.price));
 
           })
           dispatch(emptyCart(userId));
@@ -49,9 +50,18 @@ const CheckOutForm = ({ total }) => {
         elements.getElement(CardElement).clear();
 
         // Mostrar el mensaje de alerta y redirigir al usuario a la página de inicio
-        alert('Muchas gracias por su compra');
-        setLoading(false);
-        navigate('/home')
+        // alert('Muchas gracias por su compra');
+        // navigate('/misCompras')
+        Swal.fire({
+          title: "Gracias por tu compra",
+          icon: "success",
+          confirmButtonText: "Ok",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setLoading(false);
+            navigate("/misCompras");
+          }
+        });
       } catch (error) {
         console.log(error);
         setLoading(false);
