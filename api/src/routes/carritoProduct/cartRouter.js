@@ -35,34 +35,34 @@ cartRouter.get("/:userId", async (req, res) => {
   }
 });
 
-cartRouter.get("/", async (req, res) => {
+cartRouter.get("/", async(req, res) => {
   try {
     let cartItem = await Cart.findAll({
+      
       include: [
         {
           model: User,
           include: [Address],
-          attributes: { exclude: ["password", "image", "googleId"] },
+          attributes: { exclude: ["password", "image", "googleId"] }
         },
         {
           model: Product,
           through: {
-            attributes: ["quantity"],
+            attributes: ['quantity'],
           },
-          attributes: { exclude: ["summary", "image", "description"] },
+          attributes: { exclude: ['summary', "description"] }
         },
       ],
-    });
-    if (cartItem) {
-      res.status(200).json(cartItem);
-    } else {
-      res.status(404).json({ message: "Aun no hay producto en el carrito" });
+      })
+      if(cartItem) {
+        res.status(200).json(cartItem)
+      } else {
+        res.status(404).json({message: "Aun no hay producto en el carrito"})
+      }
+    } catch (error) {
+      res.status(500).json({message: error.message})
     }
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
+  })
 cartRouter.post("/:userId/:productId", async (req, res) => {
   try {
     const { userId } = req.params;
