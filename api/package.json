@@ -28,6 +28,7 @@
     "nodemailer": "^6.9.2",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.4",
+    "react-icons": "^4.8.0",
     "sequelize": "^6.3.5",
     "stripe": "^12.6.0"
   },

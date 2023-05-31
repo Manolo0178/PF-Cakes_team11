@@ -5,22 +5,23 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import styles from "./MisDatos.module.css"
 import { useDispatch, useSelector } from "react-redux";
-import { getUserData } from "../../redux/actions/index";
 import MiPerfilNav from "../miPerfil/MiPerfilNav/MiPerfilNav";
+import { getUserData } from "../../redux/actions/index";
 
 const MisDatos = () => {
-  const storedToken = localStorage.getItem("token");
   const id = localStorage.getItem("userId");
-  const dispatch = useDispatch();
+  const token = localStorage.getItem("token")
+  const dispatch = useDispatch()
   const perfil = useSelector((state) => state.userData);
 
-  console.log(perfil);
-
+  
   useEffect(() => {
-      if (storedToken && id) {
-        dispatch(getUserData());
-      }
-    }, [dispatch, storedToken, id]);
+    if (!Object.keys(perfil).length) {
+      dispatch(getUserData(token, id));
+    }
+  },[dispatch])
+
+
     
   const change = async (e, val) => {
     e.preventDefault();

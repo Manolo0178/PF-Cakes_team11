@@ -23,7 +23,8 @@ const MisDomicilios = () => {
 
     useEffect(() => {
       if (storedToken) {
-        dispatch(getUserAdress());
+        dispatch(getUserAdress(storedToken, id));
+        
       }
     }, [dispatch, storedToken]);
 
@@ -84,71 +85,76 @@ const MisDomicilios = () => {
 
   return (
     <div>
-        <NavBar/>
+      <NavBar />
       <section className={styles.section}>
         <MiPerfilNav />
         <div className={styles.sectionCont}>
           <h2>Domicilios</h2>
-        <section className={styles.domiciliosCont}>
-          <div className={styles.domCont}>
-            {domicilios?.map((domicilio) => (
-              <div
-                key={domicilio.UserAddress.addressId}
-                className={styles.domicilio}
-              >
-                <div>
-                  <div className={styles.dataCont}>
-                    <div>
-                      <BiHome size="1.5rem" color="grey" />
-                    </div>
-                    <section>
-                      <h6>
-                        {domicilio.street}
-                        {domicilio.number}
-                      </h6>
+          <section className={styles.domiciliosCont}>
+            <div className={styles.domCont}>
+              {/* {!Object.keys(domicilios) && (
+                <div className={styles.domicilio}>
+                  <p>No tienes una localidad agregada</p>
+                </div>
+              )} */}
+              {domicilios?.map((domicilio) => (
+                <div
+                  key={domicilio.UserAddress.addressId}
+                  className={styles.domicilio}
+                >
+                  <div>
+                    <div className={styles.dataCont}>
                       <div>
-                        <p>Código postal: {domicilio.postalCode}</p>
-                        <p>Provincia: {domicilio.province}</p>
-                        <p>Ciudad: {domicilio.city}</p>
-                        <p>
-                          Telefono de contacto: {domicilio.telephoneContact}
-                        </p>
+                        <BiHome size="1.5rem" color="grey" />
                       </div>
-                    </section>
-                    <div>
-                      <button className={styles.button}>
-                        <BiPencil
-                          onClick={(e) => {
-                            if (!dom.length) {
-                              dom = { ...domicilio };
+                      <section>
+                        <h6>
+                          {domicilio.street}
+                          {domicilio.number}
+                        </h6>
+                        <div>
+                          <p>Código postal: {domicilio.postalCode}</p>
+                          <p>Provincia: {domicilio.province}</p>
+                          <p>Ciudad: {domicilio.city}</p>
+                          <p>
+                            Telefono de contacto: {domicilio.telephoneContact}
+                          </p>
+                        </div>
+                      </section>
+                      <div>
+                        <button className={styles.button}>
+                          <BiPencil
+                            onClick={(e) => {
+                              if (!dom.length) {
+                                dom = { ...domicilio };
+                              }
+                              handleChangeDom(domicilio.UserAddress.addressId);
+                            }}
+                          />
+                        </button>
+                        <button className={styles.button}>
+                          <MdDelete
+                            onClick={(e) =>
+                              handleDelete(e, domicilio.UserAddress.addressId)
                             }
-                            handleChangeDom(domicilio.UserAddress.addressId);
-                          }}
-                        />
-                      </button>
-                      <button className={styles.button}>
-                        <MdDelete
-                          onClick={(e) =>
-                            handleDelete(e, domicilio.UserAddress.addressId)
-                          }
-                        />
-                      </button>
+                          />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-          <Link className={styles.addCont} to="/address">
-            <div className={styles.addLinkCont}>
-              <p>Agregar domicilio</p>
-              <AiOutlineArrowRight color="grey" />
+              ))}
             </div>
-          </Link>
-        </section>
-      </div>
+            <Link className={styles.addCont} to="/address">
+              <div className={styles.addLinkCont}>
+                <p>Agregar domicilio</p>
+                <AiOutlineArrowRight color="grey" />
+              </div>
+            </Link>
+          </section>
+        </div>
       </section>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

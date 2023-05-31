@@ -8,13 +8,17 @@ import {
   CREATE_DESERT,
   FORM_ERROR,
   FILTER_PRODUCTS,
-  ADD_TO_CART,
   REMOVE_FROM_CART,
-  INCREASE_QUANTITY,
+  ADD_TO_CART_SUCCESS,
+  INCREASE_QUANTITY_SUCCESS,
   DECREASE_QUANTITY,
   GET_ALL_REVIEWS,
+  EMPTY_CART_SUCCESS,
+  GET_CART,
   GET_USER_DATA,
   GET_USER_ADDRESS,
+  GET_USER_SHOP,
+  POST_SHOP,
 } from "../actions";
 
 const initialState = {
@@ -28,7 +32,8 @@ const initialState = {
   cartItems: [],
   allReview: [],
   userData: {},
-  userAddress:[]
+  userAddress: [],
+  shops:[]
 };
 
 function rootReducer(state = initialState, action) {
@@ -51,6 +56,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         idProduct: [],
+      };
+
+    case EMPTY_CART_SUCCESS:
+      return {
+        ...state,
+        cartItems: [],
       };
 
     case GET_DESSERT:
@@ -111,63 +122,31 @@ function rootReducer(state = initialState, action) {
         ...state,
         allProducts: filtered,
       };
-
-      case ADD_TO_CART:
-  const { id, name, price, image } = action.payload;
-  const parsedPrice = parseFloat(price);
-  if (isNaN(parsedPrice)) {
-    return state;
-  }
-  const newItem = {
-    id,
-    name,
-    price: parsedPrice,
-    image, // Agrega la propiedad image al nuevo elemento
-    quantity: 1,
-  };
-  return {
-    ...state,
-    cartItems: [...state.cartItems, newItem],
-  };
-  case REMOVE_FROM_CART:
-  const updatedCartItems = state.cartItems.filter((item) => item.id !== action.payload);
-  return {
-    ...state,
-    cartItems: updatedCartItems,
-  };
-
-  case INCREASE_QUANTITY:
-  const { itemId: increaseItemId } = action.payload;
-  const increasedCartItems = state.cartItems.map((item) => {
-    if (item.id === increaseItemId) {
+    case GET_CART:
+      console.log(action.payload);
       return {
-        ...item,
-        quantity: item.quantity + 1,
+        ...state,
+        cartItems: action.payload,
       };
-    }
-    return item;
-  });
-  return {
-    ...state,
-    cartItems: increasedCartItems,
-};
-
-case DECREASE_QUANTITY:
-  const { itemId: decreaseItemId } = action.payload;
-  const decreasedCartItems = state.cartItems.map((item) => {
-    if (item.id === decreaseItemId && item.quantity > 0) {
+    case ADD_TO_CART_SUCCESS:
       return {
-        ...item,
-        quantity: item.quantity - 1,
+        ...state,
       };
-    }
-    return item;
-  });
-  return {
-    ...state,
-    cartItems: decreasedCartItems,
-};
-      case GET_ALL_REVIEWS:
+    case REMOVE_FROM_CART:
+      return {
+        ...state,
+      };
+
+    case INCREASE_QUANTITY_SUCCESS:
+      return {
+        ...state,
+      };
+
+    case DECREASE_QUANTITY:
+      return {
+        ...state,
+      };
+    case GET_ALL_REVIEWS:
       return {
         ...state,
         allReview: action.payload,
@@ -183,7 +162,15 @@ case DECREASE_QUANTITY:
         ...state,
         userAddress: action.payload,
       };
-    
+    case GET_USER_SHOP:
+      return {
+        ...state,
+        shops: action.payload,
+      };
+    case POST_SHOP:
+      return {
+        ...state,
+      };
     default:
       return state;
   }

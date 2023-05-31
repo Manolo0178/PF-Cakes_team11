@@ -13,7 +13,6 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
     },
     summary: {
       type: DataTypes.TEXT,
@@ -43,7 +42,7 @@ module.exports = (sequelize) => {
       defaultValue: false
     }
   }, {
-    timestamps: false,
+    timestamps: true,
     freezeTableName: true,
     tableName: "product"
   });

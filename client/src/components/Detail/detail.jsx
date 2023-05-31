@@ -8,7 +8,6 @@ import { useState } from "react";
 import axios from "axios";
 
 import { SiMercadopago } from "react-icons/si";
-import { BsCurrencyBitcoin } from "react-icons/bs";
 import { HiPencilAlt } from "react-icons/hi";
 
 import Button from "react-bootstrap/Button";
@@ -20,24 +19,25 @@ import Qualification from "../Qualification/Qualification";
 import styles from "./detail.module.css";
 import {AiFillStar} from "react-icons/ai";
 import Swal from "sweetalert2";
-import { changeDetails, addToCart,getAllReviews } from "../../redux/actions";
+import { changeDetails, addToCart,getAllReviews, getUserData } from "../../redux/actions";
 
 
 
 export default function Detail() {
+  const userId = localStorage.getItem("userId");
+  const storedToken = localStorage.getItem('token');
   const myProduct = useSelector((state) => state.idProduct);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
   const [star, setStar] = useState(0);
-  
+  const { userData } = useSelector((state)=> state)
   const allReviews = useSelector((state) => state.allReview);
-  
   const reviewXProducts = allReviews.filter(review=> review.productId === parseInt(id));
   
   let count = 0;
   
-
+console.log(userData)
   reviewXProducts.forEach(element => count += element.qualification);
 
 
@@ -47,12 +47,14 @@ export default function Detail() {
 
 
 
-  const handleAddToCart = (item) => {
-    dispatch(addToCart(item));
+  const handleAddToCart = () => {
+    dispatch(addToCart( id, userId));
     alert("El producto fue agregado al carrito");
+    window.location.reload(true)
   };
 
   useEffect(() => {
+    dispatch(getUserData(storedToken ,userId))
     dispatch(getProductsById(id));
     dispatch(getAllReviews());
 
@@ -137,29 +139,28 @@ export default function Detail() {
         <section className={styles.productCont}>
           <div className={styles.imageCont}>
             <img className={styles.image} src={myProduct.image} alt="dessert" />
-            <input type="file" name="image" onChange={changeImage}/>
-            <HiPencilAlt className={styles.imageButton} />
+            <input type="file" name="image" onChange={changeImage} />
+           { userData.role && userData.role === "admin"? <HiPencilAlt className={styles.imageButton} /> : null}
           </div>
           <div className={styles.textCont}>
-            <button className={styles.delete} onClick={handleDelete}>
+            { userData.role && userData.role === "admin"?<button className={styles.delete} onClick={handleDelete}>
               X
-            </button>
+            </button> : null }
             <div className={styles.nameCont}>
               <h3>{myProduct.name}</h3>
-              <button onClick={changeName} className={styles.nameButton}>
+             { userData.role && userData.role === "admin" ? <button onClick={changeName} className={styles.nameButton}>
                 <HiPencilAlt />
-              </button>
+              </button> : null }
             </div>
             <div className={styles.priceCont}>
               <h4>$ {myProduct.price}</h4>
-              <button onClick={changePrice} className={styles.priceButton}>
+             { userData.role && userData.role === "admin" ? <button onClick={changePrice} className={styles.priceButton}>
                 <HiPencilAlt />
-              </button>
+              </button> : null}
             </div>
             <div>
               <div className={styles.iconsCont}>
                 <SiMercadopago size="1.5rem" />
-                <BsCurrencyBitcoin size="1.5rem" />
               </div>
               <p>Ver medios de Pago</p>
             </div>
@@ -168,6 +169,11 @@ export default function Detail() {
               <input type="number" min="0" defaultValue="1" />
             </div>
             <div className={styles.buttonCont}>
+              {/* <Button
+                variant="primary"
+              >
+                Comprar
+              </Button>{" "} */}
               <Button
                 variant="primary"
                 onClick={() => handleAddToCart(myProduct)}
@@ -183,12 +189,12 @@ export default function Detail() {
       {myProduct ? (
         <section className={styles.descriptionCont}>
           <p>{myProduct.description}</p>
-          <button
+         { userData.role && userData.role === "admin"? <button
             onClick={changeDescription}
             className={styles.descriptionButton}
           >
             <HiPencilAlt color="black" />
-          </button>
+          </button> : null }
         </section>
       ) : (
         <div></div>
@@ -196,20 +202,20 @@ export default function Detail() {
 
       <div>
         <h2>Valoración del producto</h2>
-        {reviewXProducts.length ? 
-        (<div className={styles.valoration}>
-          <p>{(count/reviewXProducts.length).toFixed(1)}</p>
-          <AiFillStar className={styles.star}/>
-        </div>) : 
-        (<div>
-          <h4>Todavia no hay valoración</h4>
-        </div>)
-        }
+        {reviewXProducts.length ? (
+          <div className={styles.valoration}>
+            <p>{(count / reviewXProducts.length).toFixed(1)}</p>
+            <AiFillStar className={styles.star} />
+          </div>
+        ) : (
+          <div>
+            <h4>Todavia no hay valoración</h4>
+          </div>
+        )}
       </div>
-      <Qualification handlerStar ={handlerStar}/>
-      <Comment star={star}/>
-      <Footer/>
-
+      <Qualification handlerStar={handlerStar} />
+      <Comment star={star} />
+      <Footer />
     </div>
   );
 }

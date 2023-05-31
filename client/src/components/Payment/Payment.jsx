@@ -3,17 +3,21 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import "bootswatch/dist/minty/bootstrap.min.css";
-
-const stripePromise = loadStripe('pk_test_51N9Yt8Kl97uryD4rivHKHuQYK3Rdv7QDKi2jcarESrloA0yk0dk3kh30FI5Nfeg0Tw0vZ190rAVJoNEiJUd0Nwhl009vnw96pF');
+import { useNavigate, useParams, Link } from 'react-router-dom';
+import styles from './payment.module.css';
+import { getCart, emptyCart } from "../../redux/actions";
+import { useDispatch, useSelector } from 'react-redux';
+import { postShop } from '../../redux/actions';
+const stripePromise = loadStripe('pk_test_51NAMXNJW5R242vXYwgPwoEcVTUaSoulVuqOJ4ECoOpdvXB3CU7yIF5TQ5LAK7NpbByw5ItQUKVwJjmQsQiGxpQuz00KeK0Deyt');
 
 const CheckOutForm = ({ total }) => {
+  const userId = localStorage.getItem("userId");
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const {cartItems} = useSelector(state=>state)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -33,41 +37,61 @@ const CheckOutForm = ({ total }) => {
           amount: parseInt(total) * 100, // Convertir el monto total a centavos
         });
 
-        console.log(data);
+        if(data.message === 'Successful Payment')
+        {
+          cartItems && cartItems?.map(prod => {
+            dispatch(postShop(prod.id, userId));
+
+          })
+          dispatch(emptyCart(userId));
+        }
 
         elements.getElement(CardElement).clear();
-        
+
         // Mostrar el mensaje de alerta y redirigir al usuario a la página de inicio
-        alert('Se agradece por su compra');
+        alert('Muchas gracias por su compra');
         setLoading(false);
-        navigate('/home'); // Ajusta la ruta de la página de inicio según corresponda
+        navigate('/home')
       } catch (error) {
         console.log(error);
         setLoading(false);
       }
-
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="card card-body">
-      <img src="https://w7.pngwing.com/pngs/456/971/png-transparent-credit-card-business-payment-loan-service-payment-method-text-rectangle-service-thumbnail.png" alt="Facturas" className="img-fluid" />
+    <form onSubmit={handleSubmit} className={`card card-body ${styles.card}`}>
+      <h2 className={`text-center mb-4 ${styles.title}`}>Ingresar datos de la tarjeta :</h2>
 
-      <h3 className="text-center my-2">Precio: ${total}</h3> {/* Mostrar el monto total en la interfaz de usuario */}
-
-      <div className="form-group">
-        <CardElement className="form-control" />
+      <div className="image-container">
+        <img src="https://www.pngitem.com/pimgs/m/576-5767283_tarjeta-credito-clasica-banco-de-comercio-hd-png.png" alt="Logo" className={`img-fluid ${styles.logo}`} />
       </div>
 
-      <button className="btn btn-success" disabled={!stripe}>
-        {loading ? (
-          <div className="spinner-border text-light" role="status">
-            <span className="sr-only"></span>
-          </div>
-        ) : (
-          'Comprar'
-        )}
-      </button>
+      <div className="form-group">
+        <CardElement className={`form-control ${styles.cardElement}`} options={{ style: { base: { fontSize: '16px' } } }} />
+      </div>
+
+      <h3 className={`text-center mt-4 ${styles.price}`}>Precio: ${total}</h3>
+
+      <div className={styles.buttonContainer}>
+        <div>
+          <button type="submit" className={`btn btn-success ${styles.buyButton}`} disabled={!stripe}>
+            {loading ? (
+              <div className="spinner-border text-light" role="status">
+                <span className="sr-only"></span>
+              </div>
+            ) : (
+              'Pagar'
+            )}
+          </button>
+        </div>
+        <div className={styles.separatorContainer}>
+          <span className={styles.separator}>o</span>
+        </div>
+        <div>
+          <Link to="/Products" className={`btn btn-primary ${styles.backButton}`}>Volver</Link>
+        </div>
+      </div>
     </form>
   );
 };
@@ -77,9 +101,9 @@ function Payment() {
 
   return (
     <Elements stripe={stripePromise}>
-      <div className="container p-4">
+      <div className={`container ${styles.container}`}>
         <div className="row">
-          <div className="col-md-4 offset-md-4">
+          <div className="col-md-8 offset-md-2">
             <CheckOutForm total={total} />
           </div>
         </div>

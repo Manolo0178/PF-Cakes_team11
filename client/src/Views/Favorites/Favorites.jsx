@@ -10,12 +10,12 @@ import Favorite from "../../components/Favorite/Favorite";
 import {DndContext, closestCenter} from "@dnd-kit/core"
 import {SortableContext, verticalListSortingStrategy, arrayMove} from "@dnd-kit/sortable"
 
+import MiPerfilNav from "../miPerfil/MiPerfilNav/MiPerfilNav"
+
+import styles from "./Favorites.module.css"
 
 
-
-
-
-const Favorites = ({ setPage }) => {
+const Favorites = () => {
   const userId = localStorage.getItem("userId");
   const [fav, setFav] = useState([]);
 
@@ -43,30 +43,33 @@ const Favorites = ({ setPage }) => {
   } 
 
   return (
-
     <section>
-      <NavBar/>
-      {/* <h1>Favoritos</h1>
-      <div>
-        {fav?.map((favorite) => (
-          <Card product={favorite} key={favorite.id} setPage={setPage} />
-          ))}
-      </div> */}
-      <DndContext 
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-      >
-        <h1>Favoritos</h1>
-        <SortableContext items={fav} strategy={verticalListSortingStrategy}>
-          {fav.map((favorite) => (
-          <Favorite favorite={favorite} key={favorite.id} />
-          ))}
-        </SortableContext>
-
-      </DndContext>
-
-      <Footer/>
-
+      <NavBar />
+      <section className={styles.cont}>
+        <MiPerfilNav />
+        <div className={styles.sectionFav}>
+          <h1>Favoritos</h1>
+          <div className={styles.favorites}>
+            {!fav &&
+              <p>No tienes ningun favorito todavía</p>
+            }
+            <DndContext
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext
+                items={fav}
+                strategy={verticalListSortingStrategy}
+              >
+                {fav.map((favorite) => (
+                  <Favorite favorite={favorite} key={favorite.id} />
+                ))}
+              </SortableContext>
+            </DndContext>
+          </div>
+        </div>
+      </section>
+      <Footer />
     </section>
   );
 };

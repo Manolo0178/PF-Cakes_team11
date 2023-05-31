@@ -8,7 +8,7 @@ import axios from "axios"
 
 
 
-function Card({ product, setPage }) {
+function Card({ product, favorite }) {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const { name, image, description, price, id } = product;
@@ -25,7 +25,9 @@ function Card({ product, setPage }) {
         });
       });
     };
-    searchFav();
+    if (token) {
+      searchFav();
+    }
   }, []);
 
   //************ Favorites **************/
@@ -52,12 +54,13 @@ function Card({ product, setPage }) {
 
   return (
     <div className={styles.cont}>
-      {token && isFav ? (
+      {token && !favorite && isFav ? (
         <button className={styles.fav} onClick={handleFavorite}>
           <AiFillHeart className={styles.favIcon} />
         </button>
       ) : (
-        token && (
+        token &&
+        !favorite && (
           <button className={styles.fav} onClick={handleFavorite}>
             <AiOutlineHeart className={styles.favIconWhite} />
           </button>

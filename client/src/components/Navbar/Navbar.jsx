@@ -5,8 +5,8 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { MdOutlineLocalGroceryStore } from 'react-icons/md';
-// import { useNavigate } from 'react-router-dom';
-// import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { useSelector } from 'react-redux';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { useDispatch } from 'react-redux';
@@ -16,53 +16,65 @@ import styles from './Navbar.module.css';
 import Cart from '../Cart/Cart';
 
 function NavBar() {
-  // const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
   const storedToken = localStorage.getItem('token');
+  const id = localStorage.getItem("userId");
   const [cartVisible, setCartVisible] = useState(false);
   const cartItems = useSelector((state) => state.cartItems);
   const cartItemCount = cartItems.length;
-  const cartTotal = calculateTotal();
-  const dispatch = useDispatch()
-  const userData = useSelector((state) => state.userData);
-  
-  useEffect(() => {
-    if (storedToken) {
-      dispatch(getUserData());
-    }
-  },[dispatch, storedToken])
+  const { userData } = useSelector((state) => state);
 
+
+  useEffect(() => {
+    if (!Object.keys(userData).length) {
+      dispatch(getUserData(storedToken, id));
+    }
+  },[dispatch, userData])
 
   const toggleCart = () => {
     setCartVisible((prevVisible) => !prevVisible);
   };
 
-  // const logoutButton = () => {
-  //   Swal.fire({
-  //     title: '¿Estás seguro de querer salir?',
-  //     icon: 'question',
-  //     confirmButtonText: 'Ok',
-  //     showCancelButton: true,
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       localStorage.removeItem('token');
-  //       navigate('/home');
-  //     }
-  //   });
-  // };
+  const calculateTotal = () => {
+    if (cartItems.length) {
+      return cartItems.reduce((accumulator, item) => {
+        if (typeof item.price === "number") {
+          return accumulator + item.price * item.orderItem.quantity;
+        }
+        return accumulator;
+      }, 0);
+    }
+    return 0
+  };
 
-  function calculateTotal() {
-    return cartItems.reduce((accumulator, item) => {
-      if (typeof item.price === 'number') {
-        return accumulator + item.price * item.quantity;
+  const total = calculateTotal()
+
+
+
+
+  const logoutButton = (e) => {
+    e.preventDefault()
+    Swal.fire({
+      title: '¿Estás seguro de querer salir?',
+      icon: 'question',
+      confirmButtonText: 'Ok',
+      showCancelButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('id');
+        navigate('/home');
+
       }
-      return accumulator;
-    }, 0);
-  }
+    });
+  };
+
 
   return (
     <Navbar expand="lg" className={styles.navBarCont}>
       <Container className={styles.cont}>
-        <Navbar.Brand as={Link} to="/home" className={styles.logoCont}>
+        <Navbar.Brand as={Link} to="/" className={styles.logoCont}>
           <img
             className="navbar-brand"
             src="https://github.com/Manolo0178/PF-Cakes_team11/raw/main/cake.png"
@@ -85,30 +97,32 @@ function NavBar() {
             <Nav.Link as={Link} to="/about" className={styles.link}>
               Sobre Nosotros
             </Nav.Link>
-            <Nav.Link as={Link} to="/create" className={styles.link}>
+            { userData.role && userData.role === "admin" ?
+              <Nav.Link as={Link} to="/create" className={styles.link}>
               Crear Postre
-            </Nav.Link>
+            </Nav.Link> : null
+            }
+            {/* <Nav.Link as={Link} to="/create" className={styles.link}>
+              Crear Postre
+            </Nav.Link> */}
             {storedToken ? (
-              <Nav.Link as={Link} to="/favoritos" className={styles.link} style={{display:'flex'}}>
-                <div className={styles.imgCont}>
-                  <img src={userData.image} alt="" />
-                </div>
+              <Nav.Link
+                as={Link}
+                to="/favoritos"
+                className={styles.link}
+                style={{ display: "flex" }}
+              >
+                <div>
+                  <div className={styles.imgCont}>
+                    <img src={userData.image} alt="" />
+                  </div>
                   {userData.name}
+                </div>
+                <div>
+                  <button onClick={(e) => logoutButton(e)}>Salir</button>
+                </div>
               </Nav.Link>
             ) : (
-              // <NavDropdown title="Perfil" id="basic-nav-dropdown">
-              //   <NavDropdown>
-              //     <img src={userData.image} alt="imagen del usuario" />
-              //   </NavDropdown>
-              //   <NavDropdown.Item>
-              //     <Link to="/profile">{ userData.name }</Link>
-              //   </NavDropdown.Item>
-              //   <NavDropdown.Item>
-              //     <button className={styles.logoutButton} onClick={logoutButton}>
-              //       Salir
-              //     </button>
-              //   </NavDropdown.Item>
-              // </NavDropdown>
               <Nav.Link as={Link} to="/login" className={styles.link}>
                 Ingresá
               </Nav.Link>
@@ -135,7 +149,7 @@ function NavBar() {
                       </li>
                     ))}
                   </ul>
-                  <h5 className={styles.h5}>Total: ${cartTotal}</h5>
+                  <h5 className={styles.h5}>Total: ${total}</h5>
                 </div>
               }
             >
@@ -149,7 +163,11 @@ function NavBar() {
           </Nav>
         </Navbar.Collapse>
       </Container>
-      <Cart isOpen={cartVisible} toggleCart={toggleCart} />
+      <Cart
+        isOpen={cartVisible}
+        toggleCart={toggleCart}
+        total={total}
+      />
     </Navbar>
   );
 }
