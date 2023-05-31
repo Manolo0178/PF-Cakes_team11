@@ -118,3 +118,10 @@
     display: flex;
     justify-content: flex-end;
 }
+.modify{
+    color: rgb(104, 100, 100);
+}
+.modify:hover{
+    color: black;
+    transform: scale(1.2);
+}

@@ -24,25 +24,25 @@ addressRouter.post('/:idUser', async (req, res) => {
   }
 });
  
-  addressRouter.put('/:idAddress', async (req, res) => {
-
+  addressRouter.put("/modify/:idAddress", async (req, res) => {
     try {
-      const { idAddress } = req.params
-      const { street, postalCode, city, province, number, telephoneContact } = req.body
-  
-      await Address.update(
-        {street, postalCode, city, province, number, telephoneContact },
-        { where: { id: idAddress } }
-      )
-      
-      res.status(200).json({message: ' direccion actualizada correctamente '})
+      const { idAddress } = req.params;
+      const { street, postalCode, city, province, number, telephoneContact } =
+        req.body;
 
+      await Address.update(
+        { street, postalCode, city, province, number, telephoneContact },
+        { where: { id: idAddress } }
+      );
+
+      res
+        .status(200)
+        .json({ message: " direccion actualizada correctamente " });
     } catch (error) {
       console.log(error.message);
-      res.status(500).json({message: error.message})
+      res.status(500).json({ message: error.message });
     }
-
-  })
+  });
 
 // addressRouter.get("/", async(req, res) => {
 //   try {
@@ -65,20 +65,38 @@ addressRouter.post('/:idUser', async (req, res) => {
 addressRouter.get("/:idUser", async (req, res) => {
   const { idUser } = req.params
   try {
-    const user = await User.findOne(
-      {
-        where: { id: idUser},
-        include: [
-          {
-            model: Address,
-            attributes: ['street', 'postalCode', 'city', 'province', 'number', 'telephoneContact' ],
-            through: { attributes: ["userId", "addressId"] },
-          },
-        ],
-        attributes: {
-          exclude: ['password','name','lastName','image','email', 'contact', 'role', 'created', 'deleted'],
+    const user = await User.findOne({
+      where: { id: idUser },
+      include: [
+        {
+          model: Address,
+          attributes: [
+            "street",
+            "postalCode",
+            "city",
+            "province",
+            "number",
+            "telephoneContact",
+            "id",
+          ],
+          through: { attributes: ["userId", "addressId"] },
+          order: [["id", "ASC"]],
         },
-      })
+      ],
+      attributes: {
+        exclude: [
+          "password",
+          "name",
+          "lastName",
+          "image",
+          "email",
+          "contact",
+          "role",
+          "created",
+          "deleted",
+        ],
+      },
+    });
 
     res.json(user)
   } catch (error) {

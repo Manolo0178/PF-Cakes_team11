@@ -36,10 +36,9 @@
     transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 1s;
-    color: #fff;
+    color: #bfbdbd;
     font-size: 1.5rem;
 }
-
 .imgCont:hover .imageChange {
     opacity: 1;
 }
@@ -55,8 +54,14 @@
     flex-direction: column;
     gap: 20px;
     align-items: flex-start;
-    justify-content: center;
-    
+    justify-content: center;    
+}
+.navLinks {
+    text-decoration: none;
+    color:  black;
+}
+.navLinks:hover{
+    font-weight: 600;
 }
 .links{
     color: black;
@@ -66,4 +71,7 @@
     padding: 0;
     background-color: transparent;
     border: none;
+}
+.button:hover {
+    font-weight: 600;
 }

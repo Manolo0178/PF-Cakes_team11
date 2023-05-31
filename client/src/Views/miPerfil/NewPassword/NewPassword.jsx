@@ -78,7 +78,7 @@ const NewPassword = () => {
                 })
                 .then((result) => {
                     if (result.isConfirmed) {
-                        navigate('/profile')
+                        navigate('/misDatos')
                     }
                 })
             } catch (error) {
