@@ -37,6 +37,11 @@ const CheckOutForm = ({ total }) => {
         });
 
         console.log(data);
+        if(data.message === 'Successful Payment')
+        {
+          console.log(true)
+        }
+      
 
         elements.getElement(CardElement).clear();
 

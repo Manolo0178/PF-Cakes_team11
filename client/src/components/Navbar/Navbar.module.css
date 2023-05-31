@@ -27,10 +27,15 @@
   border-radius: 50%;
   border: 1px solid #fff;
   overflow: hidden;
+  position: relative;
 }
 .imgCont img{
+  position: absolute;
   object-fit: cover;
+  height: 100%;
   width: 100%;
+  top: 0;
+  left: 0;
 }
 
 .cartItemCount {
