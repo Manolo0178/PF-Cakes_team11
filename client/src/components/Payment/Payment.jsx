@@ -4,7 +4,7 @@ import { Elements, CardElement, useStripe, useElements } from '@stripe/react-str
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import styles from '../../components/Payment/payment.module.css';
+import styles from './payment.module.css';
 import { emptyCart } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
 
