@@ -27,8 +27,6 @@ import MisDomicilios from './Views/MisDomicilios/MisDomicilios';
 
 function App() {
 
-  // const storedToken = localStorage.getItem("token");
-
   return (
     <div className="App">
       <Routes>
@@ -42,15 +40,19 @@ function App() {
 
         <Route path="/payment/:total" element={<Payment/>} />
         <Route path="/home/:id" element={<Detail />} />
+        
+        <Route path="/payment" element={<Payment/>} />
+        <Route path='/collaborators' element= { <Collaborators/> } />
         <Route path="/address" element={<Domicilio />} />
-
         <Route path="/profile/newPassword" element={<NewPassword />} />
         <Route path="/login/enviarMail" element={<EnviarEmail />} />
         <Route path="/login/enviarMail/newPassword" element={<CamPassword />} />
         <Route path="/favoritos" element={<Favorites />} />
         <Route path="/misCompras" element={<MisCompras />} />
         <Route path="/misDatos" element={<MisDatos />} />
+
         <Route path="/misDomicilios" element={<MisDomicilios />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

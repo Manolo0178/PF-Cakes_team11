@@ -9,7 +9,7 @@ let userRouter = require("./userRouter/userRouter.js")
 let addressRouter = require("./addressesRouter/addressRouter.js")
 let paymentRouter = require("./payments/paymentRouter.js")
 let favoritosRouter = require('./productDessert/favoritos.js')
-
+let shopsRouter = require("./shopsRouter/shopsRouter.js")
 
 const router = Router();
 
@@ -23,5 +23,6 @@ router.use("/user", userRouter);
 router.use("/Address",addressRouter);
 router.use("/api", paymentRouter);
 router.use('/favoritos', favoritosRouter);
+router.use('/shops', shopsRouter);
 
 module.exports = router;

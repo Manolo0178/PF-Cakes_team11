@@ -11,6 +11,8 @@ const upload = multer({ dest: "uploads/" });
 const enviarMail = require("./nodeMailer")
 const forgotPassword = require('./forgotPassword')
 
+// validate jwt
+
 
 const cloudinary = require("cloudinary").v2;
 cloudinary.config({

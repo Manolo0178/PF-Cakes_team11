@@ -2,8 +2,8 @@ import axios from "axios"
 
 
 
-const storedToken = localStorage.getItem("token");
-const id = localStorage.getItem("userId");
+// const storedToken = localStorage.getItem("token");
+// const id = localStorage.getItem("userId");
 
 
  
@@ -24,8 +24,11 @@ export const FILTER_PRODUCTS = "FILTER_PRODUCTS";
 /********************************** */
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
-export const INCREASE_QUANTITY = "INCREASE_QUANTITY";
+export const INCREASE_QUANTITY_SUCCESS = "INCREASE_QUANTITY_SUCCESS";
 export const DECREASE_QUANTITY  = "DECREASE_QUANTITY ";
+export const EMPTY_CART = "EMPTY_CART";
+export const GET_CART = "GET_CART";
+export const ADD_TO_CART_SUCCESS = "ADD_TO_CART_SUCCESS";
 /************************************************ */
 
 export const CREATE_USER = "CREATE_USER";
@@ -37,6 +40,7 @@ export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const GET_USER_DATA = "GET_USER_DATA";
 export const GET_USER_ADDRESS = "GET_USER_ADDRESS";
 export const GET_USER_SHOP = "GET_USER_SHOP";
+export const POST_SHOP = "POST_SHOP";
 
 
 
@@ -95,7 +99,8 @@ export function orderProducts(value){
 export function getDessert(){
     return (dispatch) => {
       axios.get("http://localhost:3001/desserts")
-      .then((response) => {dispatch({type: GET_DESSERT, payload: response.data})})
+        .then((response) => { dispatch({ type: GET_DESSERT, payload: response.data }) })
+        
     }
 
 }
@@ -142,53 +147,63 @@ export const filterProducts = (filter) => {
 }
 
 //Agregar productos al carrito
-export const addToCart = (product) => {
-  return (dispatch) => {
-    dispatch({
-      type: ADD_TO_CART,
-      payload: product,
-    });
-  
+export const addToCart = (id, userId) => {
+  return async (dispatch) => {
+      const response = await axios.post(
+        `http://localhost:3001/carts/${userId}/${id}`
+      );
+      dispatch({ type: ADD_TO_CART_SUCCESS});
   };
 };
+
+export function getCart(userId) {
+         return async (dispatch) => {
+           await axios
+             .get(`http://localhost:3001/carts/${userId}`)
+             .then((response) => {
+               if (response.data) {
+                 dispatch({
+                   type: GET_CART,
+                   payload: response.data.products,
+                 });
+               }
+             });
+         };
+       }
 
 //Eliminar productos del carrito
-export const removeFromCart = (itemId) => {
-  return {
-    type: REMOVE_FROM_CART,
-    payload: itemId,
-  };
-};
-export const increaseQuantity = (itemId) => {
-  return {
-    type: INCREASE_QUANTITY,
-    payload: {
-      itemId: itemId,
-    },
+// export const removeFromCart = async(itemId,userId) => {
+//   await axios.delete(`http://localhost:3001/carts/${userId}/${itemId}`)
+//   return await getCart(userId);
+  
+// };
+export const removeFromCart = (id, userId) => {
+  return async (dispatch) => {
+    const response = await axios.delete(
+      `http://localhost:3001/carts/${userId}/${id}`
+    );
+    dispatch({ type: REMOVE_FROM_CART });
   };
 };
 
 
-export const decreaseQuantity = (itemId) => {
-  return {
-    type: DECREASE_QUANTITY,
-    payload: {
-      itemId: itemId,
-    },
+
+export const increaseQuantity = (itemId, userId, quantity) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:3001/carts/${userId}/${itemId}`,
+        { quantity: quantity }
+      );
+      console.log(response);
+      dispatch({ type: "INCREASE_QUANTITY_SUCCESS" });
+    } catch (error) {
+      console.error(error);
+      dispatch({ type: "INCREASE_QUANTITY_FAILURE", error: error.message });
+    }
   };
 };
-// export const postUser = (form) => {
-//   return async (dispatch) => {
-//     let response = await axios.post("http://localhost:3001/user/create", form);
-//     let formData = await response.data;
-//     if (formData.length > 0) {
-//       dispatch({
-//         type: CREATE_USER,
-//         payload: formData,
-//       });
-//     }
-//   }
-// }
+
 
 
 //******** Get all reviews **********/
@@ -205,10 +220,16 @@ export function getAllReviews() {
   };
 }
 
+export const emptyCart = () => {
+  return {
+    type: EMPTY_CART
+  };
+};
+
 //*********** Get User Data **************/
-export function getUserData() {
+export function getUserData(token, id) {
   return async (dispatch) => {
-    if (storedToken && id) {
+    if (token && id) {
       await axios.get(`http://localhost:3001/user/${id}`)
         .then((response) => {
           dispatch({
@@ -220,17 +241,42 @@ export function getUserData() {
     }
   }
 }
-export function getUserAdress() {
+export function getUserAdress(storedToken, id) {
+         return async (dispatch) => {
+           if (storedToken) {
+             await axios
+               .get(`http://localhost:3001/Address/${id}`)
+               .then((response) => {
+                 dispatch({
+                   type: GET_USER_ADDRESS,
+                   payload: response.data.addresses,
+                 });
+               });
+           }
+         };
+       }
+
+
+
+//************ Get Shops *************/
+
+export function getShops(idUser) {
+         return async (dispatch) => {
+           await axios
+             .get(`http://localhost:3001/shop/${idUser}`)
+             .then((response) => {
+               dispatch({
+                 type: GET_USER_SHOP,
+                 payload: response.data,
+               });
+             });
+         };
+       }
+export const postShop = (id, userId) => {
   return async (dispatch) => {
-    if (storedToken) {
-      await axios
-        .get(`http://localhost:3001/Address/${id}`)
-        .then((response) => {
-          dispatch({
-            type: GET_USER_ADDRESS,
-            payload: response.data.addresses,
-          });
-        });
-    }
+    const response = await axios.post(
+      `http://localhost:3001/carts/${userId}/${id}`
+    );
+    dispatch({ type: POST_SHOP });
   };
-}
+};

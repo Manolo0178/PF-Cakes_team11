@@ -13,10 +13,13 @@ cartRouter.get('/:userId', async (req, res) => {
       include: [
         {
           model: Product,
+          where: {
+            deleted:false,
+          },
           through: {
             attributes: ['quantity'],
           },
-          attributes: { exclude: ['summary', "image", "description"] }
+          attributes: { exclude: ['summary', "description"] }
         },
         {
           model: User,
@@ -25,7 +28,6 @@ cartRouter.get('/:userId', async (req, res) => {
         },
       ],
     });
-   
     res.json(cart);
   } catch (error) {
     console.log(error.message);
@@ -83,7 +85,10 @@ cartRouter.post('/:userId/:productId', async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
-    
+    if (product.deleted === true) {
+      product.deleted = false
+      await product.save()
+    }
     await cart.addProduct(product, { through: { quantity } });
     
     res.json({ message: 'Product added to cart' });

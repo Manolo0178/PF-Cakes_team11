@@ -25,6 +25,7 @@ import { changeDetails, addToCart,getAllReviews } from "../../redux/actions";
 
 
 export default function Detail() {
+  const userId = localStorage.getItem("userId");
   const myProduct = useSelector((state) => state.idProduct);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,9 +48,10 @@ export default function Detail() {
 
 
 
-  const handleAddToCart = (item) => {
-    dispatch(addToCart(item));
+  const handleAddToCart = () => {
+    dispatch(addToCart( id, userId));
     alert("El producto fue agregado al carrito");
+    window.location.reload(true)
   };
 
   useEffect(() => {
@@ -137,7 +139,7 @@ export default function Detail() {
         <section className={styles.productCont}>
           <div className={styles.imageCont}>
             <img className={styles.image} src={myProduct.image} alt="dessert" />
-            <input type="file" name="image" onChange={changeImage}/>
+            <input type="file" name="image" onChange={changeImage} />
             <HiPencilAlt className={styles.imageButton} />
           </div>
           <div className={styles.textCont}>
@@ -170,6 +172,11 @@ export default function Detail() {
             <div className={styles.buttonCont}>
               <Button
                 variant="primary"
+              >
+                Comprar
+              </Button>{" "}
+              <Button
+                variant="primary"
                 onClick={() => handleAddToCart(myProduct)}
               >
                 Agregar al carrito
@@ -196,20 +203,20 @@ export default function Detail() {
 
       <div>
         <h2>Valoración del producto</h2>
-        {reviewXProducts.length ? 
-        (<div className={styles.valoration}>
-          <p>{(count/reviewXProducts.length).toFixed(1)}</p>
-          <AiFillStar className={styles.star}/>
-        </div>) : 
-        (<div>
-          <h4>Todavia no hay valoración</h4>
-        </div>)
-        }
+        {reviewXProducts.length ? (
+          <div className={styles.valoration}>
+            <p>{(count / reviewXProducts.length).toFixed(1)}</p>
+            <AiFillStar className={styles.star} />
+          </div>
+        ) : (
+          <div>
+            <h4>Todavia no hay valoración</h4>
+          </div>
+        )}
       </div>
-      <Qualification handlerStar ={handlerStar}/>
-      <Comment star={star}/>
-      <Footer/>
-
+      <Qualification handlerStar={handlerStar} />
+      <Comment star={star} />
+      <Footer />
     </div>
   );
 }

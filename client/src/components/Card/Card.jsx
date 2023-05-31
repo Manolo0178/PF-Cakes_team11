@@ -25,7 +25,9 @@ function Card({ product, setPage }) {
         });
       });
     };
-    searchFav();
+    if (token) {
+      searchFav();
+    }
   }, []);
 
   //************ Favorites **************/
