@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./MisDomicilios.module.css";
 import axios from 'axios';
 import Swal from "sweetalert2";
@@ -9,24 +9,38 @@ import { BiPencil } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { getUserAdress } from '../../redux/actions';
+import { getUserAdress } from "../../redux/actions";
 import { useDispatch, useSelector } from 'react-redux';
 import MiPerfilNav from "../miPerfil/MiPerfilNav/MiPerfilNav"
+import ModifyAddress from '../../components/ModifyAddress/ModifyAddress';
+import { orderBy } from "lodash";
 
 const MisDomicilios = () => {
   const dispatch = useDispatch()
   const storedToken = localStorage.getItem("token");
   const id = localStorage.getItem("userId");
-  const domicilios = useSelector((state) => state.userAddress);
+  const addressState = useSelector((state) => state.orderAddress);
 
-    let dom = {};
+  const domicilios = orderBy(addressState, "UserAddress.addressId", "asc"); 
+
+
+  const [visible, setVisible] = useState(false)
+  const [addressId, setAddressId] = useState(0)
+  console.log(addressId);
+  const [form, setForm] = useState({
+    street: "",
+    postalCode: "",
+    province: "",
+    city: "",
+    telephoneContact: "",
+    number: "",
+  });
 
     useEffect(() => {
       if (storedToken) {
         dispatch(getUserAdress(storedToken, id));
-        
       }
-    }, [dispatch, storedToken]);
+    }, [dispatch, storedToken, visible]);
 
 //**************** Adress delete ****************/
   const handleDelete = async (e, idAddress) => {
@@ -48,40 +62,29 @@ const MisDomicilios = () => {
   };
   //******************************** */
 
-  //*************** adress change ***************/
-  const handleChangeDom = async (idAddress) => {
-    if (dom.street) {
-      const prompts = [
-        prompt("¿Qué calle desea colocarle?", `${dom.street}`),
-        prompt("¿Qué código postal desea colocarle?", `${dom.postalCode}`),
-        prompt("¿Qué ciudad desea colocarle?", `${dom.city}`),
-        prompt("¿Qué provincia desea colocarle?", `${dom.province}`),
-        prompt("¿Qué número desea colocarle?", `${dom.number}`),
-        prompt("¿Qué teléfono desea colocarle?", `${dom.telephoneContact}`),
-      ];
+  //********** New Form Change Adress ************/
+  const handleChange = (event) => {
+    const property = event.target.name;
+    const value = event.target.value;
 
-      const values = await Promise.all(prompts);
+    setForm({ ...form, [property]: value });
+  };
 
-      const updatedForm = {
-        street: values[0] || dom.street,
-        postalCode: values[1] || dom.postalCode,
-        city: values[2] || dom.city,
-        province: values[3] || dom.province,
-        number: values[4] || dom.number,
-        telephoneContact: values[5] || dom.telephoneContact,
-      };
-
-      dom = { ...updatedForm };
-      await axios
-        .put(`http://localhost:3001/Address/${idAddress}`, dom)
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (addressId) {
+      await axios.put(`http://localhost:3001/Address/modify/${addressId}`, form)
         .then((response) => {
           if (response) {
-            window.location.reload(true);
-          }
-        });
+          setVisible(false)
+        }
+      })
     }
-  };
-  //******************************** */
+  }
+
+  const handleCancel = () => {
+    setVisible(false)
+  }
 
   return (
     <div>
@@ -124,16 +127,16 @@ const MisDomicilios = () => {
                       <div>
                         <button className={styles.button}>
                           <BiPencil
-                            onClick={(e) => {
-                              if (!dom.length) {
-                                dom = { ...domicilio };
-                              }
-                              handleChangeDom(domicilio.UserAddress.addressId);
+                            className={styles.modify}
+                            onClick={() => {
+                              setAddressId(domicilio.UserAddress.addressId);
+                              if (!visible) setVisible(true);
                             }}
                           />
                         </button>
                         <button className={styles.button}>
                           <MdDelete
+                            className={styles.modify}
                             onClick={(e) =>
                               handleDelete(e, domicilio.UserAddress.addressId)
                             }
@@ -154,6 +157,13 @@ const MisDomicilios = () => {
           </section>
         </div>
       </section>
+      {visible && (
+        <ModifyAddress
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          handleCancel={handleCancel}
+        />
+      )}
       <Footer />
     </div>
   );

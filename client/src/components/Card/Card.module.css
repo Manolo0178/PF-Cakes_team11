@@ -10,6 +10,11 @@
     background-color: pink;
     border-radius: 3px;
 }
+.cont:hover{
+    box-shadow: 7px 4px 30px -20px rgba(0, 0, 0, 0.96);
+        -webkit-box-shadow: 7px 4px 30px -20px rgba(0, 0, 0, 0.96);
+        -moz-box-shadow: 7px 4px 30px -20px rgba(0, 0, 0, 0.96);
+}
 .cardCont{
     width: 100%;
     max-width: 320px;

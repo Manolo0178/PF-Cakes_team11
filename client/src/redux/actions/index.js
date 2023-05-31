@@ -36,6 +36,7 @@ export const CREATE_USER = "CREATE_USER";
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 
 
+
 //******** Profile ***********/
 export const GET_USER_DATA = "GET_USER_DATA";
 export const GET_USER_ADDRESS = "GET_USER_ADDRESS";
@@ -256,7 +257,7 @@ export function getUserAdress(storedToken, id) {
            if (storedToken) {
              await axios
                .get(`http://localhost:3001/Address/${id}`)
-               .then((response) => {
+               .then((response) => {                 
                  dispatch({
                    type: GET_USER_ADDRESS,
                    payload: response.data.addresses,

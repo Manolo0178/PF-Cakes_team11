@@ -8,7 +8,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserData } from "../../../redux/actions/index";
-
+import Spinner from 'react-bootstrap/Spinner';
 
 const MiPerfilNav = () => {
   const storedToken = localStorage.getItem("token");
@@ -76,17 +76,31 @@ const MiPerfilNav = () => {
     <div className={styles.cont}>
       <div>
         <div className={styles.imgCont}>
-          <img src={image} alt="imagen de perfil" />
+          {image ? (
+            <img src={image} alt="imagen de perfil" />
+          ) : (
+            <Spinner animation="border" role="status" style={{position:"absolute", top:"38%", left:"36%"}}>
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          )}
           <input type="file" name="image" onChange={handleChangeImage} />
           <HiPencilAlt className={styles.imageChange} />
         </div>
         {perfil.name && <h2>{userData.name}</h2>}
       </div>
       <div className={styles.navCont}>
-        <Link to="/misDomicilios">Domicilios</Link>
-        <Link to="/favoritos">Favoritos</Link>
-        <Link to="/misDatos">Mis Datos</Link>
-        <Link to="/misCompras">Mis Compras</Link>
+        <Link className={styles.navLinks} to="/misDomicilios">
+          Domicilios
+        </Link>
+        <Link className={styles.navLinks} to="/favoritos">
+          Favoritos
+        </Link>
+        <Link className={styles.navLinks} to="/misDatos">
+          Mis Datos
+        </Link>
+        <Link className={styles.navLinks} to="/misCompras">
+          Mis Compras
+        </Link>
         <button className={styles.button} onClick={logoutButton}>
           Salir
         </button>

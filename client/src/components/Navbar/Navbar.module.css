@@ -21,6 +21,10 @@
 .link:hover{
   font-weight: 600 !important;
 }
+.perfil{
+  display: flex;
+  gap: 5px;
+}
 .imgCont{
   width: 30px;
   height: 30px;

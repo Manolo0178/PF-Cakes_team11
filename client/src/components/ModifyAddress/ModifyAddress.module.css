@@ -1,36 +1,34 @@
-.cont{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 100vh;
-}
-.formCont{
+.modifyCont{
     background-color: #fea8bd;
     width: 450px;
-    padding: 20px 10px;
-    margin: 40px 0;
+    padding: 20px;
+    position: absolute;
+    top: 30%;
+    left: 40%;
     border-radius: 10px;
 }
-.form{
+.form {
     width: 80%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 40px;
 }
-.inputsCont{
+
+.inputsCont {
     margin-top: 20px;
     width: 90%;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-.labelCont{
+
+.labelCont {
     display: flex;
     gap: 10px;
     justify-content: flex-end;
 }
-.labelCont input{
+
+.labelCont input {
     height: 40px;
 }

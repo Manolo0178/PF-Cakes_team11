@@ -33,6 +33,7 @@ const initialState = {
   allReview: [],
   userData: {},
   userAddress: [],
+  orderAddress:[],
   shops:[]
 };
 
@@ -161,7 +162,8 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         userAddress: action.payload,
-      };
+        orderAddress: action.payload
+      }
     case GET_USER_SHOP:
       return {
         ...state,
