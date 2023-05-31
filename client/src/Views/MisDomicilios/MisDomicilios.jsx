@@ -23,10 +23,11 @@ const MisDomicilios = () => {
 
   const domicilios = orderBy(addressState, "UserAddress.addressId", "asc"); 
 
+  const [dom, setDom] = useState({})
 
   const [visible, setVisible] = useState(false)
   const [addressId, setAddressId] = useState(0)
-  console.log(addressId);
+
   const [form, setForm] = useState({
     street: "",
     postalCode: "",
@@ -129,6 +130,7 @@ const MisDomicilios = () => {
                           <BiPencil
                             className={styles.modify}
                             onClick={() => {
+                              setDom(domicilio);
                               setAddressId(domicilio.UserAddress.addressId);
                               if (!visible) setVisible(true);
                             }}
@@ -159,6 +161,7 @@ const MisDomicilios = () => {
       </section>
       {visible && (
         <ModifyAddress
+          dom={dom}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           handleCancel={handleCancel}

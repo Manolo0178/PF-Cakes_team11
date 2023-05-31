@@ -4,7 +4,8 @@ import styles from "./ModifyAddress.module.css"
 
 
 
-const ModifyAddress = ({ handleChange, handleSubmit, handleCancel }) => {
+const ModifyAddress = ({ handleChange, handleSubmit, handleCancel, dom }) => {
+
   return (
     <div className={styles.modifyCont}>
       <h3>Modificar domicilio</h3>
@@ -15,8 +16,8 @@ const ModifyAddress = ({ handleChange, handleSubmit, handleCancel }) => {
             <input
               type="text"
               name="street"
-              placeholder="Calle"
               onChange={handleChange}
+              placeholder={dom.street}
             />
           </div>
           <div className={styles.labelCont}>
@@ -24,7 +25,7 @@ const ModifyAddress = ({ handleChange, handleSubmit, handleCancel }) => {
             <input
               type="text"
               name="number"
-              placeholder="número"
+              placeholder={dom.number}
               onChange={handleChange}
             />
           </div>
@@ -33,7 +34,7 @@ const ModifyAddress = ({ handleChange, handleSubmit, handleCancel }) => {
             <input
               type="text"
               name="postalCode"
-              placeholder="código postal"
+              placeholder={dom.postalCode}
               onChange={handleChange}
             />
           </div>
@@ -42,7 +43,7 @@ const ModifyAddress = ({ handleChange, handleSubmit, handleCancel }) => {
             <input
               type="text"
               name="province"
-              placeholder="Provincia"
+              placeholder={dom.province}
               onChange={handleChange}
             />
           </div>
@@ -51,7 +52,7 @@ const ModifyAddress = ({ handleChange, handleSubmit, handleCancel }) => {
             <input
               type="text"
               name="city"
-              placeholder="Ciudad"
+              placeholder={dom.city}
               onChange={handleChange}
             />
           </div>
@@ -60,7 +61,7 @@ const ModifyAddress = ({ handleChange, handleSubmit, handleCancel }) => {
             <input
               type="text"
               name="telephoneContact"
-              placeholder="Telefono de contacto"
+              placeholder={dom.telephoneContact}
               onChange={handleChange}
             />
           </div>
