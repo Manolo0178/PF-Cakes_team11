@@ -5,6 +5,7 @@ import Josema from "../../assets/images/josema.jpeg";
 import Tomas from "../../assets/images/tomas.jpg";
 import Horacio from "../../assets/images/horacio.jpg";
 import Juan from "../../assets/images/juanHuertas.jpg";
+import Ramdon from "../../assets/images/imagenRamdon.png"
 
 import { Link } from 'react-router-dom';
 
@@ -17,7 +18,7 @@ const collaborators = [
     image: Josema,
   },
   {
-    name: 'Aylen Roxana Rondan',
+    name: 'Roxana Aylen Rondan',
     linkedin: 'https://www.linkedin.com/in/aylen-rondan-52a7a4198',
     age: 28,
     image: AylenRoxanaRondan,
@@ -32,11 +33,12 @@ const collaborators = [
     name: 'Carlos Aaron Benites Acevedo',
     linkedin: 'https://www.linkedin.com/in/carlos-aaron-benites-acevedo-8925b5263/',
     age: 25,
+    image: Ramdon
   },
   {
     name: 'Horacio Cano',
     linkedin: 'https://www.linkedin.com/in/horacio-cano-b19545243/',
-    age: 25,
+    age: 22,
     image: Horacio,
   },
   {
@@ -49,11 +51,13 @@ const collaborators = [
     name: 'Johann suasnabar',
     linkedin: 'https://www.linkedin.com/in/carlos-aaron-benites-acevedo-8925b5263/',
     age: 25,
+    image: Ramdon
   },
   {
     name: 'Manuel Gomez',
     linkedin: 'https://www.linkedin.com/in/carlos-aaron-benites-acevedo-8925b5263/',
     age: 25,
+    image: Ramdon
   },
   // Agrega más colaboradores si es necesario
 ];

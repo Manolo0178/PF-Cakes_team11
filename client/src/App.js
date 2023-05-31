@@ -14,21 +14,16 @@ import NewPassword from './Views/miPerfil/NewPassword/NewPassword';
 
 import Detail from "./components/Detail/detail"
 
-
+import Collaborators from './Views/Collaborators/Collaborators';
 import Domicilio from './Views/Domicilio/Domicilio';
 import EnviarEmail from './components/LoginForm/EnviarEmail/EnviarEmail';
 import CamPassword from './components/LoginForm/CamPassword/CamPassword';
 import NotFound from './Views/NotFound/NotFound';
-
-import Collaborators from './Views/Collaborators/Collaborators';
-
-import MisCompras from './Views/MisCompras/MisCompras';
+// import Favoritos from "./Views/Favorites/Favorites"
 import Favorites from './Views/Favorites/Favorites';
 import MisDatos from './Views/MisDatos/MisDatos';
+import MisCompras from './Views/MisCompras/MisCompras';
 import MisDomicilios from './Views/MisDomicilios/MisDomicilios';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import {getUserData} from "./redux/actions/index.js"
 
 
 function App() {
@@ -44,7 +39,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/create" element={<CreateDessert />} />
 
-        <Route path="/payment/:total" element={<Payment />} />
+        <Route path="/payment/:total" element={<Payment/>} />
         <Route path="/home/:id" element={<Detail />} />
         
         <Route path="/payment" element={<Payment/>} />

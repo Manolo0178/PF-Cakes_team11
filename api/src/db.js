@@ -58,7 +58,8 @@ Address.belongsToMany(User, { through: 'UserAddress' });
 Product.belongsToMany(User, { through: 'Favoritos' }); 
 User.belongsToMany(Product, { through: 'Favoritos' });
 
-
+Product.belongsToMany(User, { through: "Shop", as: "shopProducts" });
+User.belongsToMany(Product, { through: "Shop", as: "shopProducts" });
 // comentario de prueba
 
 

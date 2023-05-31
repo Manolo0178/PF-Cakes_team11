@@ -23,8 +23,8 @@ function NavBar() {
   const [cartVisible, setCartVisible] = useState(false);
   const cartItems = useSelector((state) => state.cartItems);
   const cartItemCount = cartItems.length;
-  const cartTotal = calculateTotal();
   const { userData } = useSelector((state) => state);
+
 
   useEffect(() => {
     if (!Object.keys(userData).length) {
@@ -36,6 +36,23 @@ function NavBar() {
     setCartVisible((prevVisible) => !prevVisible);
   };
 
+  const calculateTotal = () => {
+    if (cartItems.length) {
+      return cartItems.reduce((accumulator, item) => {
+        if (typeof item.price === "number") {
+          return accumulator + item.price * item.orderItem.quantity;
+        }
+        return accumulator;
+      }, 0);
+    }
+    return 0
+  };
+
+  const total = calculateTotal()
+
+
+
+
   const logoutButton = (e) => {
     e.preventDefault()
     Swal.fire({
@@ -46,19 +63,13 @@ function NavBar() {
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem('token');
+        localStorage.removeItem('id');
         navigate('/home');
+
       }
     });
   };
 
-  function calculateTotal() {
-    return cartItems.reduce((accumulator, item) => {
-      if (typeof item.price === 'number') {
-        return accumulator + item.price * item.quantity;
-      }
-      return accumulator;
-    }, 0);
-  }
 
   return (
     <Navbar expand="lg" className={styles.navBarCont}>
@@ -86,9 +97,14 @@ function NavBar() {
             <Nav.Link as={Link} to="/about" className={styles.link}>
               Sobre Nosotros
             </Nav.Link>
-            <Nav.Link as={Link} to="/create" className={styles.link}>
+            { userData.role && userData.role === "admin" ?
+              <Nav.Link as={Link} to="/create" className={styles.link}>
               Crear Postre
-            </Nav.Link>
+            </Nav.Link> : null
+            }
+            {/* <Nav.Link as={Link} to="/create" className={styles.link}>
+              Crear Postre
+            </Nav.Link> */}
             {storedToken ? (
               <Nav.Link
                 as={Link}
@@ -103,7 +119,7 @@ function NavBar() {
                   {userData.name}
                 </div>
                 <div>
-                  <button onClick={(e)=>logoutButton(e)}>Salir</button>
+                  <button onClick={(e) => logoutButton(e)}>Salir</button>
                 </div>
               </Nav.Link>
             ) : (
@@ -133,7 +149,7 @@ function NavBar() {
                       </li>
                     ))}
                   </ul>
-                  <h5 className={styles.h5}>Total: ${cartTotal}</h5>
+                  <h5 className={styles.h5}>Total: ${total}</h5>
                 </div>
               }
             >
@@ -147,7 +163,11 @@ function NavBar() {
           </Nav>
         </Navbar.Collapse>
       </Container>
-      <Cart isOpen={cartVisible} toggleCart={toggleCart} />
+      <Cart
+        isOpen={cartVisible}
+        toggleCart={toggleCart}
+        total={total}
+      />
     </Navbar>
   );
 }
