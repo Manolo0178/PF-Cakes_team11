@@ -282,10 +282,11 @@ export function getShops(idUser) {
              });
          };
        }
-export const postShop = (id, userId) => {
+export const postShop = (id, userId, cantidad, price) => {
   return async (dispatch) => {
+    const total = price * cantidad
     const response = await axios.post(
-      `http://localhost:3001/shops/${userId}/${id}`
+      `http://localhost:3001/shops/${userId}/${id}/${cantidad}/${total}`
     );
     dispatch({ type: POST_SHOP });
   };
