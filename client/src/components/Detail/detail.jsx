@@ -25,6 +25,7 @@ import { changeDetails, addToCart,getAllReviews } from "../../redux/actions";
 
 
 export default function Detail() {
+  const userId = localStorage.getItem("userId");
   const myProduct = useSelector((state) => state.idProduct);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,9 +48,10 @@ export default function Detail() {
 
 
 
-  const handleAddToCart = (item) => {
-    dispatch(addToCart(item));
+  const handleAddToCart = () => {
+    dispatch(addToCart( id, userId));
     alert("El producto fue agregado al carrito");
+    window.location.reload(true)
   };
 
   useEffect(() => {

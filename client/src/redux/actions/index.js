@@ -24,9 +24,11 @@ export const FILTER_PRODUCTS = "FILTER_PRODUCTS";
 /********************************** */
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
-export const INCREASE_QUANTITY = "INCREASE_QUANTITY";
+export const INCREASE_QUANTITY_SUCCESS = "INCREASE_QUANTITY_SUCCESS";
 export const DECREASE_QUANTITY  = "DECREASE_QUANTITY ";
 export const EMPTY_CART = "EMPTY_CART";
+export const GET_CART = "GET_CART";
+export const ADD_TO_CART_SUCCESS = "ADD_TO_CART_SUCCESS";
 /************************************************ */
 
 export const CREATE_USER = "CREATE_USER";
@@ -144,53 +146,63 @@ export const filterProducts = (filter) => {
 }
 
 //Agregar productos al carrito
-export const addToCart = (product) => {
-  return (dispatch) => {
-    dispatch({
-      type: ADD_TO_CART,
-      payload: product,
-    });
-  
+export const addToCart = (id, userId) => {
+  return async (dispatch) => {
+      const response = await axios.post(
+        `http://localhost:3001/carts/${userId}/${id}`
+      );
+      dispatch({ type: ADD_TO_CART_SUCCESS});
   };
 };
+
+export function getCart(userId) {
+         return async (dispatch) => {
+           await axios
+             .get(`http://localhost:3001/carts/${userId}`)
+             .then((response) => {
+               if (response) {
+                 dispatch({
+                   type: GET_CART,
+                   payload: response.data.products,
+                 });
+               }
+             });
+         };
+       }
 
 //Eliminar productos del carrito
-export const removeFromCart = (itemId) => {
-  return {
-    type: REMOVE_FROM_CART,
-    payload: itemId,
-  };
-};
-export const increaseQuantity = (itemId) => {
-  return {
-    type: INCREASE_QUANTITY,
-    payload: {
-      itemId: itemId,
-    },
+// export const removeFromCart = async(itemId,userId) => {
+//   await axios.delete(`http://localhost:3001/carts/${userId}/${itemId}`)
+//   return await getCart(userId);
+  
+// };
+export const removeFromCart = (id, userId) => {
+  return async (dispatch) => {
+    const response = await axios.delete(
+      `http://localhost:3001/carts/${userId}/${id}`
+    );
+    dispatch({ type: REMOVE_FROM_CART });
   };
 };
 
 
-export const decreaseQuantity = (itemId) => {
-  return {
-    type: DECREASE_QUANTITY,
-    payload: {
-      itemId: itemId,
-    },
+
+export const increaseQuantity = (itemId, userId, quantity) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:3001/carts/${userId}/${itemId}`,
+        { quantity: quantity }
+      );
+      console.log(response);
+      dispatch({ type: "INCREASE_QUANTITY_SUCCESS" });
+    } catch (error) {
+      console.error(error);
+      dispatch({ type: "INCREASE_QUANTITY_FAILURE", error: error.message });
+    }
   };
 };
-// export const postUser = (form) => {
-//   return async (dispatch) => {
-//     let response = await axios.post("http://localhost:3001/user/create", form);
-//     let formData = await response.data;
-//     if (formData.length > 0) {
-//       dispatch({
-//         type: CREATE_USER,
-//         payload: formData,
-//       });
-//     }
-//   }
-// }
+
 
 
 //******** Get all reviews **********/
