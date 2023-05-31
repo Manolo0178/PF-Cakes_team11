@@ -12,7 +12,7 @@ shopsRouter.post("/:idUser/:product", async (req, res) => {
         if (!user) {
             res.status(404).json({message: "usuario no encontrado"})
         }
-        const prod = await user.addProduct(userProduct,{throw:"Shop"})
+        const prod = await user.addShopProduct(userProduct);
         
         res.status(200).json(prod)
     } catch (error) {
@@ -31,7 +31,7 @@ shopsRouter.get("/:idUser", async(req, res) => {
         if (!user) {
         res.status(404).json({ message: "usuario no encontrado" });
         }
-        const prop = await user.getProducts()
+        const prop = await user.getShopProducts();
         if (!prop) {
             res.status(404).json({ message: "usuario no tiene compras" });
         }

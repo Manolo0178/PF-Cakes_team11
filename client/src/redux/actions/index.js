@@ -26,7 +26,7 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const INCREASE_QUANTITY_SUCCESS = "INCREASE_QUANTITY_SUCCESS";
 export const DECREASE_QUANTITY  = "DECREASE_QUANTITY ";
-export const EMPTY_CART = "EMPTY_CART";
+export const EMPTY_CART_SUCCESS = "EMPTY_CART_SUCCESS";
 export const GET_CART = "GET_CART";
 export const ADD_TO_CART_SUCCESS = "ADD_TO_CART_SUCCESS";
 /************************************************ */
@@ -220,9 +220,19 @@ export function getAllReviews() {
   };
 }
 
-export const emptyCart = () => {
-  return {
-    type: EMPTY_CART
+export const emptyCart = (userId) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/carts/reset/${userId}/user`
+      );
+      // Despachar acción después de la eliminación exitosa del carrito
+      dispatch({ type: "EMPTY_CART_SUCCESS" });
+    } catch (error) {
+      console.error(error);
+      // Despachar acción en caso de error
+      dispatch({ type: "EMPTY_CART_FAILURE", error: error.message });
+    }
   };
 };
 
@@ -263,7 +273,7 @@ export function getUserAdress(storedToken, id) {
 export function getShops(idUser) {
          return async (dispatch) => {
            await axios
-             .get(`http://localhost:3001/shop/${idUser}`)
+             .get(`http://localhost:3001/shops/${idUser}`)
              .then((response) => {
                dispatch({
                  type: GET_USER_SHOP,
@@ -275,7 +285,7 @@ export function getShops(idUser) {
 export const postShop = (id, userId) => {
   return async (dispatch) => {
     const response = await axios.post(
-      `http://localhost:3001/carts/${userId}/${id}`
+      `http://localhost:3001/shops/${userId}/${id}`
     );
     dispatch({ type: POST_SHOP });
   };

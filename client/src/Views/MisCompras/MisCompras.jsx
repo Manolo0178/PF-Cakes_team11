@@ -12,7 +12,7 @@ const MisCompras = () => {
   const idUser = localStorage.getItem("userId");
   const { shops } = useSelector(state => state)
   const dispatch = useDispatch()
-  
+  const favorite = true
   useEffect(() => {
     dispatch(getShops(idUser));
   }, [dispatch])
@@ -27,16 +27,17 @@ const MisCompras = () => {
         <div className={styles.comprasCont}>
           <h1>Historial de Compras</h1>
           <div>
-            {shops && shops?.map(product => (
-              <div>
-                <Card key={product.id}
-                 product={product}
-                />
+            {shops &&
+              shops?.map((product) => (
                 <div>
-                  
+                  <Card
+                    key={product.id}
+                    product={product}
+                    favorite={favorite}
+                  />
+                  <div>{product.Shop.createdAt}</div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </section>

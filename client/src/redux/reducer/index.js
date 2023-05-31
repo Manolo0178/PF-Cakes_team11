@@ -13,7 +13,7 @@ import {
   INCREASE_QUANTITY_SUCCESS,
   DECREASE_QUANTITY,
   GET_ALL_REVIEWS,
-  EMPTY_CART,
+  EMPTY_CART_SUCCESS,
   GET_CART,
   GET_USER_DATA,
   GET_USER_ADDRESS,
@@ -58,7 +58,7 @@ function rootReducer(state = initialState, action) {
         idProduct: [],
       };
 
-    case EMPTY_CART:
+    case EMPTY_CART_SUCCESS:
       return {
         ...state,
         cartItems: [],
@@ -166,11 +166,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         shops: action.payload,
-      }
+      };
     case POST_SHOP:
       return {
-        ...state
-      }
+        ...state,
+      };
     default:
       return state;
   }

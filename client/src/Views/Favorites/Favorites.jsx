@@ -15,7 +15,7 @@ import MiPerfilNav from "../miPerfil/MiPerfilNav/MiPerfilNav"
 import styles from "./Favorites.module.css"
 
 
-const Favorites = ({ setPage }) => {
+const Favorites = () => {
   const userId = localStorage.getItem("userId");
   const [fav, setFav] = useState([]);
 
@@ -50,6 +50,9 @@ const Favorites = ({ setPage }) => {
         <div className={styles.sectionFav}>
           <h1>Favoritos</h1>
           <div className={styles.favorites}>
+            {!fav &&
+              <p>No tienes ningun favorito todavía</p>
+            }
             <DndContext
               collisionDetection={closestCenter}
               onDragEnd={handleDragEnd}

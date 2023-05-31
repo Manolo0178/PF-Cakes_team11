@@ -5,18 +5,19 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import styles from './payment.module.css';
-import { emptyCart } from '../../redux/actions';
-import { useDispatch } from 'react-redux';
-
+import { getCart, emptyCart } from "../../redux/actions";
+import { useDispatch, useSelector } from 'react-redux';
+import { postShop } from '../../redux/actions';
 const stripePromise = loadStripe('pk_test_51NAMXNJW5R242vXYwgPwoEcVTUaSoulVuqOJ4ECoOpdvXB3CU7yIF5TQ5LAK7NpbByw5ItQUKVwJjmQsQiGxpQuz00KeK0Deyt');
 
 const CheckOutForm = ({ total }) => {
+  const userId = localStorage.getItem("userId");
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const {cartItems} = useSelector(state=>state)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -36,20 +37,21 @@ const CheckOutForm = ({ total }) => {
           amount: parseInt(total) * 100, // Convertir el monto total a centavos
         });
 
-        console.log(data);
         if(data.message === 'Successful Payment')
         {
-          console.log(true)
+          cartItems && cartItems?.map(prod => {
+            dispatch(postShop(prod.id, userId));
+
+          })
+          dispatch(emptyCart(userId));
         }
-      
 
         elements.getElement(CardElement).clear();
 
         // Mostrar el mensaje de alerta y redirigir al usuario a la página de inicio
         alert('Muchas gracias por su compra');
-        dispatch(emptyCart());
         setLoading(false);
-        navigate('/home'); // Ajusta la ruta de la página de inicio según corresponda
+        navigate('/home')
       } catch (error) {
         console.log(error);
         setLoading(false);
