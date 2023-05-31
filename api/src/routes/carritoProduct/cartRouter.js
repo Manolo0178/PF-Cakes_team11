@@ -1,10 +1,7 @@
+
+const { User, Address, Product, Cart, OrderItem } = require("../../db.js");
 const express = require("express");
 const cartRouter = express.Router();
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-const { Product, Cart } = require("../../db.js");
-
 
 cartRouter.get('/:userId', async (req, res) => {
     try {
@@ -28,12 +25,7 @@ cartRouter.get('/:userId', async (req, res) => {
 
         res.status(500).json({ message: error.message });
     }
-=======
-const { User, Address, Product, Cart } = require("../../db.js");
-=======
 
-const { User, Address, Product, Cart, OrderItem } = require("../../db.js");
->>>>>>> beadd4c922e10244cca3f2b3fd6adf89abe14026
 
 cartRouter.get('/:userId', async (req, res) => {
   try {
@@ -60,12 +52,12 @@ cartRouter.get('/:userId', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
->>>>>>> ebab74f34d182125449ffe6cec53a886a24ca03c
+
 });
 
 
 cartRouter.post('/:userId/:productId', async (req, res) => {
-<<<<<<< HEAD
+
     try {
 
         const { userId } = req.params;
@@ -91,7 +83,7 @@ cartRouter.post('/:userId/:productId', async (req, res) => {
     } catch (error) {
 
         res.status(500).json({ message: error.message });
-=======
+
   try {
     
     const {userId}= req.params;
@@ -103,10 +95,9 @@ cartRouter.post('/:userId/:productId', async (req, res) => {
     
     if (!cart) {
       cart = await Cart.create({ userId });
->>>>>>> ebab74f34d182125449ffe6cec53a886a24ca03c
+
     }
-<<<<<<< HEAD
-=======
+
     
     const product = await Product.findByPk(productId);
     
@@ -121,11 +112,13 @@ cartRouter.post('/:userId/:productId', async (req, res) => {
     
     res.status(500).json({ message: error.message });
   }
+}
 
->>>>>>> beadd4c922e10244cca3f2b3fd6adf89abe14026
 });
+
+
 cartRouter.delete('/:userId/:productId', async (req, res) => {
-<<<<<<< HEAD
+
     try {
         //se comento
         const userId = req.params.userId;
@@ -149,7 +142,7 @@ cartRouter.delete('/:userId/:productId', async (req, res) => {
     }
 });
 
-=======
+
   try {
     const userId = req.params.userId;
     const productId = req.params.productId;
@@ -178,7 +171,8 @@ cartRouter.delete('/:userId/:productId', async (req, res) => {
 });
 
     
->>>>>>> beadd4c922e10244cca3f2b3fd6adf89abe14026
+
+
 
 module.exports = cartRouter;
 

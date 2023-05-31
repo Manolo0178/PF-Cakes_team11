@@ -9,12 +9,11 @@ import { BsFillFileEarmarkArrowUpFill } from "react-icons/bs";
 import validation from "./Validation";
 
 
-
 export default function CreateDessert() {
   const dispatch = useDispatch();
 
   const desserts = useSelector((state) => state.dessert);
-
+ 
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -23,7 +22,7 @@ export default function CreateDessert() {
     summary:"",
     desserts: [],
   });
-
+  
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -40,7 +39,7 @@ export default function CreateDessert() {
       setForm({...form, desserts : [...form.desserts, value]})
     }
     setForm({ ...form, [property]: value });
-    setErrors(validation({ ...form, [property]: value }, errors))
+    setErrors(validation({...form,[property]:value},errors))
   }
 
   function handleDelete(value) {
@@ -57,7 +56,7 @@ export default function CreateDessert() {
   function handleSelect(e) {
     const selectedDessert = e.target.value;
     if (form.desserts.length < 2 && selectedDessert !== form.desserts) {
-
+      
       setForm({
         ...form,
         desserts: [...form.desserts, selectedDessert],
@@ -68,6 +67,9 @@ export default function CreateDessert() {
   /*******++ */
   const handleChangeImage = (event) => {
     const file = event.target.files[0];
+    if (!file) {
+      return;
+    }
 
     const image = new FileReader();
 
@@ -81,52 +83,6 @@ export default function CreateDessert() {
   /********* */
   function handleSubmit(e) {
     e.preventDefault();
-<<<<<<< HEAD
-<<<<<<< HEAD
-    const formData = new FormData();
-    formData.append("name", form.name);
-    formData.append("summary", form.summary);
-    formData.append("description", form.description);
-    formData.append("image", form.imageFile);
-    formData.append("price", form.price);
-    formData.append("desserts", JSON.stringify(form.desserts));
-    if (!errors.name && !errors.description && !errors.image && !errors.price && !errors.desserts) {
-=======
-  const formData = new FormData();
-  formData.append("name", form.name);
-  formData.append("summary", form.summary);
-  formData.append("description", form.description);
-  formData.append("image", form.imageFile);
-  formData.append("price", form.price);
-  formData.append("desserts", JSON.stringify(form.desserts));
-    if (!errors.name && !errors.description
-      && !errors.image && !errors.price && !errors.desserts) {
->>>>>>> ebab74f34d182125449ffe6cec53a886a24ca03c
-      dispatch(postDessert(form));
-      Swal.fire({
-        title: "Creaste un Postre",
-        icon: "success",
-        confirmButtonText: "Ok",
-<<<<<<< HEAD
-      });
-      resetForm();
-    }
-    Swal.fire({
-      title: "Completa todos los datos por favor",
-      icon: "error",
-      showConfirmButton: false,
-      timer: 1500
-    });
-=======
-      }).then((result) => {
-        if (result.isConfirmed) {
-          dispatch(postDessert(form));
-          resetForm();
-        }
-      })
-    }   
->>>>>>> ebab74f34d182125449ffe6cec53a886a24ca03c
-=======
     
     dispatch(postDessert(form));
       Swal.fire({
@@ -135,23 +91,14 @@ export default function CreateDessert() {
             confirmButtonText: "Ok",
           }).then((result) => {
               if (result.isConfirmed) {
-                // resetForm();
+                e.preventDefault()
                 window.location.reload(true);
         }
       })
      
->>>>>>> beadd4c922e10244cca3f2b3fd6adf89abe14026
   }
 
-  // const resetForm = () => {
-  //   setForm({
-  //     name: "",
-  //     description: "",
-  //     image: "",
-  //     price: "",
-  //     desserts: [],
-  //   });
-  // };
+
   return (
     <div className={style.cont}>
       <NavBar />
@@ -240,13 +187,9 @@ export default function CreateDessert() {
             <div className={style.desCont}>
               {form.desserts?.map((dessert, index) => (
                 <div key={index} className={style.des}>
-                  <p>{dessert}</p>
-                  <button
-                    className={style.botonX}
-                    onClick={() => handleDelete(dessert)}
-                  >
-                    X
-                  </button>
+                  <button type="button" onDoubleClick={() => handleDelete(dessert)}>
+                    {dessert}
+                    </button>
                 </div>
               ))}
             </div>

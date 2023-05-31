@@ -23,22 +23,14 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.18.2",
-<<<<<<< HEAD
-=======
     "jsonwebtoken": "^9.0.0",
->>>>>>> beadd4c922e10244cca3f2b3fd6adf89abe14026
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.2",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.3.5",
-<<<<<<< HEAD
-    "stripe": "^12.5.0",
-    "sweetalert2": "^11.7.5"
-=======
     "stripe": "^12.6.0"
->>>>>>> beadd4c922e10244cca3f2b3fd6adf89abe14026
   },
   "devDependencies": {
     "chai": "^4.2.0",
