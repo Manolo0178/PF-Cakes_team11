@@ -14,6 +14,7 @@ const MisDatos = () => {
   const dispatch = useDispatch();
   const perfil = useSelector((state) => state.userData);
 
+  console.log(perfil);
 
   useEffect(() => {
       if (storedToken && id) {
