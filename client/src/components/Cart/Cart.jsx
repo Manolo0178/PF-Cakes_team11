@@ -24,15 +24,22 @@ const Cart = ({ isOpen, toggleCart, total }) => {
 
 
   const handleRemoveItem = (itemId) => {
-    dispatch(removeFromCart(itemId, userId));
-    setRemovedItemId(itemId);
-    setShowAlert(true);
-    dispatch(getCart(userId))
-
-    if (cartItems.length === 1) {
-      dispatch(emptyCart());
-    }
+    dispatch(removeFromCart(itemId, userId))
+      .then(() => {
+        setRemovedItemId(itemId);
+        setShowAlert(true);
+        dispatch(getCart(userId));
+      })
+      .catch((error) => {
+        // Manejo de errores
+      });
   };
+
+  useEffect(() => {
+    if (token) {
+      dispatch(getCart(userId));
+    }
+  }, [dispatch, toggleCart]);
 
   const handleIncreaseQuantity = (itemId, quantity) => {
     const count = quantity+1

@@ -178,14 +178,16 @@ export function getCart(userId) {
   
 // };
 export const removeFromCart = (id, userId) => {
-  return async (dispatch) => {
-    const response = await axios.delete(
-      `http://localhost:3001/carts/${userId}/${id}`
-    );
-    dispatch({ type: REMOVE_FROM_CART });
+  return (dispatch) => {
+    return axios.delete(`http://localhost:3001/carts/${userId}/${id}`)
+      .then(() => {
+        dispatch({ type: REMOVE_FROM_CART });
+      })
+      .catch((error) => {
+        // Manejo de errores
+      });
   };
 };
-
 
 
 export const increaseQuantity = (itemId, userId, quantity) => {

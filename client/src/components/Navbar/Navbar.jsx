@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import { useSelector } from 'react-redux';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { useDispatch } from 'react-redux';
-import { getUserData } from '../../redux/actions';
+import { getUserData, emptyCart  } from '../../redux/actions';
 import styles from './Navbar.module.css';
 
 import Cart from '../Cart/Cart';
@@ -65,6 +65,8 @@ function NavBar() {
         localStorage.removeItem('token');
         localStorage.removeItem('id');
         navigate('/home');
+        dispatch(emptyCart());
+        window.location.reload();
 
       }
     });
