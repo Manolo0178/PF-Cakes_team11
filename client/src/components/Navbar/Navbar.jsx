@@ -97,9 +97,14 @@ function NavBar() {
             <Nav.Link as={Link} to="/about" className={styles.link}>
               Sobre Nosotros
             </Nav.Link>
-            <Nav.Link as={Link} to="/create" className={styles.link}>
+            { userData.role && userData.role === "admin" ?
+              <Nav.Link as={Link} to="/create" className={styles.link}>
               Crear Postre
-            </Nav.Link>
+            </Nav.Link> : null
+            }
+            {/* <Nav.Link as={Link} to="/create" className={styles.link}>
+              Crear Postre
+            </Nav.Link> */}
             {storedToken ? (
               <Nav.Link
                 as={Link}

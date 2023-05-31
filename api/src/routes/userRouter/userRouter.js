@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { Op } = require("sequelize");
 const { User, Address } = require("../../db");
-const { SECRET } = process.env
+const { SECRET, NM_EMAIL } = process.env
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 const enviarMail = require("./nodeMailer")
@@ -52,7 +52,7 @@ userRouter.post("/login", async (req, res) => {
 // RUTA CREAR USUARIO
 userRouter.post("/create", async (req, res) => {
   // Esta ruta es para crear un usuario
-  const { name, email, contact, lastName, password, googleId } = req.body;
+  const { name, email, contact, lastName, password, googleId, role } = req.body;
   try {
     const userVerification = await User.findOne({ where: { email } });
     if (userVerification) {
@@ -68,13 +68,19 @@ userRouter.post("/create", async (req, res) => {
       }
     } else {
 
-      let user = await User.create({ name, email, contact, lastName, password, googleId });
+        if(email === NM_EMAIL){
+          let user = await User.create({ name, email, contact, lastName, password, googleId, role })
+          const { password: userPassword, ...userWithoutPassword } = user.toJSON();
+          return res.json(userWithoutPassword)
+        } else {
+          let user = await User.create({ name, email, contact, lastName, password, googleId });
 
       const { password: userPassword, ...userWithoutPassword } = user.toJSON();
 
       enviarMail(email, name);
 
       res.status(201).json(userWithoutPassword);
+        }
     }
   } catch (error) {
     // console.log(error.message);
