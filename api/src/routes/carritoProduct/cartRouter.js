@@ -28,7 +28,6 @@ cartRouter.get('/:userId', async (req, res) => {
         },
       ],
     });
-   
     res.json(cart);
   } catch (error) {
     console.log(error.message);

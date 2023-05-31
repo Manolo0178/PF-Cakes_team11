@@ -40,6 +40,7 @@ export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
 export const GET_USER_DATA = "GET_USER_DATA";
 export const GET_USER_ADDRESS = "GET_USER_ADDRESS";
 export const GET_USER_SHOP = "GET_USER_SHOP";
+export const POST_SHOP = "POST_SHOP";
 
 
 
@@ -160,7 +161,7 @@ export function getCart(userId) {
            await axios
              .get(`http://localhost:3001/carts/${userId}`)
              .then((response) => {
-               if (response) {
+               if (response.data) {
                  dispatch({
                    type: GET_CART,
                    payload: response.data.products,
@@ -254,3 +255,28 @@ export function getUserAdress(storedToken, id) {
            }
          };
        }
+
+
+
+//************ Get Shops *************/
+
+export function getShops(idUser) {
+         return async (dispatch) => {
+           await axios
+             .get(`http://localhost:3001/shop/${idUser}`)
+             .then((response) => {
+               dispatch({
+                 type: GET_USER_SHOP,
+                 payload: response.data,
+               });
+             });
+         };
+       }
+export const postShop = (id, userId) => {
+  return async (dispatch) => {
+    const response = await axios.post(
+      `http://localhost:3001/carts/${userId}/${id}`
+    );
+    dispatch({ type: POST_SHOP });
+  };
+};

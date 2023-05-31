@@ -17,6 +17,8 @@ import {
   GET_CART,
   GET_USER_DATA,
   GET_USER_ADDRESS,
+  GET_USER_SHOP,
+  POST_SHOP,
 } from "../actions";
 
 const initialState = {
@@ -30,7 +32,8 @@ const initialState = {
   cartItems: [],
   allReview: [],
   userData: {},
-  userAddress:[]
+  userAddress: [],
+  shops:[]
 };
 
 function rootReducer(state = initialState, action) {
@@ -159,7 +162,15 @@ function rootReducer(state = initialState, action) {
         ...state,
         userAddress: action.payload,
       };
-
+    case GET_USER_SHOP:
+      return {
+        ...state,
+        shops: action.payload,
+      }
+    case POST_SHOP:
+      return {
+        ...state
+      }
     default:
       return state;
   }

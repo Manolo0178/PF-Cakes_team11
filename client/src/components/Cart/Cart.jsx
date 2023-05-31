@@ -81,46 +81,46 @@ const Cart = ({ isOpen, toggleCart, total }) => {
         </div>
         <h2>Su carrito</h2>
         <div className={style.carrito__center}>
-          {cartItems.map((item) => (
-            <div className={style.carrito__item} key={item.id}>
-              <img src={item.image} alt={item.name} />
-              <div>
-                <h3>{item.name}</h3>
-                <p className={`${style.price}`}>${item.price}</p>
-              </div>
-              <div>
-                <box-icon
-                  type="solid"
-                  name="upvote"
-                  onClick={() =>
-                    handleIncreaseQuantity(item.id, item.orderItem.quantity)
-                  }
-                ></box-icon>
-                <p
-                  className={`${style.cantidad}`}
+          {!cartItems.length && <p>No hay productos agregados</p>}
+          {cartItems.length &&
+            cartItems?.map((item) => (
+              <div className={style.carrito__item} key={item.id}>
+                <img src={item.image} alt={item.name} />
+                <div>
+                  <h3>{item.name}</h3>
+                  <p className={`${style.price}`}>${item.price}</p>
+                </div>
+                <div>
+                  <box-icon
+                    type="solid"
+                    name="upvote"
+                    onClick={() =>
+                      handleIncreaseQuantity(item.id, item.orderItem.quantity)
+                    }
+                  ></box-icon>
+                  <p className={`${style.cantidad}`}>
+                    {item.orderItem.quantity}
+                  </p>
+                  <box-icon
+                    type="solid"
+                    name="downvote"
+                    onClick={() =>
+                      handleDecreaseQuantity(item.id, item.orderItem.quantity)
+                    }
+                  ></box-icon>
+                </div>
+                <div
+                  className={style.remove__item}
+                  onClick={() => handleRemoveItem(item.id)}
                 >
-                  {item.orderItem.quantity}
-                </p>
-                <box-icon
-                  type="solid"
-                  name="downvote"
-                  onClick={() =>
-                    handleDecreaseQuantity(item.id, item.orderItem.quantity)
-                  }
-                ></box-icon>
+                  <box-icon name="trash"></box-icon>
+                </div>
               </div>
-              <div
-                className={style.remove__item}
-                onClick={() => handleRemoveItem(item.id)}
-              >
-                <box-icon name="trash"></box-icon>
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
         <div className={style.carrito__footer}>
           <h3>Total: ${total}</h3>
-          <Link  to={token?`/payment/${total}`:"/login"}>
+          <Link to={token ? `/payment/${total}` : "/login"}>
             <button className={style.btnn}>Pagar</button>
           </Link>
         </div>
