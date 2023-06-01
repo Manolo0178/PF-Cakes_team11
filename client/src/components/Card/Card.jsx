@@ -15,6 +15,8 @@ function Card({ product, favorite, pritotal, cantidad }) {
   const URL = "http://localhost:3001/favoritos";
   const [isFav, setisFav] = useState(false);
 
+
+
   useEffect(() => {
     const searchFav = async () => {
       await axios.get(`${URL}/user/${userId}/products`).then((response) => {

@@ -19,14 +19,14 @@ const Favorites = () => {
   const userId = localStorage.getItem("userId");
   const [fav, setFav] = useState([]);
 
+  const getFav = async () => {
+    await axios
+      .get(`http://localhost:3001/favoritos/user/${userId}/products`)
+      .then((response) => {
+        setFav(response.data);
+      });
+  };
   useEffect(() => {
-    const getFav = async () => {
-      await axios
-        .get(`http://localhost:3001/favoritos/user/${userId}/products`)
-        .then((response) => {
-          setFav(response.data);
-        });
-    };
     getFav();
   }, []);
 
@@ -50,7 +50,7 @@ const Favorites = () => {
         <div className={styles.sectionFav}>
           <h1>Favoritos</h1>
           <div className={styles.favorites}>
-            {!fav &&
+            {!fav.length &&
               <p>No tienes ningun favorito todavía</p>
             }
             <DndContext
@@ -62,7 +62,7 @@ const Favorites = () => {
                 strategy={verticalListSortingStrategy}
               >
                 {fav.map((favorite) => (
-                  <Favorite favorite={favorite} key={favorite.id} />
+                  <Favorite favorite={favorite} key={favorite.id} getFav={getFav}/>
                 ))}
               </SortableContext>
             </DndContext>

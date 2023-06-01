@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllReviews } from "../../redux/actions";
 import style from "./Comment.module.css";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import Reviews from '../Reviews/Reviews';
 
@@ -39,10 +40,10 @@ const Comment = ({star,handlerValoration}) => {
       })
       )
 
-      axios.get(`http://localhost:3001/carts/${userId}`)
+      axios.get(`http://localhost:3001/shops/${userId}`)
       .then((response) => {
         if(response.data){
-          let filter = response.data.products?.filter((element)=>element.id===parseInt(id));
+          let filter = response.data?.filter((element)=>element.userProduct.id===parseInt(id));
           setAccess(filter.length)
         }
       })  
@@ -58,12 +59,19 @@ const Comment = ({star,handlerValoration}) => {
   const handleForm = async(e) => {
     e.preventDefault();
 
-
     if(!access){
-      alert("no podés comentar ya que nunca compraste :(")
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No podes comentar ya que no compraste este producto',
+      })
     } else{
       if(reviewXUser.length === parseInt(1)){
-      alert("No podés dar una segunda reseña")  
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Solo podés dar una reseña',
+        })  
       } else{
         if (
           review.comment && review.qualification
@@ -74,7 +82,19 @@ const Comment = ({star,handlerValoration}) => {
               console.log(response);
             }
           })
-          window.location.reload(true);
+          Swal.fire(
+            'Good job!',
+            'Gracias por su reseña',
+            'success'
+          )
+          dispatch(getAllReviews());
+        }
+        else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Algo sucedió...',
+            text: 'No colocaste la reseña o calificación :(',
+          }) 
         }
       }
     }
