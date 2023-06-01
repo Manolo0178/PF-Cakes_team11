@@ -6,7 +6,7 @@ sequelize.define("dessert", {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // deleted: {
+    // deleted: {                    Comentado => Borrado logico
     //   type: DataTypes.BOOLEAN,
     //   allowNull: false,
     //   defaultValue: true

@@ -112,14 +112,11 @@ function NavBar() {
                 className={styles.link}
                 style={{ display: "flex" }}
               >
-                <div>
+                <div className={styles.perfil}>
                   <div className={styles.imgCont}>
                     <img src={userData.image} alt="" />
                   </div>
                   {userData.name}
-                </div>
-                <div>
-                  <button onClick={(e) => logoutButton(e)}>Salir</button>
                 </div>
               </Nav.Link>
             ) : (
