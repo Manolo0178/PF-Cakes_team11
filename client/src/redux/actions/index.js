@@ -197,7 +197,7 @@ export const increaseQuantity = (itemId, userId, quantity) => {
         { quantity: quantity }
       );
       console.log(response);
-      dispatch({ type: "INCREASE_QUANTITY_SUCCESS" });
+      dispatch({ type: "INCREASE_QUANTITY_SUCCESS" , payload: itemId});
     } catch (error) {
       console.error(error);
       dispatch({ type: "INCREASE_QUANTITY_FAILURE", error: error.message });

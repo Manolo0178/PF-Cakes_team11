@@ -63,6 +63,7 @@ cartRouter.get("/", async(req, res) => {
       res.status(500).json({message: error.message})
     }
   })
+
 cartRouter.post("/:userId/:productId", async (req, res) => {
   try {
     const { userId } = req.params;

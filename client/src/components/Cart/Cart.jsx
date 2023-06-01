@@ -32,18 +32,18 @@ const Cart = ({ isOpen, toggleCart, total }) => {
     if (cartItems.length === 1) {
       dispatch(emptyCart());
     }
+    dispatch(increaseQuantity(itemId, userId, 1));
+    window.location.reload();
   };
 
   const handleIncreaseQuantity = (itemId, quantity) => {
-    const count = quantity+1
-    dispatch(increaseQuantity(itemId, userId, count));
+    dispatch(increaseQuantity(itemId, userId, quantity + 1));
     dispatch(getCart(userId));
   };
-
   const handleDecreaseQuantity = (itemId, quantity) => {
     if (quantity > 1) { 
-      const count = quantity - 1;
-      dispatch(increaseQuantity(itemId, userId, count));
+     
+      dispatch(increaseQuantity(itemId, userId, quantity - 1));
       dispatch(getCart(userId));
     }
   };
@@ -69,7 +69,7 @@ const Cart = ({ isOpen, toggleCart, total }) => {
   if (!isOpen) {
     return null;
   }
-
+  
   return (
     <div className={`${style.carritos} ${style.show}`}>
       <div className={`${style.carrito} ${style.show}`}>
