@@ -25,7 +25,6 @@ const Cart = ({ isOpen, toggleCart, total }) => {
 
   const handleRemoveItem = (itemId) => {
     dispatch(removeFromCart(itemId, userId));
-    console.log(cartItems)
     setRemovedItemId(itemId);
     setShowAlert(true);
     dispatch(getCart(userId))
@@ -33,6 +32,7 @@ const Cart = ({ isOpen, toggleCart, total }) => {
     if (cartItems.length === 1) {
       dispatch(emptyCart())
     }
+    dispatch(increaseQuantity(itemId, userId, 1));
     
   };
 
@@ -122,9 +122,9 @@ const Cart = ({ isOpen, toggleCart, total }) => {
         </div>
         <div className={style.carrito__footer}>
           <h3>Total: ${total}</h3>
-          <Link to={token ? `/payment/${total}` : "/login"}>
+          {total ? <Link to={token ? `/payment/${total}` : "/login"}>
             <button className={style.btnn}>Pagar</button>
-          </Link>
+          </Link>: <p>Ingresar productos al carrito</p>}
         </div>
       </div>
       <Alert
