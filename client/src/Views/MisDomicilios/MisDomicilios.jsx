@@ -63,25 +63,13 @@ const MisDomicilios = () => {
   };
   //******************************** */
 
-  //********** New Form Change Adress ************/
+  // ********** New Form Change Adress ************/
   const handleChange = (event) => {
     const property = event.target.name;
     const value = event.target.value;
 
     setForm({ ...form, [property]: value });
   };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (addressId) {
-      await axios.put(`http://localhost:3001/Address/modify/${addressId}`, form)
-        .then((response) => {
-          if (response) {
-          setVisible(false)
-        }
-      })
-    }
-  }
 
   const handleCancel = () => {
     setVisible(false)
@@ -113,8 +101,7 @@ const MisDomicilios = () => {
                       </div>
                       <section>
                         <h6>
-                          {domicilio.street}
-                          {domicilio.number}
+                          {`${domicilio.street}   ${domicilio.number}`}
                         </h6>
                         <div>
                           <p>Código postal: {domicilio.postalCode}</p>
@@ -162,8 +149,9 @@ const MisDomicilios = () => {
       {visible && (
         <ModifyAddress
           dom={dom}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
+          addressId={addressId}
+          setVisible={setVisible}
+          // handleSubmit={handleSubmit}
           handleCancel={handleCancel}
         />
       )}

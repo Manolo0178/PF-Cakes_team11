@@ -1,11 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from "react-bootstrap/Button";
 import styles from "./ModifyAddress.module.css"
+import axios from 'axios';
 
 
 
-const ModifyAddress = ({ handleChange, handleSubmit, handleCancel, dom }) => {
+const ModifyAddress = ({addressId,setVisible, handleCancel, dom }) => {
+console.log(dom)
+console.log(addressId)
+  const [form, setForm] = useState({
+    street: dom.street,
+    postalCode: dom.postalCode,
+    province: dom.province,
+    city: dom.city,
+    telephoneContact: dom.telephoneContact,
+    number: dom.number
+  });
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (addressId) {
+      await axios.put(`http://localhost:3001/Address/modify/${addressId}`, form)
+        .then((response) => {
+          if (response) {
+          setVisible(false)
+        }
+      })
+    }
+  }
+  const handleChange = (event) => {
+    const property = event.target.name;
+    const value = event.target.value;
+
+    setForm({ ...form, [property]: value });
+  };
   return (
     <div className={styles.modifyCont}>
       <h3>Modificar domicilio</h3>
@@ -16,6 +44,7 @@ const ModifyAddress = ({ handleChange, handleSubmit, handleCancel, dom }) => {
             <input
               type="text"
               name="street"
+              value={form.street}
               onChange={handleChange}
               placeholder={dom.street}
             />
@@ -25,6 +54,7 @@ const ModifyAddress = ({ handleChange, handleSubmit, handleCancel, dom }) => {
             <input
               type="text"
               name="number"
+              value={form.number}
               placeholder={dom.number}
               onChange={handleChange}
             />
@@ -34,6 +64,7 @@ const ModifyAddress = ({ handleChange, handleSubmit, handleCancel, dom }) => {
             <input
               type="text"
               name="postalCode"
+              value={form.postalCode}
               placeholder={dom.postalCode}
               onChange={handleChange}
             />
@@ -43,6 +74,7 @@ const ModifyAddress = ({ handleChange, handleSubmit, handleCancel, dom }) => {
             <input
               type="text"
               name="province"
+              value={form.province}
               placeholder={dom.province}
               onChange={handleChange}
             />
@@ -53,6 +85,7 @@ const ModifyAddress = ({ handleChange, handleSubmit, handleCancel, dom }) => {
               type="text"
               name="city"
               placeholder={dom.city}
+              value={form.city}
               onChange={handleChange}
             />
           </div>
@@ -61,6 +94,7 @@ const ModifyAddress = ({ handleChange, handleSubmit, handleCancel, dom }) => {
             <input
               type="text"
               name="telephoneContact"
+              value={form.telephoneContact}
               placeholder={dom.telephoneContact}
               onChange={handleChange}
             />

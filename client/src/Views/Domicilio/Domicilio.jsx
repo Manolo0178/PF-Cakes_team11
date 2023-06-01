@@ -95,7 +95,10 @@ const Domicilio = () => {
             </div>
           </div>
           <div>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="button" onClick={()=>Navigate(-1)}>
+                Volver
+            </Button>{" "}
+            <Button variant="primary" type="submit" disabled={!form.street || !form.city || !form.number || !form.postalCode || !form.province || !form.telephoneContact}>
               Agregar domicilio
             </Button>{" "}
           </div>
