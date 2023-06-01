@@ -22,7 +22,8 @@ import styles from "./detail.module.css";
 import {AiFillStar} from "react-icons/ai";
 import Swal from "sweetalert2";
 import { changeDetails, addToCart,getAllReviews, getUserData } from "../../redux/actions";
-
+import ChangeDetail from "../ChangeDetail/ChangeDetail";
+import Spinner from "react-bootstrap/Spinner";
 
 
 export default function Detail() {
@@ -38,6 +39,41 @@ export default function Detail() {
   const reviewXProducts = allReviews.filter(review=> review.productId === parseInt(id));
   const [isFav, setisFav] = useState(false);
   const [favorite, setFavorite] = useState({});
+
+
+//************* Change Detail ***************/
+  const [visible, setVisible] = useState(false);
+  const [detail, setDetail] = useState({})
+  const [form, setForm] = useState({
+    name: "",
+    price: 0,
+    description: "",
+    summary:"",
+  })
+  const handleChange = (event) => {
+    const property = event.target.name;
+    const value = event.target.value;
+
+    setForm({ ...form, [property]: value });
+  };
+  const handleCancel = () => {
+    if(visible) setVisible(false)
+  }
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    dispatch(changeDetails(form, myProduct.id));
+    window.location.reload(true);
+  };
+
+
+
+
+
+
+
+
+
+//**************************** */
   
   let count = 0;
   
@@ -139,30 +175,6 @@ export default function Detail() {
   };
 
 
-//*********** handle changes *************
-  const changeName = async() => {
-    let named = prompt("¿Que nombre desea colocarle?", `${myProduct.name}`);
-    dispatch(changeDetails({ name: named }, myProduct.id));
-    if (named) {
-      window.location.reload(true);
-    }
-  }
-  const changePrice = () => {
-    let priced = prompt("¿Que precio desea colocarle?", `${myProduct.price}`);
-    dispatch(changeDetails({ price: priced }, myProduct.id));   
-    if (priced) {
-      window.location.reload(true);
-    }
-  }
-  const changeDescription = () => {
-    let desc = prompt("¿Que descripción desea colocarle?", `${myProduct.description}`);
-    dispatch(changeDetails({ description: desc }, myProduct.id));
-    if (desc) {
-      window.location.reload(true);
-    }
-  }
-
-
   const changeImage = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -179,47 +191,68 @@ export default function Detail() {
     reader.readAsDataURL(file);
   };
 
-
-
-
-
   return (
     <div className={styles.detailCont}>
       <NavBar />
       {myProduct ? (
         <section className={styles.productCont}>
           <div className={styles.imageCont}>
-              {storedToken &&  isFav ? (
-                    <button className={styles.fav} onClick={handleFavorite}>
-                      <AiFillHeart className={styles.favIcon} />
-                    </button>
-                  ) : (
-                    (
-                      <button className={styles.fav} onClick={handleFavorite}>
-                        <AiOutlineHeart className={styles.favIconWhite} />
-                      </button>
-                    )
-                )}
-            <img className={styles.image} src={myProduct.image} alt="dessert" />
+            {storedToken && isFav ? (
+              <button className={styles.fav} onClick={handleFavorite}>
+                <AiFillHeart className={styles.favIcon} />
+              </button>
+            ) : (
+              <button className={styles.fav} onClick={handleFavorite}>
+                <AiOutlineHeart className={styles.favIconWhite} />
+              </button>
+            )}
+            {myProduct.image ? (
+              <img
+                className={styles.image}
+                src={myProduct.image}
+                alt="dessert"
+              />
+            ) : (
+              <Spinner
+                animation="border"
+                role="status"
+                style={{ position: "absolute", top: "38%", left: "36%" }}
+              >
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            )}
+
             <input type="file" name="image" onChange={changeImage} />
-           { userData.role && userData.role === "admin"? <HiPencilAlt className={styles.imageButton} /> : null}
+            {userData.role && userData.role === "admin" ? (
+              <HiPencilAlt className={styles.imageButton} />
+            ) : null}
           </div>
+
           <div className={styles.textCont}>
-            { userData.role && userData.role === "admin"?<button className={styles.delete} onClick={handleDelete}>
-              X
-            </button> : null }
+            {userData.role && userData.role === "admin" ? (
+              <div className={styles.adminCont}>
+                <button className={styles.delete} onClick={handleDelete}>
+                  X
+                </button>
+                <button
+                  onClick={() => {
+                    setDetail(myProduct);
+                    if (!visible) {
+                      setVisible(true);
+                    }
+                  }}
+                  className={styles.descriptionButton}
+                >
+                  <HiPencilAlt color="white" />
+                </button>
+              </div>
+            ) : null}
+
             <div className={styles.nameCont}>
               <h3>{myProduct.name}</h3>
-             { userData.role && userData.role === "admin" ? <button onClick={changeName} className={styles.nameButton}>
-                <HiPencilAlt />
-              </button> : null }
-              
             </div>
             <div className={styles.priceCont}>
               <h4>$ {myProduct.price}</h4>
-             { userData.role && userData.role === "admin" ? <button onClick={changePrice} className={styles.priceButton}>
-                <HiPencilAlt />
-              </button> : null}
             </div>
             <div>
               <div className={styles.iconsCont}>
@@ -249,18 +282,19 @@ export default function Detail() {
       ) : (
         <p>Loading..</p>
       )}
-      {myProduct ? (
+      {myProduct && (
         <section className={styles.descriptionCont}>
-          <p>{myProduct.description}</p>
-         { userData.role && userData.role === "admin"? <button
-            onClick={changeDescription}
-            className={styles.descriptionButton}
-          >
-            <HiPencilAlt color="black" />
-          </button> : null }
+          <p>Descripción: {myProduct.description}</p>
+          <p>Ingredientes: {myProduct.summary}</p>
         </section>
-      ) : (
-        <div></div>
+      )}
+      {visible && (
+        <ChangeDetail
+          handleChange={handleChange}
+          handleCancel={handleCancel}
+          handleSubmit={handleSubmit}
+          detail={detail}
+        />
       )}
 
       <div>

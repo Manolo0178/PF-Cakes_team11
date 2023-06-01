@@ -1,0 +1,38 @@
+.cont{
+    background-color: #fdb8c9;
+    width: 450px;
+    padding: 20px;
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+.form {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+.inputsCont {
+    margin-top: 20px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.inputCont {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.input {
+    height: 30px;
+    width: 190px;
+}
+.textArea{
+    height: 70px;
+    width: 190px;
+}

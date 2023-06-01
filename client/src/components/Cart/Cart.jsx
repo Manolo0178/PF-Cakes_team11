@@ -16,7 +16,7 @@ const Cart = ({ isOpen, toggleCart, total }) => {
   const [removedItemId, setRemovedItemId] = useState(null);
 
   useEffect(() => {
-    if (token) {
+    if (token && userId) {
       dispatch(getCart(userId));
     }
   }, []);
