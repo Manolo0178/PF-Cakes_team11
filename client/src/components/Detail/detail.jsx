@@ -21,7 +21,7 @@ import Qualification from "../Qualification/Qualification";
 import styles from "./detail.module.css";
 import {AiFillStar} from "react-icons/ai";
 import Swal from "sweetalert2";
-import { changeDetails, addToCart,getAllReviews, getUserData } from "../../redux/actions";
+import { changeDetails, addToCart,getAllReviews, getUserData,getCart } from "../../redux/actions";
 import ChangeDetail from "../ChangeDetail/ChangeDetail";
 import Spinner from "react-bootstrap/Spinner";
 
@@ -125,16 +125,26 @@ export default function Detail() {
 
 
   const handleAddToCart = () => {
-    dispatch(addToCart( id, userId));
-    Swal.fire({
-      title: "El producto se fue al carrito",
-      icon: "success",
-      confirmButtonText: "Ok",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.reload(true)
-      }
-    });
+    if (!storedToken) {
+      // El usuario no ha iniciado sesión
+      Swal.fire({
+        title: "Debes iniciar sesión primero",
+        icon: "warning",
+        confirmButtonText: "Ok",
+      });
+    } else {
+      dispatch(addToCart(id, userId));
+      Swal.fire({
+        title: "El producto se agregó al carrito",
+        icon: "success",
+        confirmButtonText: "Ok",
+
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(getCart(userId));
+        }
+      });
+    }
   };
 
   useEffect(() => {
