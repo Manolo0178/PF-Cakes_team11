@@ -124,7 +124,6 @@ function rootReducer(state = initialState, action) {
         allProducts: filtered,
       };
     case GET_CART:
-      console.log(action.payload);
       return {
         ...state,
         cartItems: action.payload,
@@ -136,16 +135,25 @@ function rootReducer(state = initialState, action) {
     case REMOVE_FROM_CART:
       return {
         ...state,
+        cartItems: state.cartItems.filter((item)=>item.id !== action.payload),
       };
 
     case INCREASE_QUANTITY_SUCCESS:
+      const indexIncre = [...state.cartItems].findIndex((item)=>item.id === action.payload)
+      const newValueIncre = [...state.cartItems]
+      newValueIncre[indexIncre].orderItem = {"quantity":newValueIncre[indexIncre].orderItem.quantity+1}
       return {
         ...state,
+        cartItems: newValueIncre
       };
 
     case DECREASE_QUANTITY:
+      const indexDecre = [...state.cartItems].findIndex((item)=>item.id === action.payload)
+      const newValueDecre = [...state.cartItems]
+      newValueDecre[indexDecre].orderItem = {"quantity":newValueDecre[indexDecre].orderItem.quantity-1}
       return {
         ...state,
+        cartItems: newValueDecre
       };
     case GET_ALL_REVIEWS:
       return {

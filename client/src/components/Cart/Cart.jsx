@@ -19,31 +19,33 @@ const Cart = ({ isOpen, toggleCart, total }) => {
     if (token) {
       dispatch(getCart(userId));
     }
-  }, [dispatch]);
+  }, []);
 
 
 
   const handleRemoveItem = (itemId) => {
     dispatch(removeFromCart(itemId, userId));
+    console.log(cartItems)
     setRemovedItemId(itemId);
     setShowAlert(true);
     dispatch(getCart(userId))
 
     if (cartItems.length === 1) {
-      dispatch(emptyCart());
+      dispatch(emptyCart())
     }
+    
   };
 
-  const handleIncreaseQuantity = (itemId, quantity) => {
-    const count = quantity+1
-    dispatch(increaseQuantity(itemId, userId, count));
+
+  const handleIncreaseQuantity = (e,itemId, quantity) => {
+    e.preventDefault();
+    dispatch(increaseQuantity(itemId, userId, quantity+1));
     dispatch(getCart(userId));
   };
 
   const handleDecreaseQuantity = (itemId, quantity) => {
     if (quantity > 1) { 
-      const count = quantity - 1;
-      dispatch(increaseQuantity(itemId, userId, count));
+      dispatch(decreaseQuantity(itemId, userId, quantity-1));
       dispatch(getCart(userId));
     }
   };
@@ -94,8 +96,8 @@ const Cart = ({ isOpen, toggleCart, total }) => {
                   <box-icon
                     type="solid"
                     name="upvote"
-                    onClick={() =>
-                      handleIncreaseQuantity(item.id, item.orderItem.quantity)
+                    onClick={(e) =>
+                      handleIncreaseQuantity(e,item.id, item.orderItem.quantity)
                     }
                   ></box-icon>
                   <p className={`${style.cantidad}`}>
