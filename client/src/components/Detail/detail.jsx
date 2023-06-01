@@ -9,6 +9,8 @@ import axios from "axios";
 
 import { SiMercadopago } from "react-icons/si";
 import { HiPencilAlt } from "react-icons/hi";
+import { AiFillHeart } from "react-icons/ai";
+import { AiOutlineHeart } from "react-icons/ai";
 
 import Button from "react-bootstrap/Button";
 
@@ -34,16 +36,55 @@ export default function Detail() {
   const { userData } = useSelector((state)=> state)
   const allReviews = useSelector((state) => state.allReview);
   const reviewXProducts = allReviews.filter(review=> review.productId === parseInt(id));
+  const [isFav, setisFav] = useState(false);
+  const [favorite, setFavorite] = useState({});
   
   let count = 0;
   
-console.log(userData)
+  
   reviewXProducts.forEach(element => count += element.qualification);
 
 
   const handlerStar = (point) =>{
     setStar(point)
   }
+
+  useEffect(() => {
+    const searchFav = async () => {
+      await axios.get(`http://localhost:3001/favoritos/user/${userId}/products`).then((response) => {
+        response.data.map((fav) => {
+          if (fav.id === parseInt(id)) {
+            setisFav(true);
+            setFavorite(fav);
+          }
+        });
+      });
+    };
+    if (storedToken) {
+      searchFav();
+    }
+  }, []);
+
+  const addFavorite = async () => {
+    await axios.post(`http://localhost:3001/favoritos/user/${userId}/product/${id}`);
+  };
+  const deleteFavorite = async () => {
+      await axios.delete(`http://localhost:3001/favoritos/user/${userId}/product/${id}`);
+      if (window.location.pathname === "/favoritos") {
+        window.location.replace(window.location.href);
+      }
+  };
+
+  const handleFavorite = () => {
+    if (isFav) {
+      setisFav(false);
+      deleteFavorite(id);
+    } else {
+      setisFav(true);
+      addFavorite();
+    }
+  };
+
 
 
 
@@ -139,12 +180,26 @@ console.log(userData)
   };
 
 
+
+
+
   return (
     <div className={styles.detailCont}>
       <NavBar />
       {myProduct ? (
         <section className={styles.productCont}>
           <div className={styles.imageCont}>
+              {storedToken &&  isFav ? (
+                    <button className={styles.fav} onClick={handleFavorite}>
+                      <AiFillHeart className={styles.favIcon} />
+                    </button>
+                  ) : (
+                    (
+                      <button className={styles.fav} onClick={handleFavorite}>
+                        <AiOutlineHeart className={styles.favIconWhite} />
+                      </button>
+                    )
+                )}
             <img className={styles.image} src={myProduct.image} alt="dessert" />
             <input type="file" name="image" onChange={changeImage} />
            { userData.role && userData.role === "admin"? <HiPencilAlt className={styles.imageButton} /> : null}
@@ -158,6 +213,7 @@ console.log(userData)
              { userData.role && userData.role === "admin" ? <button onClick={changeName} className={styles.nameButton}>
                 <HiPencilAlt />
               </button> : null }
+              
             </div>
             <div className={styles.priceCont}>
               <h4>$ {myProduct.price}</h4>

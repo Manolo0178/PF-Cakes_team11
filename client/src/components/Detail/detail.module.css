@@ -120,7 +120,7 @@
 .nameCont{
     display: flex;
     gap: 10px;
-    justify-content: flex-start;
+    width: 80%;
 }
 .name{
     display: flex;
@@ -169,4 +169,22 @@
 
 .star{
     color: #f28d94;
+}
+
+/********* favorites *********/
+.fav{
+    background: none;
+    border: none;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 1;
+}
+.favIcon{
+    font-size: 30px;
+    color: #FF3040;
+}
+.favIconWhite{
+    font-size: 30px;
+    color: rgb(49, 49, 49);
 }
