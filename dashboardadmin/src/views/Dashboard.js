@@ -2,15 +2,15 @@
 import React, { useState, useEffect} from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "reactstrap";
+// import { Button } from "reactstrap";
 import { allUser, sortUser } from "../redux/actions";
-import OutletCard from "./OutletCard";
+// import OutletCard from "./OutletCard";
 import Usuario from "./Usuario";
 
 function Dashboard() {
   const [ordered, setOrdered] = useState("")
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [showOutletCard, setShowOutletCard] = useState(false);
+  // const [selectedProduct, setSelectedProduct] = useState(null);
+  // const [showOutletCard, setShowOutletCard] = useState(false);
   const dispatch = useDispatch();
   const userData = useSelector(state => state.userData)
  
@@ -31,18 +31,18 @@ const handleChange = (value) => {
 //   setShowOutletCard(true);
 // };
 //**********************para manejar el boton del formualario ****** */
-const handleOutletClose = () => {
-  setSelectedProduct(null);
-  setShowOutletCard(false);
-};
+// const handleOutletClose = () => {
+//   setSelectedProduct(null);
+//   setShowOutletCard(false);
+// };
 
-const handleEditButtonClick = () => {
-    setShowOutletCard(true);
-  };
+// const handleEditButtonClick = () => {
+//     setShowOutletCard(true);
+//   };
 return (
   <>
     <div className="content">
-       <Button
+       {/* <Button
             className="btn-round"
             color="info"
             size="sm"
@@ -51,8 +51,8 @@ return (
              Editar Producto
           </Button>
           {showOutletCard && (
-  <OutletCard product={selectedProduct} onClose={handleOutletClose} />
-)}
+  <OutletCard  />
+)} */}
       <Usuario userData={userData} ordered={ordered} handleChange={handleChange} />
     </div>
   </>

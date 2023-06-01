@@ -6,6 +6,7 @@ export const ERRO_NAME ="ERRO_NAME"
 //*************PRODUCTO**********************/
 export const CART_PRODUCTS = "CART_PRODUCTS";
 export const SORT_CART = "SORT_CART";
+export const SHOPS_CART = "SHOPS_CART";
 //***************CART **********************/
 // export const DELETE_CART = "DELETE_CART";
 export const REVIEWS_PRODUCT = "REVIEWS_PRODUCT"
@@ -167,3 +168,17 @@ export const deleteReview = (idReview, idUser) => {
   };
 };
 
+export const shopsCart = () => {
+  return async(dispatch) => {
+    try {
+      let response = await fetch(`http://localhost:3001/shops`)
+      let shopsData = await response.json();
+      dispatch({
+        type: SHOPS_CART,
+        payload: shopsData
+      })
+    } catch (error) {
+      console.log({message: error.message})
+    }
+  }
+}
