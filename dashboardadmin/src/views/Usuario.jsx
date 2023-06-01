@@ -8,11 +8,11 @@ function Usuario(props) {
   return(
     <div>
        <Row>
-          <Col lg="6" md="12">
+          <Col md="12">
           
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">Simple Table</CardTitle>
+                <CardTitle tag="h4">Tabla de Usuarios Creados</CardTitle>
                 
                   <Button
                     tag="label"
@@ -70,13 +70,13 @@ function Usuario(props) {
                   <thead className="text-primary">
                     <tr>
                     
+                      <th className="text-center">Usuario</th>
                       <th>Name
                       </th>
                       <th>Apellido</th>
-                      <th>Fecha</th>
                       <th>Ciudad</th>
+                      <th>Fecha</th>
                       
-                      <th className="text-center">Usuario</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -84,14 +84,15 @@ function Usuario(props) {
                   let {name, lastName, createdAt, addresses, id} = user
                     return(
                       <tr key={id}>
-                        <td>{name}</td>
-                      
-                        <td>{lastName}</td>
-                        {/* </Link> */}
-                        <td>{format(new Date(createdAt), "yyyy-MM-dd HH:mm:ss")}</td>
-                        {/* <td>{addresses?.map((addres, index) => <h6 key={index}>{addres.city}</h6>).join(", ")}</td> */}
-                        <td>{addresses?.map((address, index) => address.city).join(", ")}</td>
                         <td className="text-center">{id}</td>
+                        <td><h6>{name}</h6></td>
+                      
+                        <td><h6>{lastName}</h6></td>
+                        {/* </Link> */}
+                        {/* <td>{addresses?.map((addres, index) => <h6 key={index}>{addres.city}</h6>).join(", ")}</td> */}
+                        <td><h6 >{addresses?.map((addres) => addres.city).join(`,  `)}</h6></td>
+                        <td><h6>{format(new Date(createdAt), "yyyy-MM-dd HH:mm:ss")}</h6></td>
+                        {/* <td>{addresses?.map((address, index) => address.city).join(", ")}</td> */}
                       </tr>
                     ) 
                   })}

@@ -1,4 +1,4 @@
-import {ALL_USER, SORT_USER, SEARCH_NAME, ERRO_NAME, SORT_CART, CART_PRODUCTS, REVIEWS_PRODUCT, DELETE_REVIEW}  from "./actions.js"
+import {ALL_USER, SORT_USER, SEARCH_NAME, ERRO_NAME, SORT_CART, CART_PRODUCTS, REVIEWS_PRODUCT, DELETE_REVIEW, SHOPS_CART}  from "./actions.js"
 const initialStore = {
   userData: [],
   sortOrderedAll: [],
@@ -8,7 +8,8 @@ const initialStore = {
   sorteredCart: [],
   // cartDelete: []
   reviewsUser: [],
-  deleteComment: []
+  deleteComment: [],
+  shopsItem: []
 }
 
 let reducer = (state = initialStore, action) => {
@@ -89,6 +90,11 @@ let reducer = (state = initialStore, action) => {
           ...state,
           deleteComment: state.deleteComment.filter(review => review.id !== action.payload.idReview)
           
+        }
+      case SHOPS_CART:
+        return {
+          ...state,
+          shopsItem: action.payload
         }  
     default: {
       return state

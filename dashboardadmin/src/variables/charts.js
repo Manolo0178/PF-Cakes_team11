@@ -223,7 +223,7 @@ let chartExample2 = {
     gradientStroke.addColorStop(0.4, "rgba(29,140,248,0.0)");
     gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
     
-    console.log(chartExample1)
+    // console.log(chartExample1)
     return {
       labels: ["JAN", "FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC",],
       datasets: [
@@ -254,6 +254,7 @@ let chartExample2 = {
 // // // used inside src/views/Dashboard.js
 // #########################################
 let totalPrice = 0;
+const chartLabel2 = "Data";
 let chartExample3 = {
   data: (canvas) => {
     let ctx = canvas.getContext("2d");
@@ -268,7 +269,7 @@ let chartExample3 = {
       labels: ["USA", "GER", "AUS", "UK", "RO", "BR"],
       datasets: [
         {
-          label: "Countries",
+          label:chartLabel2, //"Countries",
           fill: true,
           backgroundColor: gradientStroke,
           hoverBackgroundColor: gradientStroke,
