@@ -134,4 +134,25 @@ cartRouter.delete("/reset/:idUser/user", async (req, res) => {
   }
 });
 
+// cartRouter.put("/:userId/:productId", async (req, res) => {
+//   try {
+//     const { userId } = req.params;
+//     const { productId } = req.params;
+
+//     const { quantity } = req.body || 1;
+
+//     let cart = await Cart.findOne({ where: { userId } });
+//     const product = await Product.findByPk(productId);
+
+//     const a = await cart.update(product, { through: { quantity } });
+//     res
+//       .status(200)
+//       .json(a);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// });
+
+
+
 module.exports = cartRouter;

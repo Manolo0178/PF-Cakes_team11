@@ -96,11 +96,11 @@ const MisDomicilios = () => {
           <h2>Domicilios</h2>
           <section className={styles.domiciliosCont}>
             <div className={styles.domCont}>
-              {/* {!Object.keys(domicilios) && (
-                <div className={styles.domicilio}>
+              {!Object.keys(domicilios).length && (
+                <div className={styles.domicilioAlter}>
                   <p>No tienes una localidad agregada</p>
                 </div>
-              )} */}
+              )}
               {domicilios?.map((domicilio) => (
                 <div
                   key={domicilio.UserAddress.addressId}

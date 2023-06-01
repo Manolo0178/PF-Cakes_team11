@@ -18,9 +18,7 @@
   font-size: 1.3rem !important;
   color: #fff!important;
 }
-.link:hover{
-  font-weight: 600 !important;
-}
+
 .perfil{
   display: flex;
   gap: 5px;

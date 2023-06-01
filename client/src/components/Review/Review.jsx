@@ -2,10 +2,12 @@ import style from "./Review.module.css";
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 import Star from "../Star/Star";
 import { CiMenuKebab } from "react-icons/ci";
-
+import { useDispatch } from "react-redux";
+import { getAllReviews } from "../../redux/actions";
 
 
 const Review = ({datasXProduc,star}) =>{
@@ -14,7 +16,7 @@ const Review = ({datasXProduc,star}) =>{
 
     const [perfil, setPerfil] = useState({});
     const {comment,qualification, userId, id} = datasXProduc;
-
+    const dispatch = useDispatch();
 
 
 
@@ -36,17 +38,43 @@ const Review = ({datasXProduc,star}) =>{
       fetchData()
   }, []);
 
+    
     const handlerEdit = async() =>{
-        const changeProp = prompt(`Qué valor desea cambiarle a ${comment}?`, comment);
-        if (changeProp !== null) {
+        
+        Swal.fire({
+            title: `¿Cual es tu nueva reseña?`,
+            input: 'text',
+            inputAttributes: {
+              autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Editar',
+            showLoaderOnConfirm: true,
+            preConfirm: (login) => {
             if(star){
-                const reviewEdit = {"comment":changeProp,"qualification":star};
-                await axios.put(`http://localhost:3001/review/${registeredId}/${id}`,reviewEdit)
-                window.location.reload(true);
+                const reviewEdit = {"comment":login,"qualification":star};
+                axios.put(`http://localhost:3001/review/${registeredId}/${id}`,reviewEdit)
+                Swal.fire(
+                    'Good job!',
+                    'Gracias por su nueva reseña',
+                    'success'
+                  )
+                dispatch(getAllReviews());   
             }else{
-                alert("coloca la nueva calificación")
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Te faltó algo...',
+                    text: "coloca la nueva calificación",
+                  })
             }
-        }
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+          }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(getAllReviews());  
+            }
+          })
+          
     }
     
  

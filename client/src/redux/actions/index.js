@@ -162,6 +162,7 @@ export function getCart(userId) {
            await axios
              .get(`http://localhost:3001/carts/${userId}`)
              .then((response) => {
+              console.log(response.data)
                if (response.data) {
                  dispatch({
                    type: GET_CART,
@@ -183,7 +184,8 @@ export const removeFromCart = (id, userId) => {
     const response = await axios.delete(
       `http://localhost:3001/carts/${userId}/${id}`
     );
-    dispatch({ type: REMOVE_FROM_CART });
+    dispatch({ type: REMOVE_FROM_CART,
+      payload: id });
   };
 };
 
@@ -192,12 +194,28 @@ export const removeFromCart = (id, userId) => {
 export const increaseQuantity = (itemId, userId, quantity) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(
+       await axios.post(
         `http://localhost:3001/carts/${userId}/${itemId}`,
-        { quantity: quantity }
+        { "quantity": quantity }
       );
-      console.log(response);
-      dispatch({ type: "INCREASE_QUANTITY_SUCCESS" , payload: itemId});
+      dispatch({ type: "INCREASE_QUANTITY_SUCCESS",
+      payload: itemId });
+    } catch (error) {
+      console.error(error);
+      dispatch({ type: "INCREASE_QUANTITY_FAILURE", error: error.message });
+    }
+  };
+};
+
+export const decreaseQuantity = (itemId, userId, quantity) => {
+  return async (dispatch) => {
+    try {
+       await axios.post(
+        `http://localhost:3001/carts/${userId}/${itemId}`,
+        { "quantity": quantity }
+      );
+      dispatch({ type: DECREASE_QUANTITY,
+      payload: itemId });
     } catch (error) {
       console.error(error);
       dispatch({ type: "INCREASE_QUANTITY_FAILURE", error: error.message });

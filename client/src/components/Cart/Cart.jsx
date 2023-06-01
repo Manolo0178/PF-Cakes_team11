@@ -16,10 +16,10 @@ const Cart = ({ isOpen, toggleCart, total }) => {
   const [removedItemId, setRemovedItemId] = useState(null);
 
   useEffect(() => {
-    if (token) {
+    if (token && userId) {
       dispatch(getCart(userId));
     }
-  }, [dispatch]);
+  }, []);
 
 
 
@@ -30,20 +30,21 @@ const Cart = ({ isOpen, toggleCart, total }) => {
     dispatch(getCart(userId))
 
     if (cartItems.length === 1) {
-      dispatch(emptyCart());
+      dispatch(emptyCart())
     }
     dispatch(increaseQuantity(itemId, userId, 1));
-    window.location.reload();
+    
   };
 
-  const handleIncreaseQuantity = (itemId, quantity) => {
-    dispatch(increaseQuantity(itemId, userId, quantity + 1));
+
+  const handleIncreaseQuantity = (e,itemId, quantity) => {
+    e.preventDefault();
+    dispatch(increaseQuantity(itemId, userId, quantity+1));
     dispatch(getCart(userId));
   };
   const handleDecreaseQuantity = (itemId, quantity) => {
     if (quantity > 1) { 
-     
-      dispatch(increaseQuantity(itemId, userId, quantity - 1));
+      dispatch(decreaseQuantity(itemId, userId, quantity-1));
       dispatch(getCart(userId));
     }
   };
@@ -94,8 +95,8 @@ const Cart = ({ isOpen, toggleCart, total }) => {
                   <box-icon
                     type="solid"
                     name="upvote"
-                    onClick={() =>
-                      handleIncreaseQuantity(item.id, item.orderItem.quantity)
+                    onClick={(e) =>
+                      handleIncreaseQuantity(e,item.id, item.orderItem.quantity)
                     }
                   ></box-icon>
                   <p className={`${style.cantidad}`}>
@@ -120,9 +121,9 @@ const Cart = ({ isOpen, toggleCart, total }) => {
         </div>
         <div className={style.carrito__footer}>
           <h3>Total: ${total}</h3>
-          <Link to={token ? `/payment/${total}` : "/login"}>
+          {total ? <Link to={token ? `/payment/${total}` : "/login"}>
             <button className={style.btnn}>Pagar</button>
-          </Link>
+          </Link>: <p>Ingresar productos al carrito</p>}
         </div>
       </div>
       <Alert

@@ -1,13 +1,12 @@
 .container{
-    padding: 1rem;
-    border: 1px solid #000;
-    margin: 1rem auto;
-    width: 50%;
+    width: 320px;
+    flex-wrap: wrap;
     border-radius: 1rem;
+    position: relative;
 }
 
 .imageCont{
-    width: 220px;
+    width: 320px;
     position: relative;
     overflow: hidden;
     border-radius: 3px;
@@ -40,9 +39,33 @@
 .content{
     display: flex;
     justify-content: center;
-    margin: 0.5rem;
+    background-color: pink;
+    padding: 5px;
+    
+}
+
+.price{
+    background-color: pink;
+    padding: 5px;
 }
 
 .name{
     margin:0 .5rem;
+}
+
+/********* favorites *********/
+.fav{
+    background: none;
+    border: none;
+    position: absolute;
+    bottom: 45px;
+    left: 5px;
+}
+.favIcon{
+    font-size: 30px;
+    color: #FF3040;
+}
+.favIconWhite{
+    font-size: 30px;
+    color: rgb(49, 49, 49);
 }
