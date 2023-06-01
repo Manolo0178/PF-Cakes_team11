@@ -113,15 +113,17 @@ const MisDatos = () => {
                   <div className={style.valorActual}>{perfil.contact}</div>
                 )}
               </div>
+              { 
+              perfil.googleId ? <span></span> :
               <div className={style.field}>
-                <h6>Contraseña:</h6>
-                {/* <div className={style.inputEdit} disabled>Password Input</div> */}
+                <h6>Contraseña:</h6>               
                 <Link to={'/profile/newPassword'}>
                   <div className={style.boton}>
                     <button>Cambiar Contraseña</button>
                   </div>
-                </Link>
+                </Link>      
               </div>
+              }
               {isModified && <p>¡Cambios guardados con éxito!</p>}
               {isEditing ? (
                 <div className={style.boton}>

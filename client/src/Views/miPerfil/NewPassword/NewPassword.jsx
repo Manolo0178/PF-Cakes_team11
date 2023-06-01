@@ -8,7 +8,6 @@ import { Link, useNavigate } from "react-router-dom";
 const NewPassword = () => {
     const id = localStorage.getItem("userId")
     const navigate = useNavigate()
-
     const [password, setPassword] = useState({
         password: '',
         newPassword: '',
@@ -145,7 +144,7 @@ const NewPassword = () => {
                 </div>
                 <button type="submit" disabled={!formValid}>Enviar</button>
             </form>
-            <Link to={'/profile'} style={{ all: 'unset' }}>
+            <Link to={'/misDatos'} style={{ all: 'unset' }}>
                 <div className={styles.atras} >
             ⇦ 
                 </div>
