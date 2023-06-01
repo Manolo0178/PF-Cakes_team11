@@ -66,7 +66,7 @@ export default function Detail() {
   };
 
 
-
+console.log(!!storedToken);
 
 
 
@@ -207,15 +207,15 @@ export default function Detail() {
       {myProduct ? (
         <section className={styles.productCont}>
           <div className={styles.imageCont}>
-            {storedToken && isFav ? (
-              <button className={styles.fav} onClick={handleFavorite}>
-                <AiFillHeart className={styles.favIcon} />
-              </button>
-            ) : (
+          {!storedToken  ?  <p></p> : isFav ? (
+            <button className={styles.fav} onClick={handleFavorite}>
+              <AiFillHeart className={styles.favIcon} />
+            </button>
+          ) : (
               <button className={styles.fav} onClick={handleFavorite}>
                 <AiOutlineHeart className={styles.favIconWhite} />
               </button>
-            )}
+          )}
             {myProduct.image ? (
               <img
                 className={styles.image}
