@@ -1,28 +1,85 @@
-.sectionCont{
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
 
-.section {
-    margin: 10px auto;
-    width: 80%;
-    height: 100%;
+.text {
+    position: relative;
+    top: -477px;
+    left: 184px;
+    font-family: cursive;
+  }
+  .card {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    gap: 20px;
-}
-.datos {
-    width: 60%;
-    height: 80%;
-    margin: auto auto;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 30px;
-
-}
+    padding: 91px;
+    margin: 14px auto;
+    max-width: 506px;
+    box-sizing: border-box;
+    position: relative;
+    top: -477px;
+    left: 182px;
+    border: 2px solid #705c5c;
+    border-left-width: 5px;
+    border-color: #d9a4b1;
+    border-radius: 84px;
+    background: linear-gradient(33deg, #c195a3db, #ffffff8c, #e3adba);
+  }
+  
+  .card.editing {
+    box-shadow: 0 0 19px rgb(83 71 71 / 94%);
+    
+  }
+  
+  .section {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .field {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .field h6 {
+    font-size: 1rem;
+    margin-bottom: -4px;
+  }
+  .field span {
+    margin-right: 5px;
+    font-family: cursive;
+  }
+  
+  .inputEdit {
+    width: 126%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    margin-left: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    border-top-width: 4px;
+    border-left-width: 3px;
+    border-radius: 22px;
+    border-color: #99499d99;
+  }
+ 
+  .valorActual {
+    padding-top: 0px;
+  }
+  
+  .boton {
+    margin-top: 10px;
+  }
+  
+  .boton button {
+    padding: 8px 14px;
+    background-color: #ba699fd4;
+    color: #fff;
+    border: none;
+    border-radius: 11px;
+    margin: 6px 16px;
+    font-size: 14px;
+  }
+  
+  .boton button:hover {
+    background-color: #8b5077d4;
+  }
+  
