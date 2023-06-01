@@ -78,10 +78,17 @@
     border-top-right-radius: 6px;
 }
 
-.delete {
+
+.adminCont {
     position: absolute;
     top: 10px;
     right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.delete {
     height: 25px;
     width: 25px;
     border-radius: 50%;
@@ -91,6 +98,15 @@
     align-items: center;
     justify-content: center;
 }
+.descriptionButton {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+
+
 
 .buttonCont {
     width: 100%;
@@ -126,32 +142,10 @@
     display: flex;
     justify-content: flex-start;
 }
-.nameButton{
-    background: none;
-    border: none;
-    display: flex;
-    align-items: flex-start;
-    color: #fff;
-    font-size: 1.5rem;
-}
 
 .priceCont{
     display: flex;
     gap: 20px;
-}
-.priceButton {
-    background: none;
-    border: none;
-    display: flex;
-    align-items: flex-start;
-    color: #fff;
-    font-size: 1.5rem;
-}
-.descriptionButton {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.5rem;
 }
 .descriptionCont{
     margin-top: 40px;
