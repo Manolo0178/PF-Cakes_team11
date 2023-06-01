@@ -118,7 +118,7 @@ const MisDatos = () => {
                 {/* <div className={style.inputEdit} disabled>Password Input</div> */}
                 <Link to={'/profile/newPassword'}>
                   <div className={style.boton}>
-                    <button>cambiar</button>
+                    <button>Cambiar Contraseña</button>
                   </div>
                 </Link>
               </div>
@@ -130,7 +130,7 @@ const MisDatos = () => {
                 </div>
               ) : (
                 <div className={style.boton}>
-                  <button onClick={handleEditClick}>Editar</button>
+                  <button onClick={handleEditClick}>Editar datos</button>
                 </div>
               )}
             </div>
